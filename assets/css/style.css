@@ -126,9 +126,9 @@ li { list-style: none; }
 .brand-text strong { font-size: 17px; font-weight: 800; }
 .brand-text small { font-size: 10.5px; color: var(--text-on-dark-sub); font-weight: 500; }
 
-.nav { display: flex; gap: 22px; margin-left: auto; }
+.nav { display: flex; gap: 16px; margin-left: auto; }
 .nav a {
-  color: var(--text-on-dark); font-size: 15px; font-weight: 600;
+  color: var(--text-on-dark); font-size: 14.5px; font-weight: 600; white-space: nowrap;
   padding: 6px 0; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s;
 }
 .nav a:hover, .nav a.active { color: #fff; border-color: var(--red); }
@@ -543,3 +543,75 @@ li { list-style: none; }
 .om-card-static { cursor: default; }
 .om-card-static:hover { transform: none; border-color: var(--ink-3); background: var(--ink-2); }
 .om-card-static .om-stat { color: var(--text-on-dark-sub); font-weight: 500; }
+
+/* =========================================================
+   자매점 안내 밴드 / 네비 링크
+   ========================================================= */
+.nav-sister { color: #ffd400 !important; font-weight: 800 !important; }
+.nav-sister:hover, .nav-sister.active { color: #ffe14d !important; border-color: #ffd400 !important; }
+
+.sister-band {
+  margin-top: 28px; padding: 30px 32px; border-radius: var(--radius);
+  background: linear-gradient(120deg, #101318 0%, #1d2229 100%);
+  border: 1px solid #262b33; color: var(--text-on-dark);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.sister-label { font-size: 13px; font-weight: 800; letter-spacing: .1em; color: #ffd400; }
+.sister-text strong { display: block; font-size: 24px; font-weight: 900; color: #fff; margin: 6px 0 8px; }
+.sister-text p { font-size: 15px; color: var(--text-on-dark-sub); max-width: 620px; }
+.sister-text p strong { display: inline; font-size: inherit; color: #fff; }
+
+@media (max-width: 760px) {
+  .sister-band { flex-direction: column; align-items: flex-start; padding: 26px 22px; }
+  .sister-band .btn { width: 100%; }
+}
+
+/* =========================================================
+   원모터스 인천점 페이지 전용 (body.theme-one)
+   ========================================================= */
+.brand-mark-one {
+  border-color: #ffd400;
+  background: radial-gradient(circle at 50% 35%, #2b2f36 0%, #0a0b0d 70%);
+}
+.brand-mark-one b { color: var(--red); font-size: 13px; }
+.brand-mark-one i { color: #ffd400; }
+
+.nav-sister-f1 { color: #ff5a4f !important; }
+.nav-sister-f1:hover, .nav-sister-f1.active { color: #ff8078 !important; border-color: #ff5a4f !important; }
+
+.sister-band-f1 .sister-label { color: #ff5a4f; }
+
+.om-badge-yellow { background: #ffd400; color: #2b2400; }
+
+/* 보링 공정 5단계 */
+.process-list-5 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+.theme-one .hero-bg {
+  background:
+    radial-gradient(1000px 500px at 75% 10%, rgba(225, 6, 0, .32), transparent 60%),
+    radial-gradient(700px 500px at 10% 90%, rgba(255, 212, 0, .16), transparent 60%),
+    linear-gradient(160deg, #0d0f12 0%, #14181f 55%, #0d0f12 100%);
+}
+.theme-one .hero-eyebrow { background: rgba(225, 6, 0, .92); }
+.theme-one .om-accent { color: #ffd400; }
+.theme-one .sec-eyebrow { color: var(--red); }
+
+
+/* 메뉴가 많아 태블릿 폭부터 햄버거 메뉴로 전환 */
+@media (max-width: 1024px) {
+  .nav {
+    position: fixed; top: calc(72px + env(safe-area-inset-top, 0px)); left: 0; right: 0;
+    flex-direction: column; gap: 0; margin: 0;
+    background: rgba(13, 15, 18, .98);
+    padding: 8px 20px 20px;
+    transform: translateY(-120%); opacity: 0; pointer-events: none;
+    transition: transform .28s ease, opacity .2s ease;
+    max-height: calc(100vh - 72px); overflow-y: auto;
+  }
+  .nav.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .nav a { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,.08); font-size: 16px; }
+  .nav a:hover, .nav a.active { border-color: rgba(255,255,255,.08); color: #ff4d42; }
+  .nav-toggle { display: flex; margin-left: 0; }
+  .header-inner .nav-toggle { order: 3; }
+  .header-call { margin-left: auto; }
+}
