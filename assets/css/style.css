@@ -615,3 +615,13 @@ li { list-style: none; }
   .header-inner .nav-toggle { order: 3; }
   .header-call { margin-left: auto; }
 }
+
+
+/* 진단 항목 6개를 3열로 (수입차 고장진단 카드) */
+.code-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 860px) { .code-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .code-grid-3 { grid-template-columns: 1fr; } }
+
+/* 강점이 홀수 개일 때 마지막 항목을 가로로 채움 */
+.theme-one .why-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 760px) { .theme-one .why-grid > :last-child:nth-child(odd) { grid-column: auto; } }
