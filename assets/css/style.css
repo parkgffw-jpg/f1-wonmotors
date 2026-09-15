@@ -529,3 +529,11 @@ li { list-style: none; }
   .brand-text small { display: none; }
   .yt-more .btn { flex: 1 1 100%; }
 }
+
+
+/* 원모터스 카드 영문 표기 */
+.om-card strong { letter-spacing: -0.01em; }
+.om-city { color: var(--red); }
+.om-badge { text-transform: uppercase; }
+.om-meta { line-height: 1.55; }
+.om-link { letter-spacing: .04em; font-size: 13.5px; }
