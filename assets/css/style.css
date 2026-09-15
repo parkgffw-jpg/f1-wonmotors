@@ -104,15 +104,27 @@ li { list-style: none; }
 .header-inner { display: flex; align-items: center; gap: 24px; height: 72px; }
 
 .brand { display: flex; align-items: center; gap: 10px; color: #fff; }
+/* F-1 motors 로고 모양 뱃지 (실제 로고 이미지로 교체 가능) */
 .brand-mark {
-  display: grid; place-items: center;
-  width: 40px; height: 40px; border-radius: 10px;
-  background: var(--red); color: #fff;
-  font-weight: 900; font-size: 17px; letter-spacing: -0.03em; font-style: italic;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 46px; height: 46px; flex: none; border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #2b2f36 0%, #0a0b0d 70%);
+  border: 2px solid var(--red);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+  line-height: 1;
 }
+.brand-mark b {
+  font-size: 15px; font-weight: 900; font-style: italic;
+  color: var(--red); letter-spacing: -0.04em;
+}
+.brand-mark i {
+  font-size: 7.5px; font-weight: 800; font-style: italic;
+  color: #fff; letter-spacing: .02em; margin-top: 2px;
+}
+.brand-logo { width: 46px; height: 46px; flex: none; object-fit: contain; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-text strong { font-size: 17px; font-weight: 800; }
-.brand-text small { font-size: 11px; color: var(--text-on-dark-sub); font-weight: 500; }
+.brand-text small { font-size: 10.5px; color: var(--text-on-dark-sub); font-weight: 500; }
 
 .nav { display: flex; gap: 22px; margin-left: auto; }
 .nav a {
@@ -390,4 +402,130 @@ li { list-style: none; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .btn:hover, .service-card:hover, .symptom-grid li:hover { transform: none; }
+}
+
+
+/* =========================================================
+   원모터스 체인 섹션
+   ========================================================= */
+.section-onemotors { background: var(--ink); color: var(--text-on-dark); }
+.section-onemotors .sec-desc { color: var(--text-on-dark-sub); }
+.section-onemotors .sec-desc strong { color: #fff; }
+.section-onemotors .sec-title { color: #fff; }
+.om-accent { color: #ff3b30; }
+
+.om-grid {
+  display: grid; gap: 40px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  align-items: center;
+}
+.om-note {
+  margin-top: 22px; padding-left: 16px; border-left: 3px solid var(--red);
+  font-size: 15px; color: var(--text-on-dark-sub); line-height: 1.8;
+}
+
+.om-cards { display: grid; gap: 14px; }
+.om-card {
+  display: flex; flex-direction: column; gap: 5px;
+  background: var(--ink-2); border: 1px solid var(--ink-3);
+  border-radius: var(--radius); padding: 24px 24px 20px;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.om-card:hover { transform: translateY(-4px); border-color: rgba(225,6,0,.55); background: #1b1f26; }
+.om-badge {
+  align-self: flex-start;
+  font-size: 11px; font-weight: 800; letter-spacing: .08em;
+  padding: 5px 10px; border-radius: 999px;
+  background: rgba(255,255,255,.10); color: var(--text-on-dark-sub);
+}
+.om-badge-red { background: var(--red); color: #fff; }
+.om-card strong { font-size: 21px; font-weight: 900; color: #fff; margin-top: 6px; }
+.om-meta { font-size: 14px; color: var(--text-on-dark-sub); }
+.om-stat { font-size: 13.5px; color: #ff6b60; font-weight: 700; margin-top: 2px; }
+.om-link { margin-top: 12px; font-size: 14px; font-weight: 700; color: #fff; }
+
+/* =========================================================
+   대표 분야(고장진단) 카드
+   ========================================================= */
+.service-feature {
+  margin-top: 44px;
+  background: linear-gradient(135deg, #12151a 0%, #1d2229 100%);
+  border-color: #262b33; color: var(--text-on-dark);
+}
+.service-feature:hover { transform: none; box-shadow: none; border-color: rgba(225,6,0,.45); }
+.service-feature .service-head h3 { color: #fff; font-size: 26px; }
+.service-feature .service-head h3 em { font-style: normal; color: #ff4d42; }
+.service-feature .service-lead { color: var(--text-on-dark-sub); font-size: 16px; }
+.service-feature .service-lead strong { color: #fff; }
+.service-feature .service-foot {
+  border-top-color: #2b313a; color: #9aa1ad; font-style: italic; font-size: 15px;
+}
+
+.code-grid {
+  margin-top: 24px; display: grid; gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.code-item {
+  display: flex; flex-direction: column; gap: 6px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09);
+  border-radius: 10px; padding: 16px 18px;
+}
+.code-item .code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 15px; font-weight: 800; color: #ff5a4f; letter-spacing: .02em;
+}
+.code-item span:last-child { font-size: 13.5px; color: var(--text-on-dark-sub); line-height: 1.6; }
+
+.service-grid { margin-top: 20px; }
+
+/* =========================================================
+   유튜브 섹션
+   ========================================================= */
+.section-youtube { background: var(--paper); }
+.yt-grid {
+  margin-top: 44px; display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+.yt-card {
+  position: relative; display: flex; flex-direction: column; gap: 8px;
+  background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius);
+  padding: 24px 24px 56px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.yt-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: #ff4d42; }
+.yt-tag {
+  align-self: flex-start; font-size: 11.5px; font-weight: 800; letter-spacing: .04em;
+  color: #fff; background: var(--ink); padding: 5px 11px; border-radius: 999px;
+}
+.yt-card h3 { font-size: 17.5px; font-weight: 800; margin-top: 4px; }
+.yt-card p { font-size: 14.5px; color: var(--text-sub); }
+.yt-play {
+  position: absolute; left: 24px; bottom: 20px;
+  width: 38px; height: 26px; border-radius: 7px; background: #ff0000;
+}
+.yt-play::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  transform: translate(-40%, -50%);
+  border-left: 9px solid #fff;
+  border-top: 5.5px solid transparent; border-bottom: 5.5px solid transparent;
+}
+.yt-more { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-youtube { background: #ff0000; color: #fff; }
+.btn-youtube:hover { background: #d90000; }
+.btn-ghost-dark { background: transparent; color: var(--text); border-color: #c9ced6; }
+.btn-ghost-dark:hover { background: rgba(0,0,0,.05); border-color: var(--text); }
+
+/* 기타 */
+.location-info .muted { color: var(--text-sub); font-size: 14px; }
+.footer-links { display: flex; gap: 16px; margin-top: 6px; }
+.footer-links a { color: #fff; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,.35); }
+
+@media (max-width: 960px) {
+  .om-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+@media (max-width: 860px) {
+  .brand-text small { display: none; }
+  .yt-more .btn { flex: 1 1 100%; }
 }
