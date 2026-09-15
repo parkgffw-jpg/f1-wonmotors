@@ -537,3 +537,9 @@ li { list-style: none; }
 .om-badge { text-transform: uppercase; }
 .om-meta { line-height: 1.55; }
 .om-link { letter-spacing: .04em; font-size: 13.5px; }
+
+
+/* 링크가 아닌 소개 카드 */
+.om-card-static { cursor: default; }
+.om-card-static:hover { transform: none; border-color: var(--ink-3); background: var(--ink-2); }
+.om-card-static .om-stat { color: var(--text-on-dark-sub); font-weight: 500; }
