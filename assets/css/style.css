@@ -698,3 +698,19 @@ li { list-style: none; }
   .brand-strip-inner { flex-direction: column; align-items: flex-start; }
   .brand-strip-link { width: 100%; justify-content: center; }
 }
+
+/* =========================================================
+   자매점 카드 (소개 섹션 오른쪽 두 번째 칸)
+   ========================================================= */
+.om-card-sister { position: relative; }
+.om-card-sister .om-link { color: #fff; }
+
+.om-sister-one { border-color: rgba(255, 212, 0, .34); }
+.om-sister-one:hover { border-color: rgba(255, 212, 0, .8); background: #1c1f24; }
+.om-sister-one .om-stat { color: #ffd400; }
+
+.om-sister-f1 { border-color: rgba(225, 6, 0, .34); }
+.om-sister-f1:hover { border-color: rgba(225, 6, 0, .8); background: #1e1a1b; }
+.om-sister-f1 .om-stat { color: #ff6b60; }
+
+.om-city-one { color: #ffd400; }
