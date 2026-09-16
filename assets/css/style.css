@@ -1135,3 +1135,89 @@ body:not(.theme-one) .hero-bg {
   background-position: center, center, center, center, center, center;
   background-repeat: no-repeat;
 }
+
+/* =========================================================
+   첫 화면 좌우 사진 + 실제 로고
+   ========================================================= */
+.hero-photo .hero-bg {
+  background-image:
+    radial-gradient(1000px 560px at 50% 36%, rgba(225, 6, 0, .16), transparent 72%),
+    linear-gradient(160deg, #0b0d10 0%, #14181f 52%, #0b0d10 100%);
+}
+
+.hero-art {
+  position: absolute; top: 0; bottom: 0; width: 34%;
+  background-repeat: no-repeat; background-size: cover;
+  pointer-events: none; z-index: 0; opacity: .85;
+}
+.hero-art-l {
+  left: 0;
+  background-image: url("../img/hero-car.png");
+  background-position: left center;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 96%);
+          mask-image: linear-gradient(90deg, #000 0%, #000 42%, transparent 96%);
+}
+.hero-art-r {
+  right: 0;
+  background-image: url("../img/hero-engine.png");
+  background-position: right center;
+  -webkit-mask-image: linear-gradient(270deg, #000 0%, #000 42%, transparent 96%);
+          mask-image: linear-gradient(270deg, #000 0%, #000 42%, transparent 96%);
+}
+
+/* 실제 로고 이미지 — 주변 연기 배경을 부드럽게 지움 */
+.hero-logo-img {
+  display: block; width: min(420px, 78vw); height: auto;
+  margin: 0 auto 18px;
+  -webkit-mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 52%, transparent 88%);
+          mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 52%, transparent 88%);
+}
+
+@media (max-width: 900px) {
+  .hero-art { width: 46%; opacity: .55; }
+  .hero-logo-img { width: min(320px, 76vw); }
+}
+@media (max-width: 560px) {
+  .hero-art-r { display: none; }
+  .hero-art-l { width: 72%; opacity: .4; }
+}
+
+/* 좌우 사진 위에 어둡게 덮어 글자 가독성 확보 */
+.hero-art { opacity: .68; }
+.hero-photo::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(8, 9, 11, .58) 0%,
+    rgba(8, 9, 11, .26) 42%,
+    rgba(8, 9, 11, .88) 100%);
+}
+.hero-photo .hero-inner { position: relative; z-index: 2; }
+.hero-photo .hero-side,
+.hero-photo .hero-script { z-index: 2; }
+.hero-brands { z-index: 3; background: rgba(6, 7, 9, .88); }
+
+/* =========================================================
+   실제 ONE MOTORS 로고 이미지 (디자인 시안에서 잘라냄)
+   주변 연기 배경을 원형 마스크로 부드럽게 지웁니다
+   ========================================================= */
+.logo-one {
+  display: block; height: auto; flex: none;
+  -webkit-mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 52%, transparent 88%);
+          mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 52%, transparent 88%);
+}
+.logo-one-lg    { width: min(420px, 78vw); margin: 0 auto 18px; }
+.logo-one-md    { width: 180px; }
+.logo-one-sm    { width: 132px; margin-bottom: -6px; }
+.logo-one-brand { width: 86px; margin: -10px -8px -10px -14px; }
+
+@media (max-width: 900px) {
+  .logo-one-lg { width: min(320px, 76vw); }
+  .logo-one-brand { width: 74px; }
+}
+
+/* 작은 로고는 마스크를 더 좁혀 배경 연기를 확실히 지웁니다 */
+.logo-one-brand, .logo-one-sm {
+  -webkit-mask-image: radial-gradient(ellipse 56% 58% at 50% 50%, #000 46%, transparent 80%);
+          mask-image: radial-gradient(ellipse 56% 58% at 50% 50%, #000 46%, transparent 80%);
+}
+.logo-one-brand { width: 80px; margin: -8px -6px -8px -10px; }
