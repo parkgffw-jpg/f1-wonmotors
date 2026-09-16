@@ -1165,17 +1165,9 @@ body:not(.theme-one) .hero-bg {
           mask-image: linear-gradient(270deg, #000 0%, #000 42%, transparent 96%);
 }
 
-/* 실제 로고 이미지 — 주변 연기 배경을 부드럽게 지움 */
-.hero-logo-img {
-  display: block; width: min(420px, 78vw); height: auto;
-  margin: 0 auto 18px;
-  -webkit-mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 52%, transparent 88%);
-          mask-image: radial-gradient(ellipse 62% 66% at 50% 50%, #000 52%, transparent 88%);
-}
 
 @media (max-width: 900px) {
   .hero-art { width: 46%; opacity: .55; }
-  .hero-logo-img { width: min(320px, 76vw); }
 }
 @media (max-width: 560px) {
   .hero-art-r { display: none; }
@@ -1245,4 +1237,31 @@ body:not(.theme-one) .hero-bg {
 }
 @media (max-width: 480px) {
   .logo-one-lg { height: 116px; }
+}
+
+/* =========================================================
+   ONE MOTORS 실제 로고 (여백 잘라낸 560x368 버전)
+   흰 배경이 그대로 흰 판 역할을 합니다
+   ========================================================= */
+.logo-one {
+  aspect-ratio: 560 / 368;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .32);
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+.logo-one-lg    { height: 152px; max-width: 80vw; margin: 0 auto 20px; }
+.logo-one-md    { height: 66px; }
+.logo-one-sm    { height: 52px; margin-bottom: 0; }
+.logo-one-brand { height: 44px; margin: 0; border-radius: 8px; box-shadow: none; }
+
+@media (max-width: 900px) {
+  .logo-one-lg { height: 116px; }
+  .logo-one-brand { height: 38px; }
+}
+@media (max-width: 480px) {
+  .logo-one-lg { height: 96px; }
 }
