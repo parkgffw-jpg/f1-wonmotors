@@ -952,3 +952,61 @@ li { list-style: none; }
   .brand-strip-actions { width: 100%; }
   .brand-strip-actions .brand-strip-link { flex: 1 1 100%; justify-content: center; }
 }
+
+/* =========================================================
+   ONE MOTORS 로고 (원본 이미지 확보 전까지 CSS로 재현)
+   → assets/img/logo-one.png 를 넣으면 이미지로 교체 가능
+   ========================================================= */
+.one-logo {
+  --logo-size: 34px;
+  display: inline-flex; flex-direction: column; align-items: center;
+  background: #fff; border-radius: 10px;
+  padding: calc(var(--logo-size) * .30) calc(var(--logo-size) * .55) calc(var(--logo-size) * .26);
+  line-height: 1; flex: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .3);
+}
+.one-logo-main {
+  font-size: var(--logo-size);
+  font-weight: 900; font-style: italic;
+  letter-spacing: -0.05em; color: #e30613;
+}
+.one-logo-sub {
+  margin-top: calc(var(--logo-size) * .10);
+  font-size: calc(var(--logo-size) * .33);
+  font-weight: 900; font-style: italic;
+  letter-spacing: .16em; color: #111; padding-left: .16em;
+}
+.one-logo-bar {
+  margin-top: calc(var(--logo-size) * .16);
+  width: 100%; height: calc(var(--logo-size) * .10); min-height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, #e30613 0 34%, #ffd400 34% 67%, #111 67% 100%);
+}
+
+.one-logo-sm { --logo-size: 22px; box-shadow: none; }
+.one-logo-md { --logo-size: 34px; }
+.one-logo-lg { --logo-size: 52px; }
+
+/* 히어로 로고 — 자체 줄을 차지하도록 block 레벨로 */
+.hero-logo {
+  display: flex; width: max-content;
+  margin: 0 auto 26px;
+}
+
+/* 브랜드 띠에 로고 얹기 */
+.brand-strip-inner > .one-logo { align-self: flex-start; }
+@media (max-width: 960px) {
+  .brand-strip-inner > .one-logo { --logo-size: 28px; }
+}
+
+/* 자매점 카드 안 로고 */
+.om-card .one-logo { align-self: flex-start; margin-bottom: 2px; }
+
+/* 페이지 머리 로고 */
+.page-head .one-logo { margin-bottom: 20px; }
+
+/* 브랜드 띠: 로고 + 글 + 버튼 3단 정렬 */
+.brand-strip-text { flex: 1 1 340px; min-width: 0; }
+.brand-strip-inner > .one-logo { align-self: center; }
+@media (max-width: 1080px) {
+  .brand-strip-actions { width: 100%; }
+}
