@@ -1221,3 +1221,28 @@ body:not(.theme-one) .hero-bg {
           mask-image: radial-gradient(ellipse 56% 58% at 50% 50%, #000 46%, transparent 80%);
 }
 .logo-one-brand { width: 80px; margin: -8px -6px -8px -10px; }
+
+/* =========================================================
+   ONE MOTORS 로고 — 흰색 둥근 판 방식
+   (가로형·정사각형 파일 모두 대응, 높이 기준으로 크기 고정)
+   ========================================================= */
+.logo-one {
+  width: auto; object-fit: contain;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .34);
+  -webkit-mask-image: radial-gradient(ellipse 82% 82% at 50% 50%, #000 72%, transparent 97%);
+          mask-image: radial-gradient(ellipse 82% 82% at 50% 50%, #000 72%, transparent 97%);
+}
+.logo-one-lg    { height: 190px; max-width: 80vw; margin: 0 auto 20px; padding: 6px 14px; }
+.logo-one-md    { height: 76px;  padding: 5px 11px; }
+.logo-one-sm    { height: 56px;  padding: 4px 9px; margin-bottom: 0; }
+.logo-one-brand { height: 46px;  padding: 3px 8px; margin: 0; border-radius: 9px; box-shadow: none; }
+
+@media (max-width: 900px) {
+  .logo-one-lg { height: 140px; }
+  .logo-one-brand { height: 40px; }
+}
+@media (max-width: 480px) {
+  .logo-one-lg { height: 116px; }
+}
