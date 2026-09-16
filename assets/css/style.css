@@ -942,3 +942,13 @@ li { list-style: none; }
 @media (max-width: 480px) {
   .car-badge { min-width: 0; font-size: 10.5px; padding: 8px 11px; }
 }
+
+/* 브랜드 띠 버튼 2개 */
+.brand-strip-actions { display: flex; gap: 10px; flex-wrap: wrap; flex: none; }
+.brand-strip-link-ghost { border-color: rgba(255, 255, 255, .28); color: #e8eaee; }
+.brand-strip-link-ghost:hover { background: rgba(255, 255, 255, .12); color: #fff; border-color: #fff; }
+
+@media (max-width: 760px) {
+  .brand-strip-actions { width: 100%; }
+  .brand-strip-actions .brand-strip-link { flex: 1 1 100%; justify-content: center; }
+}
