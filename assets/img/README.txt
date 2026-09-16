@@ -3,7 +3,8 @@
 
 logo-one.png     ONE MOTORS 로고 (배경 투명 PNG 권장, 가로 600px 이내)
 logo.png         F-1 MOTORS 로고 (배경 투명 PNG 권장)
-hero-bg.jpg      원모터스 인천점 첫 화면 배경 사진 (가로 2000px 이내, 용량 500KB 이하)
+hero-bg.png      원모터스 인천점 첫 화면 배경 사진 (png 또는 jpg 둘 다 됨)
+                 가로 2000px 이내 권장, 용량 1MB 이하 권장
 og-onemotors.jpg 카톡/검색 공유용 대표 이미지 (1200 x 630)
 og-image.jpg     인천에프원모터스 공유용 대표 이미지 (1200 x 630)
 

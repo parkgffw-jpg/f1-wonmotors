@@ -1022,10 +1022,11 @@ li { list-style: none; }
     linear-gradient(180deg, rgba(8,9,11,.82) 0%, rgba(8,9,11,.68) 45%, rgba(8,9,11,.94) 100%),
     radial-gradient(900px 480px at 78% 16%, rgba(225, 6, 0, .34), transparent 62%),
     radial-gradient(760px 520px at 12% 88%, rgba(255, 212, 0, .12), transparent 62%),
+    url("../img/hero-bg.png"),
     url("../img/hero-bg.jpg"),
     linear-gradient(160deg, #0b0d10 0%, #15191f 52%, #0b0d10 100%);
-  background-size: cover, cover, cover, cover, cover;
-  background-position: center, center, center, center, center;
+  background-size: cover, cover, cover, cover, cover, cover;
+  background-position: center, center, center, center, center, center;
   background-repeat: no-repeat;
 }
 .hero-photo .hero-bg::after {
