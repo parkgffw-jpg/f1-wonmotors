@@ -1010,3 +1010,109 @@ li { list-style: none; }
 @media (max-width: 1080px) {
   .brand-strip-actions { width: 100%; }
 }
+
+/* =========================================================
+   원모터스 인천점 첫 화면 (시안 반영)
+   ========================================================= */
+.hero-photo { min-height: 0; }
+
+/* 배경 사진 — 파일이 없으면 그라데이션만 표시됩니다 */
+.hero-photo .hero-bg {
+  background-image:
+    linear-gradient(180deg, rgba(8,9,11,.82) 0%, rgba(8,9,11,.68) 45%, rgba(8,9,11,.94) 100%),
+    radial-gradient(900px 480px at 78% 16%, rgba(225, 6, 0, .34), transparent 62%),
+    radial-gradient(760px 520px at 12% 88%, rgba(255, 212, 0, .12), transparent 62%),
+    url("../img/hero-bg.jpg"),
+    linear-gradient(160deg, #0b0d10 0%, #15191f 52%, #0b0d10 100%);
+  background-size: cover, cover, cover, cover, cover;
+  background-position: center, center, center, center, center;
+  background-repeat: no-repeat;
+}
+.hero-photo .hero-bg::after {
+  background-image: repeating-linear-gradient(115deg, rgba(255,255,255,.03) 0 2px, transparent 2px 30px);
+}
+
+.hero-photo .hero-inner { padding: 150px 20px 40px; }
+
+/* 왼쪽 세로 문구 */
+.hero-side {
+  position: absolute; left: 34px; top: 46%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 10px;
+  font-size: 15px; font-weight: 700; letter-spacing: .34em;
+  color: rgba(255, 255, 255, .22);
+  pointer-events: none; z-index: 1;
+}
+
+/* 오른쪽 손글씨 */
+.hero-script {
+  position: absolute; right: 44px; bottom: 258px;
+  font-family: "Dancing Script", "Apple Chancery", cursive;
+  font-size: clamp(24px, 3vw, 38px); font-weight: 600; line-height: 1.15;
+  color: rgba(255, 255, 255, .55); text-align: center;
+  pointer-events: none; z-index: 1;
+}
+.hero-script::after {
+  content: ""; display: block; height: 3px; width: 120px; margin: 10px auto 0;
+  border-radius: 2px; background: var(--red);
+}
+
+/* 아이콘 들어간 강점 카드 */
+.hero-badges-icon {
+  max-width: 1000px; gap: 16px;
+}
+.hero-badges-icon li {
+  flex-direction: row; align-items: center; gap: 14px;
+  padding: 18px 20px; text-align: left;
+  background: rgba(255, 255, 255, .055);
+  border: 1px solid rgba(255, 255, 255, .13);
+  backdrop-filter: blur(4px);
+}
+.hero-badges-icon li > div { display: flex; flex-direction: column; gap: 3px; }
+.hb-ico {
+  width: 30px; height: 30px; flex: none;
+  fill: none; stroke: #fff; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* 취급 차종 띠 */
+.hero-brands {
+  position: relative; z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  background: rgba(6, 7, 9, .72);
+  padding: 18px 0;
+}
+.hero-brands-inner {
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  justify-content: center;
+}
+.hb-label, .hb-note {
+  font-size: 11.5px; font-weight: 800; letter-spacing: .22em;
+  color: rgba(255, 255, 255, .34); white-space: nowrap;
+}
+.hb-note { color: rgba(255, 255, 255, .6); letter-spacing: .06em; font-size: 13px; }
+.hb-list {
+  display: flex; align-items: center; gap: 10px 22px; flex-wrap: wrap;
+  justify-content: center; flex: 1 1 auto;
+}
+.hb-list li {
+  font-size: 12.5px; font-weight: 800; letter-spacing: .1em;
+  color: rgba(255, 255, 255, .62); white-space: nowrap;
+  transition: color .18s;
+}
+.hb-list li:hover { color: #fff; }
+
+@media (max-width: 1340px) {
+  .hero-script { display: none; }
+}
+@media (max-width: 1180px) {
+  .hero-side { display: none; }
+}
+@media (max-width: 900px) {
+  .hero-photo .hero-inner { padding: 124px 20px 34px; }
+  .hero-badges-icon { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .hb-label, .hb-note { display: none; }
+  .hb-list { gap: 8px 14px; }
+  .hb-list li { font-size: 11px; letter-spacing: .06em; }
+}

@@ -26,6 +26,8 @@
 <!-- ▲▲ 여기까지 ▲▲ -->
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
 
@@ -127,41 +129,84 @@
 <main id="main">
 
 <!-- ===================== 히어로 ===================== -->
-<section class="hero" id="top">
+<section class="hero hero-photo" id="top">
+  <!-- ▼ 배경 사진을 assets/img/hero-bg.jpg 로 넣으면 자동으로 깔립니다 (없으면 그라데이션) -->
   <div class="hero-bg" aria-hidden="true"></div>
+
+  <!-- 왼쪽 세로 문구 -->
+  <div class="hero-side" aria-hidden="true">
+    <span>DIAGNOSIS</span>
+    <span>REPAIR</span>
+    <span>ENGINE</span>
+    <span>PERFORMANCE</span>
+  </div>
+
+  <!-- 오른쪽 손글씨 문구 -->
+  <p class="hero-script" aria-hidden="true">Drive<br />Your Engine<br />Longer</p>
+
   <div class="container hero-inner">
     <!-- ▼ 실제 로고 파일을 넣으면 아래 한 줄로 교체하세요
-    <img class="hero-logo" src="assets/img/logo-one.png" alt="원모터스 인천점" width="200" />
+    <img class="hero-logo" src="assets/img/logo-one.png" alt="원모터스 인천점" width="380" />
     -->
     <span class="one-logo one-logo-lg hero-logo" role="img" aria-label="ONE MOTORS">
       <span class="one-logo-main">ONE</span>
       <span class="one-logo-sub">MOTORS</span>
       <span class="one-logo-bar" aria-hidden="true"></span>
     </span>
+
     <p class="hero-eyebrow">인천 · 수입차 고장진단 &amp; 엔진 전문</p>
+
     <h1 class="hero-title">
       <span class="hero-brand">원모터스 인천점</span>
       수입차 엔진,<br />
       바꾸지 말고 <span class="accent">살립니다</span>
     </h1>
+
     <p class="hero-sub">
-      원모터스 인천점 &middot; <strong>수입차 고장진단 · 정비 · 엔진보링</strong><br class="br-m" />
-      경고등의 원인을 찾고, 엔진은 교체 전에 살릴 수 있는지부터 확인합니다.
+      원모터스 인천점은 경고등의 원인을 정확히 진단하고<br class="br-m" />
+      엔진은 교체 전, 살릴 수 있는지부터 확인합니다.
     </p>
 
     <div class="hero-cta">
-      <!-- ▼ 전화번호 수정 -->
       <a class="btn btn-primary btn-lg" href="tel:01047218957">
         <span class="ico-phone" aria-hidden="true"></span> 엔진 상담 전화
       </a>
-      <a class="btn btn-ghost btn-lg" href="cases-onemotors.html">정비사례 보기</a>
+      <a class="btn btn-ghost btn-lg" href="cases-onemotors.html">정비사례 보기 &rsaquo;</a>
     </div>
 
-    <ul class="hero-badges">
-      <li><strong>정밀 진단</strong><span>브랜드별 전용 장비</span></li>
-      <li><strong>교체보다 수리</strong><span>비용 부담을 줄입니다</span></li>
-      <li><strong>직접 작업</strong><span>외주 없이 저희가</span></li>
+    <ul class="hero-badges hero-badges-icon">
+      <li>
+        <svg class="hb-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8 21 21"/></svg>
+        <div><strong>정밀 진단</strong><span>브랜드별 전용 장비</span></div>
+      </li>
+      <li>
+        <svg class="hb-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.5a5 5 0 0 0-6.2 6.2L3.6 15.4a2 2 0 0 0 0 2.8l2.2 2.2a2 2 0 0 0 2.8 0l5.7-5.7a5 5 0 0 0 6.2-6.2l-3.1 3.1-2.9-.7-.7-2.9z"/></svg>
+        <div><strong>교체보다 수리</strong><span>비용 부담을 줄입니다</span></div>
+      </li>
+      <li>
+        <svg class="hb-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.6v2.6M12 18.8v2.6M21.4 12h-2.6M5.2 12H2.6M18.6 5.4l-1.8 1.8M7.2 16.8l-1.8 1.8M18.6 18.6l-1.8-1.8M7.2 7.2 5.4 5.4"/></svg>
+        <div><strong>직접 작업</strong><span>외주 없이 저희가</span></div>
+      </li>
     </ul>
+  </div>
+
+  <!-- 취급 차종 띠 -->
+  <div class="hero-brands">
+    <div class="container hero-brands-inner">
+      <span class="hb-label">PREMIUM AUTOMOTIVE SERVICE</span>
+      <!-- ▼ 제조사 로고 이미지 대신 문자 표기 (상표권 안전) -->
+      <ul class="hb-list">
+        <li>MERCEDES-BENZ</li>
+        <li>BMW</li>
+        <li>AUDI</li>
+        <li>VOLKSWAGEN</li>
+        <li>PORSCHE</li>
+        <li>LAND ROVER</li>
+        <li>JAGUAR</li>
+        <li>VOLVO</li>
+      </ul>
+      <span class="hb-note">수입차 엔진 전문</span>
+    </div>
   </div>
 </section>
 
