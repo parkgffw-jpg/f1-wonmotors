@@ -714,3 +714,9 @@ li { list-style: none; }
 .om-sister-f1 .om-stat { color: #ff6b60; }
 
 .om-city-one { color: #ffd400; }
+
+/* 자기 정비소 카드 (소개 섹션 첫 칸) */
+.om-card-own { border-color: rgba(255, 212, 0, .28); }
+.om-card-own:hover { border-color: rgba(255, 212, 0, .7); background: #1c1f24; }
+.om-card-own .om-stat { color: #ffd400; }
+.om-card-own .om-link { color: #fff; }
