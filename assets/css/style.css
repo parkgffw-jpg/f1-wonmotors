@@ -720,3 +720,225 @@ li { list-style: none; }
 .om-card-own:hover { border-color: rgba(255, 212, 0, .7); background: #1c1f24; }
 .om-card-own .om-stat { color: #ffd400; }
 .om-card-own .om-link { color: #fff; }
+
+/* =========================================================
+   정비사례 페이지
+   ========================================================= */
+.page-head {
+  background: var(--ink);
+  color: var(--text-on-dark);
+  padding: calc(120px + env(safe-area-inset-top, 0px)) 0 54px;
+  border-bottom: 1px solid var(--ink-3);
+}
+.page-title {
+  font-size: clamp(30px, 5vw, 46px); font-weight: 900;
+  letter-spacing: -0.035em; color: #fff; margin: 0;
+}
+.page-desc {
+  margin-top: 16px; font-size: 16px; color: var(--text-on-dark-sub);
+  max-width: 62ch; line-height: 1.8;
+}
+.page-desc strong { color: #fff; font-weight: 700; }
+.privacy-note {
+  margin-top: 18px; font-size: 14px; color: #8d939e;
+  padding-left: 14px; border-left: 2px solid var(--red);
+}
+
+/* 분류 칩 */
+.case-filter-wrap {
+  position: sticky; top: calc(72px + env(safe-area-inset-top, 0px)); z-index: 50;
+  background: rgba(13, 15, 18, .97);
+  border-bottom: 1px solid var(--ink-3);
+  padding: 14px 0;
+}
+.case-filter { display: flex; gap: 8px; flex-wrap: wrap; }
+.case-chip {
+  font-family: inherit; font-size: 14px; font-weight: 700;
+  padding: 9px 17px; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--text-on-dark-sub);
+  border: 1.5px solid rgba(255, 255, 255, .16);
+  transition: background .18s, color .18s, border-color .18s;
+}
+.case-chip:hover { color: #fff; border-color: rgba(255, 255, 255, .4); }
+.case-chip.is-on { background: var(--red); border-color: var(--red); color: #fff; }
+.theme-one .case-chip.is-on { background: #ffd400; border-color: #ffd400; color: #241f00; }
+
+/* 사례 목록 */
+.section-cases { background: var(--paper); padding-top: 54px; }
+.case-list { display: flex; flex-direction: column; gap: 20px; }
+
+.case-card {
+  background: var(--white); border: 1px solid #e3e6ea;
+  border-radius: var(--radius); padding: 30px 30px 26px;
+}
+.case-card[hidden] { display: none; }
+
+.case-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.case-tag {
+  font-size: 12.5px; font-weight: 800; letter-spacing: .03em;
+  background: var(--ink); color: #fff;
+  padding: 6px 13px; border-radius: 999px;
+}
+.theme-one .case-tag { background: var(--ink); color: #ffd400; }
+.case-code, .case-date {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px; font-weight: 700; color: var(--red);
+}
+.theme-one .case-code, .theme-one .case-date { color: #b38f00; }
+
+.case-title {
+  margin-top: 14px; font-size: clamp(20px, 2.6vw, 25px);
+  font-weight: 900; letter-spacing: -0.03em;
+}
+.case-lead { margin-top: 10px; font-size: 15.5px; color: var(--text-sub); }
+
+/* 차량 정보 */
+.case-spec {
+  margin-top: 18px; display: grid; gap: 10px 26px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  padding: 16px 18px; background: var(--paper); border-radius: 10px;
+}
+.case-spec > div { display: flex; gap: 10px; font-size: 14.5px; }
+.case-spec dt { font-weight: 800; color: var(--text-sub); flex: none; }
+.case-spec dd { margin: 0; font-weight: 600; }
+
+/* 증상 → 진단 → 작업 → 결과 */
+.case-steps {
+  margin-top: 22px; display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.case-steps li {
+  padding-top: 14px; border-top: 2px solid #e6e8ec;
+}
+.case-steps li:nth-child(1) { border-top-color: #c9ced6; }
+.case-steps li:nth-child(4) { border-top-color: var(--red); }
+.theme-one .case-steps li:nth-child(4) { border-top-color: #ffd400; }
+.case-steps span {
+  display: block; font-size: 12.5px; font-weight: 900;
+  letter-spacing: .1em; color: var(--red); margin-bottom: 7px;
+}
+.theme-one .case-steps span { color: #b38f00; }
+.case-steps p { font-size: 14.5px; color: var(--text-sub); line-height: 1.7; }
+
+/* 사진 · 내역서 */
+.case-shots {
+  margin-top: 24px; display: grid; gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+.case-shots figure { margin: 0; }
+.case-shots img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: 10px; border: 1px solid #e3e6ea; cursor: zoom-in;
+  transition: border-color .18s, transform .18s;
+}
+.case-shots img:hover { border-color: var(--red); transform: scale(1.01); }
+.case-shots figcaption {
+  margin-top: 7px; font-size: 13px; font-weight: 700; color: var(--text-sub);
+}
+.shot-empty {
+  grid-column: 1 / -1;
+  padding: 22px; text-align: center; border-radius: 10px;
+  border: 1px dashed #cfd4dc; background: var(--paper);
+  font-size: 14px; color: #8b919c;
+}
+
+.case-video {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 22px; font-size: 15px; font-weight: 800;
+  color: var(--red); border-bottom: 1.5px solid currentColor; padding-bottom: 2px;
+}
+.case-video::before {
+  content: ""; width: 26px; height: 18px; border-radius: 5px;
+  background: #ff0000; flex: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.case-video:hover { color: var(--red-dark); }
+
+.case-more {
+  margin-top: 34px; text-align: center;
+  font-size: 15px; color: var(--text-sub);
+}
+
+/* 사진 크게 보기 */
+.lightbox[hidden] { display: none; }
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(8, 9, 11, .94);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 40px 20px;
+}
+.lightbox img {
+  max-width: min(1100px, 100%); max-height: 78vh;
+  object-fit: contain; border-radius: 8px;
+}
+.lightbox-cap { color: #cfd4dc; font-size: 15px; font-weight: 700; }
+.lightbox-close {
+  position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: 18px;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(255, 255, 255, .12); color: #fff;
+  border: 0; font-size: 30px; line-height: 1; cursor: pointer;
+}
+.lightbox-close:hover { background: rgba(255, 255, 255, .24); }
+
+@media (max-width: 1024px) {
+  .case-filter-wrap { top: calc(72px + env(safe-area-inset-top, 0px)); }
+}
+@media (max-width: 860px) {
+  .page-head { padding-top: calc(104px + env(safe-area-inset-top, 0px)); }
+  .case-filter-wrap { top: calc(64px + env(safe-area-inset-top, 0px)); }
+  .case-card { padding: 26px 22px 22px; }
+}
+
+/* =========================================================
+   차종 브랜드 뱃지 (실제 로고 대신 문자 뱃지 — 상표권 안전)
+   ========================================================= */
+.car-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 104px; padding: 9px 14px;
+  border-radius: 8px; border: 2px solid var(--brand, #8a9099);
+  font-size: 11.5px; font-weight: 900; letter-spacing: .1em;
+  color: var(--brand, #8a9099); background: transparent;
+  text-transform: uppercase; white-space: nowrap;
+}
+.car-badge[data-brand="benz"]     { --brand: #6f757e; }
+.car-badge[data-brand="bmw"]      { --brand: #2f6fc4; }
+.car-badge[data-brand="audi"]     { --brand: #c8102e; }
+.car-badge[data-brand="vw"]       { --brand: #1f5fae; }
+.car-badge[data-brand="volvo"]    { --brand: #1b3a6b; }
+.car-badge[data-brand="porsche"]  { --brand: #9c7c37; }
+.car-badge[data-brand="land"]     { --brand: #2c6b4f; }
+.car-badge[data-brand="korea"]    { --brand: #444b55; }
+
+/* 사례 스토리 */
+.case-story {
+  margin-top: 14px; padding: 16px 18px;
+  background: var(--paper); border-left: 3px solid var(--red);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px; line-height: 1.8; color: var(--text-sub);
+}
+.theme-one .case-story { border-left-color: #ffd400; }
+.case-story strong { color: var(--text); font-weight: 700; }
+
+/* 에프원 전용 강조 블록 */
+.rebuild-note {
+  margin-bottom: 26px; padding: 26px 28px; border-radius: var(--radius);
+  background: linear-gradient(120deg, #12151a 0%, #1d2229 100%);
+  border: 1px solid #262b33; color: var(--text-on-dark);
+}
+.rebuild-note h2 {
+  font-size: clamp(19px, 2.6vw, 24px); font-weight: 900;
+  color: #fff; letter-spacing: -0.025em; margin: 0 0 10px;
+}
+.rebuild-note h2 strong { color: #ff4d42; }
+.rebuild-note p { font-size: 15px; color: var(--text-on-dark-sub); line-height: 1.8; max-width: 72ch; }
+.rebuild-note ul {
+  margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px;
+}
+.rebuild-note li {
+  font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); color: #d6dae1;
+}
+
+@media (max-width: 480px) {
+  .car-badge { min-width: 0; font-size: 10.5px; padding: 8px 11px; }
+}

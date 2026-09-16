@@ -68,3 +68,64 @@
     });
   }
 })();
+
+/* ===== 정비사례 페이지: 분류 필터 + 사진 크게 보기 ===== */
+(function () {
+  'use strict';
+
+  /* 분류 필터 */
+  var chips = document.querySelectorAll('.case-chip');
+  var cards = document.querySelectorAll('.case-card');
+
+  if (chips.length && cards.length) {
+    Array.prototype.forEach.call(chips, function (chip) {
+      chip.addEventListener('click', function () {
+        var want = chip.getAttribute('data-filter');
+
+        Array.prototype.forEach.call(chips, function (c) {
+          c.classList.toggle('is-on', c === chip);
+        });
+
+        Array.prototype.forEach.call(cards, function (card) {
+          card.hidden = !(want === 'all' || card.getAttribute('data-cat') === want);
+        });
+      });
+    });
+  }
+
+  /* 사진 크게 보기 */
+  var box = document.getElementById('lightbox');
+  var boxImg = document.getElementById('lightboxImg');
+  var boxCap = document.getElementById('lightboxCap');
+  var boxClose = document.getElementById('lightboxClose');
+  if (!box || !boxImg) return;
+
+  function open(src, alt, cap) {
+    boxImg.src = src;
+    boxImg.alt = alt || '';
+    boxCap.textContent = cap || '';
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    boxClose.focus();
+  }
+
+  function close() {
+    box.hidden = true;
+    boxImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var img = e.target.closest ? e.target.closest('.case-shots img') : null;
+    if (!img) return;
+    var fig = img.closest('figure');
+    var cap = fig && fig.querySelector('figcaption');
+    open(img.currentSrc || img.src, img.alt, cap ? cap.textContent : '');
+  });
+
+  boxClose.addEventListener('click', close);
+  box.addEventListener('click', function (e) { if (e.target === box) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !box.hidden) close();
+  });
+})();
