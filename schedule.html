@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>입고 대기 · 작업 현황 | 인천에프원모터스 · 원모터스 인천점</title>
+
+<meta name="description" content="인천에프원모터스 · 원모터스 인천점의 작업 중 · 입고 대기 · 출고 완료 차량 현황. 엔진보링, 커먼레일 인젝터, DPF, 수입차 고장진단 예약 순서를 안내합니다." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="입고 대기 · 작업 현황 | 인천에프원모터스 · 원모터스 인천점" />
+<meta property="og:description" content="지금 작업 중인 차량과 입고 대기 순서를 확인하세요. 급한 진단은 전화 먼저." />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:url" content="https://onemotorsincheon.co.kr/schedule.html" />
+<meta property="og:image" content="https://onemotorsincheon.co.kr/assets/img/og-image.jpg" />
+<!-- 대표 도메인: onemotorsincheon.co.kr -->
+<link rel="canonical" href="https://onemotorsincheon.co.kr/schedule.html" />
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">본문 바로가기</a>
+
+<header class="site-header scrolled" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="f1motors.html">
+      <span class="brand-mark" aria-hidden="true"><b>F-1</b><i>motors</i></span>
+      <span class="brand-text">
+        <strong>인천에프원모터스</strong>
+        <small>고장진단 · 커먼레일 · DPF</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="f1motors.html#about">소개</a>
+      <a href="f1motors.html#symptoms">증상</a>
+      <a href="f1motors.html#services">전문분야</a>
+      <a href="cases.html">정비사례</a>
+      <a class="active" href="schedule.html">대기현황</a>
+      <a href="f1motors.html#youtube">정비영상</a>
+      <a href="f1motors.html#location">오시는길</a>
+      <a class="nav-sister" href="index.html">원모터스 인천점</a>
+    </nav>
+
+    <a class="btn btn-call header-call" href="tel:01047218957">
+      <span class="ico-phone" aria-hidden="true"></span> 010-4721-8957
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===================== 페이지 머리 ===================== -->
+<section class="page-head">
+  <div class="container">
+    <p class="sec-eyebrow">WORK SCHEDULE</p>
+    <h1 class="page-title">입고 대기 · 작업 현황</h1>
+    <p class="page-desc">
+      인천에프원모터스와 원모터스 인천점의 <strong>작업 중 · 입고 대기 · 출고 완료</strong> 차량을 공개합니다.
+      엔진 · 인젝터 · DPF처럼 시간이 걸리는 작업은 <strong>예약 순서대로</strong> 진행합니다.
+    </p>
+    <p class="privacy-note">
+      고객 성명 · 연락처 · 차량번호는 게시하지 않습니다. 차종과 작업 종류만 표시합니다.
+    </p>
+  </div>
+</section>
+
+<section class="section sched-section">
+  <div class="container">
+
+    <!-- 급한 차량 안내 -->
+    <div class="sched-urgent">
+      <div>
+        <strong>운행이 어렵거나 급한 진단이 필요하신가요?</strong>
+        <p>고장진단 · 점검은 대기 순번과 별도로 먼저 봐드릴 수 있습니다. 방문 전 전화 한 통 주세요.</p>
+      </div>
+      <a class="btn btn-call" href="tel:01047218957"><span class="ico-phone" aria-hidden="true"></span> 010-4721-8957</a>
+    </div>
+
+    <!-- 정비소 선택 -->
+    <div class="sched-tabs" role="tablist" aria-label="정비소 선택">
+      <button type="button" class="sched-tab is-on" data-shop="all">전체</button>
+      <button type="button" class="sched-tab" data-shop="f1">인천에프원모터스</button>
+      <button type="button" class="sched-tab" data-shop="one">원모터스 인천점</button>
+    </div>
+
+    <!-- 요약 숫자 -->
+    <div class="sched-summary" id="schedSummary"></div>
+    <p class="sched-updated" id="schedUpdated"></p>
+
+    <!-- 목록 -->
+    <div id="schedList"></div>
+
+    <noscript><p class="sched-empty">대기 현황은 전화로 문의해 주세요. 010-4721-8957</p></noscript>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true"><b>F-1</b><i>motors</i></span>
+      <div>
+        <strong>인천에프원모터스</strong>
+        <small>고장진단 · 커먼레일 · DPF 전문</small>
+      </div>
+    </div>
+    <div class="footer-info">
+      <p>주소 인천광역시 제물포구 방축로177번길 22-3 (송림동) &nbsp;|&nbsp; 대표 박권우</p>
+      <p>사업자등록번호 121-22-42712 &nbsp;|&nbsp; 자동차정비업 등록번호 제01-2814-000120호 &nbsp;|&nbsp; 전화 010-4721-8957</p>
+      <p class="footer-links">
+        <a href="f1motors.html">인천에프원모터스</a>
+        <a href="index.html">원모터스 인천점</a>
+        <a href="https://www.youtube.com/@인천에프원모터스" target="_blank" rel="noopener">유튜브 채널</a>
+      </p>
+      <p>원모터스 인천점 · 인천광역시 제물포구 송현동 2-74</p>
+      <p class="copy">&copy; 2026 인천에프원모터스 · 원모터스 인천점. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a class="floating-call" href="tel:01047218957">
+  <span class="ico-phone" aria-hidden="true"></span> 전화 상담 바로가기
+</a>
+
+<!-- 사진 크게 보기 -->
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="닫기">&times;</button>
+  <img id="lightboxImg" src="" alt="" />
+  <p class="lightbox-cap" id="lightboxCap"></p>
+</div>
+
+<script src="assets/js/main.js"></script>
+<style>
+.sched-section { background: var(--paper); padding-top: 40px; }
+.sched-urgent { display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+  background: var(--ink); color: var(--text-on-dark); border-left: 4px solid var(--red);
+  border-radius: var(--radius); padding: 18px 22px; margin-bottom: 28px; }
+.sched-urgent strong { font-size: 1.05rem; color:#fff; }
+.sched-urgent p { margin: 4px 0 0; color: var(--text-on-dark-sub); font-size: .92rem; }
+.sched-tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 18px; }
+.sched-tab { border:1px solid #d6d9df; background:#fff; color:var(--text); padding:9px 16px; border-radius:999px;
+  font: inherit; font-weight:600; font-size:.92rem; cursor:pointer; }
+.sched-tab.is-on { background: var(--ink); color:#fff; border-color: var(--ink); }
+.sched-summary { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px; }
+.sched-num { background:#fff; border-radius: var(--radius); padding:16px 18px; box-shadow: var(--shadow); }
+.sched-num small { display:block; color: var(--text-sub); font-size:.85rem; }
+.sched-num b { display:block; font-size:1.7rem; color: var(--text); margin-top:4px; line-height:1.2; }
+.sched-num b.sched-date { font-size:1.15rem; padding-top:8px; }
+.sched-next { display:block; font-size:.95rem; line-height:1.5; }
+.sched-num.is-red b { color: var(--red); }
+.sched-updated { margin:12px 0 26px; color: var(--text-sub); font-size:.85rem; }
+.sched-group { margin-bottom: 30px; }
+.sched-group h2 { font-size:1.15rem; margin:0 0 12px; display:flex; align-items:center; gap:8px; color: var(--text); }
+.sched-group h2 span { background:#e4e6ea; border-radius:999px; padding:2px 10px; font-size:.82rem; }
+.sched-cards { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:12px; }
+.sched-card { background:#fff; border-radius: var(--radius); padding:16px 18px; box-shadow: var(--shadow);
+  border-top: 3px solid #c9ccd2; display:flex; flex-direction:column; gap:6px; }
+.sched-card[data-status="working"] { border-top-color: var(--red); }
+.sched-card[data-status="waiting"] { border-top-color: #2f6fc4; }
+.sched-card[data-status="parts"] { border-top-color: #d99a00; }
+.sched-card[data-status="done"] { border-top-color: #2c8a57; }
+.sched-top { display:flex; justify-content:space-between; gap:8px; align-items:center; font-size:.8rem; color: var(--text-sub); }
+.sched-shop { font-weight:700; }
+.sched-card h3 { margin:2px 0 0; font-size:1.08rem; color: var(--text); }
+.sched-work { margin:0; color: var(--text); font-size:.95rem; }
+.sched-meta { margin:4px 0 0; color: var(--text-sub); font-size:.86rem; }
+.sched-link { margin-top:4px; font-size:.88rem; font-weight:700; color: var(--red); text-decoration:none; }
+.sched-sample { background:#fff3cd; color:#7a5a00; border-radius:6px; padding:1px 6px; font-size:.72rem; font-weight:700; }
+.sched-empty { color: var(--text-sub); background:#fff; border-radius: var(--radius); padding:18px; }
+@media (max-width: 720px) {
+  .sched-summary { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .sched-urgent .btn { width:100%; justify-content:center; }
+}
+</style>
+
+<script>
+/* =====================================================================
+   ▼▼▼ 대기 현황 입력하는 곳 (이 부분만 고치면 됩니다) ▼▼▼
+
+   updated : 마지막으로 고친 날짜
+   shop    : "f1" = 인천에프원모터스 / "one" = 원모터스 인천점
+   status  : "working" 작업 중 / "parts" 부품 대기 / "waiting" 입고 대기 / "done" 출고 완료
+   car     : 차종 (차량번호 · 고객 이름은 절대 쓰지 마세요)
+   work    : 작업 종류
+   date    : 예상 입고일 또는 출고일 (모르면 "")
+   link    : 정비사례 페이지 주소 (없으면 "")
+   sample  : true 면 "예시" 표시 → 실제 차량으로 바꾸면 이 줄을 지우세요
+   ===================================================================== */
+var SCHEDULE = {
+  updated: "2026-09-17",
+  cars: [
+    { shop:"one", status:"working", car:"벤츠 E250",           work:"엔진 소음 · 오일 소모 정밀 진단",   date:"",       link:"", sample:true },
+    { shop:"one", status:"parts",   car:"BMW 520d",            work:"엔진보링 · 부품 입고 대기",          date:"9월 23일경 부품 도착 예정", link:"", sample:true },
+    { shop:"one", status:"waiting", car:"아우디 A6",           work:"간헐적 경고등 고장진단",             date:"9월 26일경 입고", link:"", sample:true },
+    { shop:"one", status:"waiting", car:"폭스바겐 티구안",     work:"배터리 반복 방전 점검",              date:"9월 29일경 입고", link:"", sample:true },
+    { shop:"one", status:"done",    car:"벤츠 CLA250",         work:"엔진 탈부착 · 실린더헤드 교환",       date:"2026년 8월 출고", link:"cases-onemotors.html" },
+
+    { shop:"f1",  status:"working", car:"현대 포터2",          work:"커먼레일 인젝터 점검 · 교환",        date:"",       link:"", sample:true },
+    { shop:"f1",  status:"waiting", car:"기아 쏘렌토",         work:"DPF 클리닝",                         date:"9월 22일경 입고", link:"", sample:true },
+    { shop:"f1",  status:"waiting", car:"KGM 렉스턴 스포츠",   work:"출력 저하 고장코드 진단",            date:"9월 24일경 입고", link:"", sample:true },
+    { shop:"f1",  status:"done",    car:"현대 스타렉스",       work:"인젝터 교환 · 시운전 완료",          date:"9월 출고", link:"", sample:true }
+  ]
+};
+/* ▲▲▲ 여기까지 ▲▲▲ */
+
+(function () {
+  var SHOP = { f1: "인천에프원모터스", one: "원모터스 인천점" };
+  var GROUPS = [
+    { key:"working", title:"작업 중" },
+    { key:"parts",   title:"부품 대기" },
+    { key:"waiting", title:"입고 대기 (예약 순)" },
+    { key:"done",    title:"최근 출고" }
+  ];
+  var current = "all";
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+  function render() {
+    var cars = SCHEDULE.cars.filter(function (c) { return current === "all" || c.shop === current; });
+    function count(st){ return cars.filter(function(c){ return c.status === st; }).length; }
+    function nextIn(shop){ var w = SCHEDULE.cars.filter(function(c){ return c.shop === shop && c.status === "waiting" && c.date; })[0]; return w ? w.date : "문의"; }
+    var nextHtml = current === "all"
+      ? '<span class="sched-next">에프원 · ' + esc(nextIn("f1")) + '</span><span class="sched-next">원모터스 · ' + esc(nextIn("one")) + '</span>'
+      : esc(nextIn(current));
+
+    document.getElementById("schedSummary").innerHTML =
+      '<div class="sched-num is-red"><small>작업 중</small><b>' + count("working") + '대</b></div>' +
+      '<div class="sched-num"><small>입고 대기</small><b>' + (count("waiting") + count("parts")) + '대</b></div>' +
+      '<div class="sched-num"><small>다음 입고 예정</small><b class="sched-date">' + nextHtml + '</b></div>' +
+      '<div class="sched-num"><small>최근 출고</small><b>' + count("done") + '대</b></div>';
+
+    document.getElementById("schedUpdated").textContent = "마지막 업데이트: " + SCHEDULE.updated + " · 일정은 작업 상황에 따라 바뀔 수 있습니다.";
+
+    var html = "";
+    GROUPS.forEach(function (g) {
+      var list = cars.filter(function (c) { return c.status === g.key; });
+      if (!list.length) return;
+      html += '<div class="sched-group"><h2>' + g.title + ' <span>' + list.length + '</span></h2><div class="sched-cards">';
+      var order = {};
+      list.forEach(function (c) {
+        order[c.shop] = (order[c.shop] || 0) + 1; var i = order[c.shop] - 1;
+        html += '<article class="sched-card" data-status="' + esc(c.status) + '">' +
+          '<div class="sched-top"><span class="sched-shop">' + esc(SHOP[c.shop] || "") +
+          (g.key === "waiting" ? ' · ' + (i + 1) + '번째' : '') + '</span>' +
+          (c.sample ? '<span class="sched-sample">예시</span>' : '') + '</div>' +
+          '<h3>' + esc(c.car) + '</h3>' +
+          '<p class="sched-work">' + esc(c.work) + '</p>' +
+          (c.date ? '<p class="sched-meta">' + esc(c.date) + '</p>' : '') +
+          (c.link ? '<a class="sched-link" href="' + esc(c.link) + '">정비사례 보기 →</a>' : '') +
+          '</article>';
+      });
+      html += '</div></div>';
+    });
+    document.getElementById("schedList").innerHTML = html || '<p class="sched-empty">현재 대기 차량이 없습니다. 바로 입고 가능합니다.</p>';
+  }
+
+  document.querySelectorAll(".sched-tab").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll(".sched-tab").forEach(function (x) { x.classList.remove("is-on"); });
+      b.classList.add("is-on"); current = b.getAttribute("data-shop"); render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

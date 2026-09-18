@@ -5,5 +5,4 @@ Allow: /
 User-agent: Yeti
 Allow: /
 
-# ▼ 도메인이 정해지면 아래 주소를 실제 주소로 바꿔주세요
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://onemotorsincheon.co.kr/sitemap.xml
