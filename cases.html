@@ -35,7 +35,7 @@
     </a>
 
     <nav class="nav" id="nav">
-      <a href="f1motors.html#about">소개</a>
+      <a href="about.html">소개</a>
       <a href="f1motors.html#symptoms">증상</a>
       <a href="f1motors.html#services">전문분야</a>
       <a class="active" href="cases.html">정비사례</a>
@@ -63,9 +63,15 @@
     <p class="sec-eyebrow">REPAIR CASES</p>
     <h1 class="page-title">정비사례</h1>
     <p class="page-desc">
-      차종별로 자주 들어오는 작업을 <strong>증상 → 진단 → 작업 → 결과</strong> 순서로 정리했습니다.
+      어떤 증상으로 입고되어, 어떤 방법으로 진단했고, 무엇을 수리해서 출고했는지를
+      <strong>증상 → 진단 → 작업 → 결과</strong> 네 단계로 정리했습니다.
       실제 작업 사진과 정비내역서는 촬영되는 대로 순차적으로 추가됩니다.
     </p>
+    <ul class="case-scope" aria-label="정비 가능 차량">
+      <li><b>국산차</b><small>전 차종</small></li>
+      <li><b>수입차</b><small>전 차종</small></li>
+      <li><b>디젤</b><small>일부 차량 제외</small></li>
+    </ul>
     <p class="privacy-note">
       게시 시 고객 개인정보(성명 · 연락처 · 차량번호)는 모두 가린 뒤 올립니다.
     </p>
@@ -84,9 +90,56 @@
   </div>
 </section>
 
+<!-- ===================== 분류별 작업 가능 차량 ===================== -->
+<section class="section section-cases brand-panel-wrap">
+  <div class="container">
+
+    <!-- ▼ 분류 버튼에 따라 하나씩 열립니다. 차종 버튼은 assets/js/cases-data.js 의 자료로 자동 생성됩니다 -->
+    <div class="brand-panel" data-panel="all" hidden>
+      <p class="bp-eyebrow">REPAIR RECORDS</p>
+      <h2 class="bp-title">지금까지 작업한 <strong>차종별 기록</strong></h2>
+      <div class="bp-tiles" data-tiles="all"></div>
+      <p class="bp-hint">아래에 전체 기록이 모두 나와 있습니다. 차종을 누르면 그 차종만 골라서 봅니다.</p>
+      <p class="bp-note">
+        실제 정비내역서를 그대로 옮긴 기록입니다. <strong>고객 성명 · 연락처 · 차량번호는 표시하지 않습니다.</strong>
+        입고 증상과 진단 과정은 확인되는 대로 채워 넣고 있습니다.
+      </p>
+    </div>
+
+    <div class="brand-panel" data-panel="injector" hidden>
+      <p class="bp-eyebrow">COMMON RAIL &middot; INJECTOR</p>
+      <h2 class="bp-title">커먼레일 &middot; 인젝터 <strong>작업 가능 차량</strong></h2>
+      <div class="bp-tiles" data-tiles="injector"></div>
+      <p class="bp-hint">아래에 해당 기록이 모두 나와 있습니다. 차종을 누르면 그 차종만 골라서 봅니다.</p>
+      <p class="bp-note">
+        보쉬 &middot; 델파이 &middot; 덴소 &middot; 지멘스(피에조) 인젝터를 장비로 직접 테스트하고 오버홀합니다.
+        차종과 연식에 따라 재생이 불가능한 경우도 있어, <strong>테스트 후에 알려드립니다.</strong>
+      </p>
+    </div>
+
+    <div class="brand-panel" data-panel="dpf" hidden>
+      <p class="bp-eyebrow">DPF CLEANING</p>
+      <h2 class="bp-title">DPF 클리닝 <strong>작업 가능 차량</strong></h2>
+      <div class="bp-tiles" data-tiles="dpf"></div>
+      <p class="bp-hint">아래에 해당 기록이 모두 나와 있습니다. 차종을 누르면 그 차종만 골라서 봅니다.</p>
+      <p class="bp-note">
+        <strong>떼지 않고</strong> 장착된 상태로 클리닝합니다. 작업 전후로 차압과 재생 주기를 확인해
+        효과를 수치로 보여드립니다. 필터가 녹아붙은 경우처럼 클리닝으로 해결되지 않는 상태는 미리 알려드립니다.
+      </p>
+    </div>
+
+  </div>
+</section>
+
 <!-- ===================== 사례 목록 ===================== -->
 <section class="section section-cases">
   <div class="container">
+    <p class="case-count" id="brandCount" hidden></p>
+    <div class="case-list" id="brandCases" hidden></div>
+    <p class="case-none" id="brandNone" hidden>이 차종의 기록은 아직 정리 중입니다.</p>
+
+    <p class="case-divider"><span>정비 이야기</span></p>
+
     <aside class="rebuild-note">
       <h2>커먼레일 인젝터, <strong>직접 수리하고 재생합니다</strong></h2>
       <p>
@@ -266,6 +319,7 @@
         <div class="case-shots"><div class="shot-empty">작업 사진 · 정비내역서 준비 중</div></div>
       </article>
 
+
     </div>
 
     <p class="case-more">작업 사진과 정비내역서, 유튜브 영상을 순차적으로 추가하고 있습니다.</p>
@@ -321,6 +375,7 @@
   <p class="lightbox-cap" id="lightboxCap"></p>
 </div>
 
+<script src="assets/js/cases-data.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>
