@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>차량 고장 검색 | 증상·수리 내용으로 찾기 · 원모터스 인천점 · 인천에프원모터스</title>
+
+<meta name="description" content="내 차 증상이나 부품 이름을 입력하면 관련 증상 안내와 실제 정비사례를 함께 찾아드립니다. 경고등, 매연, DPF, 인젝터, 누유, 엔진보링 등. 인천 제물포구 원모터스 인천점 · 인천에프원모터스." />
+<meta name="keywords" content="차량 고장 검색, 자동차 증상 검색, 인천 정비소 검색, 엔진 경고등, 매연, DPF 클리닝, 커먼레일 인젝터, 엔진 누유, 헤드가스켓, 엔진보링, 인천 고장진단, 인천 제물포구 정비소" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="차량 고장 검색 | 증상·수리 내용으로 찾기" />
+<meta property="og:description" content="증상이나 부품 이름을 치면 증상 안내와 실제 정비사례를 같이 찾아드립니다." />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:url" content="https://onemotorsincheon.co.kr/search.html" />
+<meta property="og:image" content="https://onemotorsincheon.co.kr/assets/img/og-onemotors.jpg" />
+<link rel="canonical" href="https://onemotorsincheon.co.kr/search.html" />
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body class="theme-one">
+
+<a class="skip-link" href="#main">본문 바로가기</a>
+
+<header class="site-header scrolled" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">
+      <img class="logo-one logo-one-brand" src="assets/img/logo-one.png" alt="" aria-hidden="true" width="560" height="368" />
+      <span class="brand-text">
+        <strong>원모터스 인천점</strong>
+        <small>수입차 진단 · 정비 · 엔진보링</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="about.html">소개</a>
+      <a href="symptoms.html">증상 알아보기</a>
+      <a href="index.html#services">전문분야</a>
+      <a class="active" href="search.html">고장검색</a>
+      <a href="cases-onemotors.html">정비사례</a>
+      <a href="schedule.html">대기현황</a>
+      <a href="index.html#location">오시는길</a>
+      <a class="nav-sister nav-sister-f1" href="f1motors.html">인천에프원모터스</a>
+    </nav>
+
+    <a class="btn btn-call header-call" href="tel:01047218957">
+      <span class="ico-phone" aria-hidden="true"></span> 010-4721-8957
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="page-head">
+  <div class="container">
+    <p class="sec-eyebrow">SEARCH</p>
+    <h1 class="page-title">차량 고장 검색</h1>
+    <p class="page-desc">
+      증상이나 부품 이름을 적어 보세요. <strong>증상 안내</strong>와
+      <strong>실제 정비사례</strong>를 같이 찾아드립니다.
+    </p>
+  </div>
+</section>
+
+<section class="section section-fsearch">
+  <div class="container container-narrow">
+
+    <div class="fs-box">
+      <label class="fs-label" for="fsInput">어떤 증상인가요?</label>
+      <div class="fs-field">
+        <svg class="fs-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8 21 21"/></svg>
+        <input type="search" id="fsInput" placeholder="예) 매연, 경고등, 시동, 누유, 인젝터, 그랜져" autocomplete="off" />
+        <button type="button" class="fs-clear" id="fsClear" aria-label="지우기" hidden>&times;</button>
+      </div>
+      <div class="fs-quick" id="fsQuick">
+        <span>자주 찾는 말</span>
+        <button type="button">경고등</button>
+        <button type="button">매연</button>
+        <button type="button">DPF</button>
+        <button type="button">인젝터</button>
+        <button type="button">누유</button>
+        <button type="button">시동</button>
+        <button type="button">소음</button>
+        <button type="button">엔진보링</button>
+        <button type="button">헤드가스켓</button>
+        <button type="button">터보</button>
+      </div>
+    </div>
+
+    <p class="fs-count" id="fsCount"></p>
+
+    <div class="fs-group" id="fsSymWrap" hidden>
+      <h2 class="fs-gt">증상 안내</h2>
+      <div class="fs-sym" id="fsSym"></div>
+    </div>
+
+    <div class="fs-group" id="fsCaseWrap" hidden>
+      <h2 class="fs-gt">실제 정비사례</h2>
+      <div class="fs-cases" id="fsCases"></div>
+      <button type="button" class="fs-more" id="fsMore" hidden>더 보기</button>
+    </div>
+
+    <div class="fs-empty" id="fsEmpty" hidden>
+      <p><strong>찾으시는 내용이 목록에 없습니다.</strong></p>
+      <p>증상을 직접 말씀해 주시면 확인해 드리겠습니다. 차종 · 연식 · 주행거리와 증상을 알려주세요.</p>
+      <div class="contact-actions">
+        <a class="btn btn-primary btn-lg" href="tel:01047218957"><span class="ico-phone" aria-hidden="true"></span> 010-4721-8957</a>
+        <a class="btn btn-kakao btn-lg" href="https://pf.kakao.com/_nxivaX/chat" target="_blank" rel="noopener">카카오톡 상담</a>
+      </div>
+    </div>
+
+    <p class="fs-note">
+      검색 결과는 <strong>일반적인 안내</strong>입니다. 같은 증상이라도 차종과 상태에 따라 원인이 다릅니다.
+      정확한 원인은 <strong>차량을 직접 점검해야</strong> 알 수 있습니다.
+      저희는 각 제조사 공식 서비스센터가 아닌 독립 정비업체입니다.
+    </p>
+
+  </div>
+</section>
+
+<section class="section section-contact" id="contact">
+  <div class="container contact-inner">
+    <h2>증상 남기고 상담하기</h2>
+    <p>차종, 연식, 주행거리, 증상만 알려주시면 예상 원인과 점검 방향을 안내해 드립니다.<br class="br-m" />상담은 무료입니다.</p>
+    <div class="contact-actions">
+      <a class="btn btn-primary btn-lg" href="tel:01047218957">
+        <span class="ico-phone" aria-hidden="true"></span> 010-4721-8957
+      </a>
+      <a class="btn btn-kakao btn-lg" href="https://pf.kakao.com/_nxivaX/chat" target="_blank" rel="noopener">카카오톡 상담</a>
+    </div>
+    <p class="contact-hours">
+      평일 09:00 – 18:00 &nbsp;|&nbsp; 토요일 · 일요일 · 공휴일 휴무<br />
+      <span class="hours-kakao">카카오톡 견적 상담은 평일 20:00까지 받습니다</span>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img class="logo-one logo-one-brand" src="assets/img/logo-one.png" alt="" aria-hidden="true" width="560" height="368" />
+      <div>
+        <strong>원모터스 인천점</strong>
+        <small>수입차 고장진단 · 정비 · 엔진보링</small>
+      </div>
+    </div>
+    <div class="footer-info">
+      <p>주소 인천광역시 제물포구 송현동 2-74 &nbsp;|&nbsp; 대표 박권우</p>
+      <p>사업자등록번호 000-00-00000 &nbsp;|&nbsp; 전화 010-4721-8957</p>
+      <p class="footer-links">
+        <a href="index.html">홈</a>
+        <a href="f1motors.html">인천에프원모터스</a>
+        <a href="symptoms.html">증상 알아보기</a>
+      </p>
+      <p class="copy">&copy; 2026 원모터스 인천점. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a class="floating-call" href="tel:01047218957">
+  <span class="ico-phone" aria-hidden="true"></span> 전화 상담 바로가기
+</a>
+
+<script src="assets/js/cases-data.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+/* ============================================================
+   차량 고장 검색
+   - 증상 안내 12가지 + 정비사례(cases-data.js)에서 같이 찾습니다.
+   - 새 증상을 추가하려면 아래 SYMS 배열에 { id, t, q, chk } 한 줄만 넣으세요.
+     id 는 symptoms.html 안의 해당 항목 id 와 같아야 합니다.
+   ============================================================ */
+(function () {
+  var SYMS = [
+  {
+    "id": "warning",
+    "t": "경고등이 떴어요",
+    "q": [
+      "엔진 경고등",
+      "체크엔진",
+      "경고등 지워도 다시 뜸",
+      "고장코드"
+    ],
+    "chk": [
+      "저장된 고장코드",
+      "센서 실측값",
+      "배선·커넥터",
+      "부품 작동 여부"
+    ]
+  },
+  {
+    "id": "start",
+    "t": "시동이 잘 안 걸려요",
+    "q": [
+      "시동 불량",
+      "크랭킹",
+      "예열플러그",
+      "아침 시동"
+    ],
+    "chk": [
+      "배터리 전압",
+      "연료 압력",
+      "인젝터 리턴량",
+      "크랭크·캠 센서"
+    ]
+  },
+  {
+    "id": "power",
+    "t": "가속이 안 되고 힘이 없어요",
+    "q": [
+      "출력 저하",
+      "힘 없음",
+      "가속 불량",
+      "언덕"
+    ],
+    "chk": [
+      "DPF 막힘",
+      "터보 과급압",
+      "EGR 고착",
+      "흡기 카본",
+      "인젝터",
+      "촉매"
+    ]
+  },
+  {
+    "id": "smoke",
+    "t": "매연이 심해요",
+    "q": [
+      "검은 연기",
+      "흰 연기",
+      "푸른 연기",
+      "디젤 매연",
+      "배기"
+    ],
+    "chk": [
+      "인젝터 분사량",
+      "DPF 포집",
+      "EGR",
+      "터보 오일 씰",
+      "압축 압력"
+    ]
+  },
+  {
+    "id": "dpf",
+    "t": "DPF 경고등이 자꾸 떠요",
+    "q": [
+      "DPF 재생",
+      "DPF 클리닝",
+      "매연저감장치",
+      "DPF 교체"
+    ],
+    "chk": [
+      "DPF 차압",
+      "재생 횟수",
+      "인젝터 상태",
+      "짧은 거리 주행"
+    ]
+  },
+  {
+    "id": "noise",
+    "t": "엔진에서 소리가 나요",
+    "q": [
+      "엔진 소음",
+      "달그락",
+      "냉간 소음",
+      "잡소리"
+    ],
+    "chk": [
+      "타이밍체인",
+      "텐셔너",
+      "유압태핏",
+      "겉벨트",
+      "워터펌프",
+      "오일 압력"
+    ]
+  },
+  {
+    "id": "oilloss",
+    "t": "엔진오일이 줄어들어요",
+    "q": [
+      "오일 소모",
+      "오일 보충",
+      "오일 경고등",
+      "엔진보링"
+    ],
+    "chk": [
+      "실린더 마모",
+      "압축 불량",
+      "밸브 스템 실",
+      "터보 오일 씰"
+    ]
+  },
+  {
+    "id": "leak",
+    "t": "주차한 자리에 기름이 떨어져 있어요",
+    "q": [
+      "엔진 누유",
+      "오일 누유",
+      "기름 자국",
+      "헤드가스켓"
+    ],
+    "chk": [
+      "헤드가스켓",
+      "엔진오일팬",
+      "프런트케이스",
+      "오일필터 하우징",
+      "캠커버",
+      "크랭크 씰"
+    ]
+  },
+  {
+    "id": "coolant",
+    "t": "냉각수가 줄고 온도가 올라가요",
+    "q": [
+      "오버히트",
+      "과열",
+      "냉각수 부족",
+      "부동액"
+    ],
+    "chk": [
+      "워터펌프",
+      "서모스탯",
+      "라디에이터",
+      "헤드가스켓",
+      "냉각 제어밸브"
+    ]
+  },
+  {
+    "id": "shake",
+    "t": "차가 떨려요",
+    "q": [
+      "엔진 부조",
+      "공회전 떨림",
+      "진동",
+      "실화"
+    ],
+    "chk": [
+      "기통별 실화",
+      "인젝터",
+      "점화 코일·플러그",
+      "엔진 마운트",
+      "구동계"
+    ]
+  },
+  {
+    "id": "battery",
+    "t": "배터리가 자꾸 방전돼요",
+    "q": [
+      "방전",
+      "암전류",
+      "블랙박스 방전",
+      "배터리"
+    ],
+    "chk": [
+      "암전류",
+      "배터리 성능",
+      "발전기 충전",
+      "외부 장착품"
+    ]
+  },
+  {
+    "id": "trans",
+    "t": "변속할 때 충격이 있어요",
+    "q": [
+      "변속 충격",
+      "미션",
+      "울컥",
+      "기어"
+    ],
+    "chk": [
+      "미션오일",
+      "밸브바디·솔레노이드",
+      "클러치(DCT)",
+      "엔진 마운트",
+      "학습값"
+    ]
+  }
+];
+
+  var BN = { hyundai:'현대', kia:'기아', kgm:'KGM · 쌍용', renault:'르노코리아', chevrolet:'쉐보레',
+             porsche:'포르쉐', benz:'벤츠', bmw:'BMW', audi:'아우디', vw:'폭스바겐', etc:'그 외 차종' };
+
+  var CASES = (window.CASES || []).map(function (r) {
+    var hay = [r.car, r.title, r.repair, r.symptom, r.diagnosis, BN[r.brand] || '']
+      .concat(r.sym || []).concat(r.q || []).join(' ');
+    return { r: r, hay: norm(hay) };
+  });
+  var SYMI = SYMS.map(function (s) {
+    return { s: s, hay: norm([s.t].concat(s.q).concat(s.chk).join(' ')) };
+  });
+
+  function norm(t) { return String(t || '').toLowerCase().replace(/\s+/g, ''); }
+  function esc(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function cut(t, n) { t = String(t || ''); return t.length > n ? t.slice(0, n) + '…' : t; }
+
+  var input = document.getElementById('fsInput');
+  var clear = document.getElementById('fsClear');
+  var count = document.getElementById('fsCount');
+  var symWrap = document.getElementById('fsSymWrap'), symBox = document.getElementById('fsSym');
+  var caseWrap = document.getElementById('fsCaseWrap'), caseBox = document.getElementById('fsCases');
+  var more = document.getElementById('fsMore');
+  var empty = document.getElementById('fsEmpty');
+
+  var STEP = 8, shown = STEP, hits = [];
+
+  function symCard(s) {
+    return '<a class="fs-scard" href="symptoms.html#' + s.id + '">' +
+      '<strong>' + esc(s.t) + '</strong>' +
+      '<span class="fs-chk">' + s.chk.slice(0, 4).map(function (c) {
+        return '<i>' + esc(c) + '</i>';
+      }).join('') + '</span>' +
+      '<em>자세히 보기 &rsaquo;</em></a>';
+  }
+  function caseCard(r) {
+    var meta = [];
+    if (r.km) meta.push(r.km);
+    if (r.out) meta.push(r.out + ' 출고');
+    return '<a class="fs-ccard" href="cases.html">' +
+      '<span class="fs-badge">' + esc(BN[r.brand] || '') + '</span>' +
+      '<strong>' + esc(r.car) + (r.title ? ' — ' + esc(r.title) : '') + '</strong>' +
+      (meta.length ? '<span class="fs-meta">' + esc(meta.join(' · ')) + '</span>' : '') +
+      (r.repair ? '<span class="fs-rep">' + esc(cut(r.repair, 90)) + '</span>' : '') +
+      '</a>';
+  }
+
+  function render() {
+    var q = norm(input.value);
+    clear.hidden = !input.value;
+
+    if (!q) {
+      symWrap.hidden = caseWrap.hidden = empty.hidden = true;
+      count.textContent = '';
+      return;
+    }
+
+    var sy = SYMI.filter(function (x) { return x.hay.indexOf(q) > -1; }).map(function (x) { return x.s; });
+    hits = CASES.filter(function (x) { return x.hay.indexOf(q) > -1; }).map(function (x) { return x.r; });
+    shown = STEP;
+
+    symWrap.hidden = !sy.length;
+    symBox.innerHTML = sy.map(symCard).join('');
+
+    caseWrap.hidden = !hits.length;
+    drawCases();
+
+    var n = sy.length + hits.length;
+    empty.hidden = n > 0;
+    count.textContent = n ? ('“' + input.value.trim() + '” 검색 결과 ' + n + '건 — 증상 안내 ' +
+      sy.length + '건, 정비사례 ' + hits.length + '건') : '';
+  }
+  function drawCases() {
+    caseBox.innerHTML = hits.slice(0, shown).map(caseCard).join('');
+    more.hidden = hits.length <= shown;
+    more.textContent = '더 보기 (' + (hits.length - shown) + '건)';
+  }
+
+  input.addEventListener('input', render);
+  clear.addEventListener('click', function () { input.value = ''; input.focus(); render(); });
+  more.addEventListener('click', function () { shown += STEP * 2; drawCases(); });
+  document.getElementById('fsQuick').addEventListener('click', function (e) {
+    if (e.target.tagName !== 'BUTTON') return;
+    input.value = e.target.textContent; render(); input.focus();
+  });
+
+  // 주소 뒤에 ?q=매연 처럼 붙여 오면 바로 검색되게
+  var m = location.search.match(/[?&]q=([^&]+)/);
+  if (m) { try { input.value = decodeURIComponent(m[1]); } catch (err) {} render(); }
+})();
+</script>
+
+<style>
+/* 차량 고장 검색 */
+.fs-box { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); padding: 24px 22px; }
+.fs-label { display: block; font-size: 13px; font-weight: 900; letter-spacing: .04em; color: #a97f00; margin-bottom: 10px; }
+.fs-field { position: relative; display: flex; align-items: center; }
+.fs-ico { position: absolute; left: 16px; width: 20px; height: 20px; fill: none; stroke: #9aa1ab; stroke-width: 2; stroke-linecap: round; }
+.fs-field input {
+  width: 100%; box-sizing: border-box; padding: 16px 46px 16px 46px;
+  font: inherit; font-size: 17px; font-weight: 700;
+  border: 2px solid #e3e6ea; border-radius: 12px; background: #fafbfc; color: var(--text);
+  -webkit-appearance: none; appearance: none;
+}
+.fs-field input::-webkit-search-cancel-button { display: none; }
+.fs-field input:focus { outline: none; border-color: #d8a600; background: #fff; }
+.fs-field input::placeholder { color: #b4bac2; font-weight: 600; }
+.fs-clear {
+  position: absolute; right: 12px; width: 26px; height: 26px; border: 0; border-radius: 50%;
+  background: #e6e8ec; color: #6d747d; font-size: 17px; line-height: 26px; cursor: pointer;
+}
+.fs-quick { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.fs-quick > span { font-size: 12.5px; font-weight: 800; color: #9aa1ab; margin-right: 2px; }
+.fs-quick button {
+  border: 1px solid #e3e6ea; background: #f3f5f8; color: #454b54;
+  border-radius: 999px; padding: 7px 13px; font: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;
+}
+.fs-quick button:hover { border-color: #d8a600; background: #fff8e2; color: #7a5c00; }
+
+.fs-count { margin-top: 18px; font-size: 14.5px; font-weight: 800; color: var(--text-sub); }
+.fs-group { margin-top: 22px; }
+.fs-gt { font-size: 15px; font-weight: 900; letter-spacing: -.01em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #efe0ae; }
+
+.fs-sym { display: flex; flex-direction: column; gap: 10px; }
+.fs-scard {
+  display: block; text-decoration: none; color: inherit;
+  background: #fffdf5; border: 1px solid #efe0ae; border-radius: var(--radius); padding: 18px 20px;
+}
+.fs-scard:hover { border-color: #d8a600; }
+.fs-scard > strong { display: block; font-size: 17px; font-weight: 900; letter-spacing: -.02em; }
+.fs-chk { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.fs-chk i { font-style: normal; font-size: 13px; font-weight: 700; color: #6d747d; background: #fff; border: 1px solid #e8e3d0; border-radius: 999px; padding: 5px 11px; }
+.fs-scard > em { display: inline-block; margin-top: 12px; font-style: normal; font-size: 14px; font-weight: 800; color: #a97f00; }
+
+.fs-cases { display: flex; flex-direction: column; gap: 10px; }
+.fs-ccard {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); padding: 18px 20px;
+}
+.fs-ccard:hover { border-color: #d8a600; }
+.fs-badge { display: inline-block; font-size: 12px; font-weight: 900; color: #6d747d; background: #f3f5f8; border-radius: 6px; padding: 4px 9px; }
+.fs-ccard > strong { display: block; margin-top: 9px; font-size: 16.5px; font-weight: 900; letter-spacing: -.02em; line-height: 1.45; }
+.fs-meta { display: block; margin-top: 6px; font-size: 13.5px; font-weight: 700; color: #9aa1ab; }
+.fs-rep { display: block; margin-top: 9px; font-size: 14.5px; line-height: 1.7; color: var(--text-sub); }
+.fs-more {
+  width: 100%; margin-top: 12px; padding: 14px; cursor: pointer;
+  border: 1px solid #e3e6ea; border-radius: var(--radius); background: #f7f8fa;
+  font: inherit; font-size: 15px; font-weight: 800; color: #454b54;
+}
+.fs-more:hover { border-color: #d8a600; background: #fff8e2; }
+
+.fs-empty { margin-top: 22px; background: #fffdf5; border: 1px solid #efe0ae; border-radius: var(--radius); padding: 24px 22px; }
+.fs-empty p { font-size: 15.5px; line-height: 1.8; color: var(--text-sub); }
+.fs-empty p + p { margin-top: 6px; }
+.fs-empty .contact-actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.fs-note {
+  margin-top: 28px; background: #f7f8fa; border: 1px solid #e6e8ec; border-radius: var(--radius);
+  padding: 20px 22px; font-size: 14.5px; line-height: 1.8; color: var(--text-sub);
+}
+@media (max-width: 560px) {
+  .fs-box { padding: 20px 16px; }
+  .fs-field input { font-size: 16px; padding: 15px 44px 15px 42px; }
+  .fs-ico { left: 14px; }
+}
+</style>
+
+</body>
+</html>

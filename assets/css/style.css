@@ -283,6 +283,10 @@ li { list-style: none; }
 .section-contact .btn-primary { background: #fff; color: var(--red); box-shadow: 0 10px 28px rgba(0,0,0,.22); }
 .section-contact .btn-primary:hover { background: #f3f3f3; }
 .contact-hours { margin-top: 26px; font-size: 14.5px; color: rgba(255,255,255,.85); }
+.contact-hours .hours-kakao {
+  display: inline-block; margin-top: 8px; font-size: 13.5px;
+  color: rgba(255,255,255,.7);
+}
 
 /* ---------- FAQ ---------- */
 .section-faq { background: var(--paper); }
