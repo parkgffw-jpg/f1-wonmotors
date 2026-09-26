@@ -169,6 +169,7 @@
 </a>
 
 <script src="assets/js/cases-data.js"></script>
+<script src="assets/js/cases-onemotors-data.js"></script>
 <script src="assets/js/search-words.js"></script>
 <script src="assets/js/main.js"></script>
 
@@ -181,219 +182,244 @@
    ============================================================ */
 (function () {
   var SYMS = [
-  {
-    "id": "warning",
-    "t": "경고등이 떴어요",
-    "q": [
-      "엔진 경고등",
-      "체크엔진",
-      "경고등 지워도 다시 뜸",
-      "고장코드"
-    ],
-    "chk": [
-      "저장된 고장코드",
-      "센서 실측값",
-      "배선·커넥터",
-      "부품 작동 여부"
-    ]
-  },
-  {
-    "id": "start",
-    "t": "시동이 잘 안 걸려요",
-    "q": [
-      "시동 불량",
-      "크랭킹",
-      "예열플러그",
-      "아침 시동"
-    ],
-    "chk": [
-      "배터리 전압",
-      "연료 압력",
-      "인젝터 리턴량",
-      "크랭크·캠 센서"
-    ]
-  },
-  {
-    "id": "power",
-    "t": "가속이 안 되고 힘이 없어요",
-    "q": [
-      "출력 저하",
-      "힘 없음",
-      "가속 불량",
-      "언덕"
-    ],
-    "chk": [
-      "DPF 막힘",
-      "터보 과급압",
-      "EGR 고착",
-      "흡기 카본",
-      "인젝터",
-      "촉매"
-    ]
-  },
-  {
-    "id": "smoke",
-    "t": "매연이 심해요",
-    "q": [
-      "검은 연기",
-      "흰 연기",
-      "푸른 연기",
-      "디젤 매연",
-      "배기"
-    ],
-    "chk": [
-      "인젝터 분사량",
-      "DPF 포집",
-      "EGR",
-      "터보 오일 씰",
-      "압축 압력"
-    ]
-  },
-  {
-    "id": "dpf",
-    "t": "DPF 경고등이 자꾸 떠요",
-    "q": [
-      "DPF 재생",
-      "DPF 클리닝",
-      "매연저감장치",
-      "DPF 교체"
-    ],
-    "chk": [
-      "DPF 차압",
-      "재생 횟수",
-      "인젝터 상태",
-      "짧은 거리 주행"
-    ]
-  },
-  {
-    "id": "noise",
-    "t": "엔진에서 소리가 나요",
-    "q": [
-      "엔진 소음",
-      "달그락",
-      "냉간 소음",
-      "잡소리"
-    ],
-    "chk": [
-      "타이밍체인",
-      "텐셔너",
-      "유압태핏",
-      "겉벨트",
-      "워터펌프",
-      "오일 압력"
-    ]
-  },
-  {
-    "id": "oilloss",
-    "t": "엔진오일이 줄어들어요",
-    "q": [
-      "오일 소모",
-      "오일 보충",
-      "오일 경고등",
-      "엔진보링"
-    ],
-    "chk": [
-      "실린더 마모",
-      "압축 불량",
-      "밸브 스템 실",
-      "터보 오일 씰"
-    ]
-  },
-  {
-    "id": "leak",
-    "t": "주차한 자리에 기름이 떨어져 있어요",
-    "q": [
-      "엔진 누유",
-      "오일 누유",
-      "기름 자국",
-      "헤드가스켓"
-    ],
-    "chk": [
-      "헤드가스켓",
-      "엔진오일팬",
-      "프런트케이스",
-      "오일필터 하우징",
-      "캠커버",
-      "크랭크 씰"
-    ]
-  },
-  {
-    "id": "coolant",
-    "t": "냉각수가 줄고 온도가 올라가요",
-    "q": [
-      "오버히트",
-      "과열",
-      "냉각수 부족",
-      "부동액"
-    ],
-    "chk": [
-      "워터펌프",
-      "서모스탯",
-      "라디에이터",
-      "헤드가스켓",
-      "냉각 제어밸브"
-    ]
-  },
-  {
-    "id": "shake",
-    "t": "차가 떨려요",
-    "q": [
-      "엔진 부조",
-      "공회전 떨림",
-      "진동",
-      "실화"
-    ],
-    "chk": [
-      "기통별 실화",
-      "인젝터",
-      "점화 코일·플러그",
-      "엔진 마운트",
-      "구동계"
-    ]
-  },
-  {
-    "id": "battery",
-    "t": "배터리가 자꾸 방전돼요",
-    "q": [
-      "방전",
-      "암전류",
-      "블랙박스 방전",
-      "배터리"
-    ],
-    "chk": [
-      "암전류",
-      "배터리 성능",
-      "발전기 충전",
-      "외부 장착품"
-    ]
-  },
-  {
-    "id": "trans",
-    "t": "변속할 때 충격이 있어요",
-    "q": [
-      "변속 충격",
-      "미션",
-      "울컥",
-      "기어"
-    ],
-    "chk": [
-      "미션오일",
-      "밸브바디·솔레노이드",
-      "클러치(DCT)",
-      "엔진 마운트",
-      "학습값"
-    ]
-  }
-];
+    {
+      "id": "warning",
+      "t": "경고등이 떴어요",
+      "q": [
+        "엔진 경고등",
+        "체크엔진",
+        "경고등 지워도 다시 뜸",
+        "고장코드"
+      ],
+      "chk": [
+        "저장된 고장코드",
+        "센서 실측값",
+        "배선·커넥터",
+        "부품 작동 여부"
+      ]
+    },
+    {
+      "id": "start",
+      "t": "시동이 잘 안 걸려요",
+      "q": [
+        "시동 불량",
+        "크랭킹",
+        "예열플러그",
+        "아침 시동"
+      ],
+      "chk": [
+        "배터리 전압",
+        "연료 압력",
+        "인젝터 리턴량",
+        "크랭크·캠 센서"
+      ]
+    },
+    {
+      "id": "power",
+      "t": "가속이 안 되고 힘이 없어요",
+      "q": [
+        "출력 저하",
+        "힘 없음",
+        "가속 불량",
+        "언덕"
+      ],
+      "chk": [
+        "DPF 막힘",
+        "터보 과급압",
+        "EGR 고착",
+        "흡기 카본",
+        "인젝터",
+        "촉매"
+      ]
+    },
+    {
+      "id": "smoke",
+      "t": "매연이 심해요",
+      "q": [
+        "검은 연기",
+        "흰 연기",
+        "푸른 연기",
+        "디젤 매연",
+        "배기"
+      ],
+      "chk": [
+        "인젝터 분사량",
+        "DPF 포집",
+        "EGR",
+        "터보 오일 씰",
+        "압축 압력"
+      ]
+    },
+    {
+      "id": "dpf",
+      "t": "DPF 경고등이 자꾸 떠요",
+      "q": [
+        "DPF 재생",
+        "DPF 클리닝",
+        "매연저감장치",
+        "DPF 교체"
+      ],
+      "chk": [
+        "DPF 차압",
+        "재생 횟수",
+        "인젝터 상태",
+        "짧은 거리 주행"
+      ]
+    },
+    {
+      "id": "noise",
+      "t": "엔진에서 소리가 나요",
+      "q": [
+        "엔진 소음",
+        "달그락",
+        "냉간 소음",
+        "잡소리"
+      ],
+      "chk": [
+        "타이밍체인",
+        "텐셔너",
+        "유압태핏",
+        "겉벨트",
+        "워터펌프",
+        "오일 압력"
+      ]
+    },
+    {
+      "id": "oilloss",
+      "t": "엔진오일이 줄어들어요",
+      "q": [
+        "오일 소모",
+        "오일 보충",
+        "오일 경고등",
+        "엔진보링"
+      ],
+      "chk": [
+        "실린더 마모",
+        "압축 불량",
+        "밸브 스템 실",
+        "터보 오일 씰"
+      ]
+    },
+    {
+      "id": "leak",
+      "t": "주차한 자리에 기름이 떨어져 있어요",
+      "q": [
+        "엔진 누유",
+        "오일 누유",
+        "기름 자국",
+        "헤드가스켓"
+      ],
+      "chk": [
+        "헤드가스켓",
+        "엔진오일팬",
+        "프런트케이스",
+        "오일필터 하우징",
+        "캠커버",
+        "크랭크 씰"
+      ]
+    },
+    {
+      "id": "coolant",
+      "t": "냉각수가 줄고 온도가 올라가요",
+      "q": [
+        "오버히트",
+        "과열",
+        "냉각수 부족",
+        "부동액"
+      ],
+      "chk": [
+        "워터펌프",
+        "서모스탯",
+        "라디에이터",
+        "헤드가스켓",
+        "냉각 제어밸브"
+      ]
+    },
+    {
+      "id": "shake",
+      "t": "차가 떨려요",
+      "q": [
+        "엔진 부조",
+        "공회전 떨림",
+        "진동",
+        "실화"
+      ],
+      "chk": [
+        "기통별 실화",
+        "인젝터",
+        "점화 코일·플러그",
+        "엔진 마운트",
+        "구동계"
+      ]
+    },
+    {
+      "id": "battery",
+      "t": "배터리가 자꾸 방전돼요",
+      "q": [
+        "방전",
+        "암전류",
+        "블랙박스 방전",
+        "배터리"
+      ],
+      "chk": [
+        "암전류",
+        "배터리 성능",
+        "발전기 충전",
+        "외부 장착품"
+      ]
+    },
+    {
+      "id": "trans",
+      "t": "변속할 때 충격이 있어요",
+      "q": [
+        "변속 충격",
+        "미션",
+        "울컥",
+        "기어"
+      ],
+      "chk": [
+        "미션오일",
+        "밸브바디·솔레노이드",
+        "클러치(DCT)",
+        "엔진 마운트",
+        "학습값"
+      ]
+    },
+    {
+      "id": "chassis",
+      "t": "하체에서 잡소리가 나요",
+      "q": [
+        "하체 소음",
+        "덜컹거림",
+        "방지턱 넘을 때 소리",
+        "승차감 저하",
+        "잡소리"
+      ],
+      "chk": [
+        "컨트롤 암 부싱",
+        "스태빌라이저 링크",
+        "쇽업소버",
+        "엔진·미션 마운트",
+        "허브베어링",
+        "타이어 편마모"
+      ]
+    }
+  ];
 
   var BN = { hyundai:'현대', kia:'기아', kgm:'KGM · 쌍용', renault:'르노코리아', chevrolet:'쉐보레',
              porsche:'포르쉐', benz:'벤츠', bmw:'BMW', audi:'아우디', vw:'폭스바겐', etc:'그 외 차종' };
 
-  var CASES = (window.CASES || []).map(function (r) {
-    var hay = [r.car, r.title, r.repair, r.symptom, r.diagnosis, BN[r.brand] || '']
-      .concat(r.sym || []).concat(r.q || []).join(' ');
-    return { r: r, hay: norm(hay) };
-  });
+  function prep(list, page) {
+    return (list || []).map(function (r) {
+      var hay = [r.car, r.title, r.repair, r.symptom, r.diagnosis, r.branch, BN[r.brand] || '']
+        .concat(r.sym || []).concat(r.q || []).join(' ');
+      r._page = page;
+      return { r: r, hay: norm(hay) };
+    });
+  }
+  /* 에프원 사례 + 원모터스 사례를 함께 찾습니다 */
+  var CASES = prep(window.CASES, 'cases.html')
+              .concat(prep(window.CASES_ONE, 'cases-onemotors.html'));
   var SYMI = SYMS.map(function (s) {
     return { s: s, hay: norm([s.t].concat(s.q).concat(s.chk).join(' ')) };
   });
@@ -470,8 +496,9 @@
     var meta = [];
     if (r.km) meta.push(r.km);
     if (r.out) meta.push(r.out + ' 출고');
-    return '<a class="fs-ccard" href="cases.html">' +
+    return '<a class="fs-ccard" href="' + (r._page || 'cases.html') + '">' +
       '<span class="fs-badge">' + esc(BN[r.brand] || '') + '</span>' +
+      (r.branch ? '<span class="fs-branch">' + esc(r.branch) + '</span>' : '') +
       '<strong>' + esc(r.car) + (r.title ? ' — ' + esc(r.title) : '') + '</strong>' +
       (meta.length ? '<span class="fs-meta">' + esc(meta.join(' · ')) + '</span>' : '') +
       (r.repair ? '<span class="fs-rep">' + esc(cut(r.repair, 90)) + '</span>' : '') +
@@ -574,6 +601,7 @@
   background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); padding: 18px 20px;
 }
 .fs-ccard:hover { border-color: #d8a600; }
+.fs-branch { display: inline-block; margin-left: 6px; font-size: 12px; font-weight: 800; color: #7a5c00; background: #fff5d6; border: 1px solid #efe0ae; border-radius: 6px; padding: 4px 9px; }
 .fs-badge { display: inline-block; font-size: 12px; font-weight: 900; color: #6d747d; background: #f3f5f8; border-radius: 6px; padding: 4px 9px; }
 .fs-ccard > strong { display: block; margin-top: 9px; font-size: 16.5px; font-weight: 900; letter-spacing: -.02em; line-height: 1.45; }
 .fs-meta { display: block; margin-top: 6px; font-size: 13.5px; font-weight: 700; color: #9aa1ab; }
