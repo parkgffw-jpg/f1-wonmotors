@@ -1,20 +1,7 @@
-# 윈도우가 자동으로 만드는 파일
+# 학습자료 폴더의 PDF는 인터넷에 올리지 않습니다 (컴퓨터에만 보관)
+학습자료/*.pdf
+학습자료/*.PDF
+
+# 윈도우가 만드는 파일
 Thumbs.db
 desktop.ini
-$RECYCLE.BIN/
-
-# 맥이 자동으로 만드는 파일
-.DS_Store
-
-# 개발 도구
-node_modules/
-.next/
-.vercel/
-
-# 비밀 정보
-.env
-.env.*
-
-# 임시 작업 파일
-_*
-*.tmp
