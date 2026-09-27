@@ -29,7 +29,11 @@
     <lastmod>2026-09-26</lastmod><changefreq>weekly</changefreq><priority>0.9</priority>
   </url>
   <url>
-    <loc>https://onemotorsincheon.co.kr/schedule.html</loc>
-    <lastmod>2026-09-26</lastmod><changefreq>daily</changefreq><priority>0.7</priority>
+    <loc>https://onemotorsincheon.co.kr/booking.html</loc>
+    <lastmod>2026-09-26</lastmod><changefreq>daily</changefreq><priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://onemotorsincheon.co.kr/booking-f1.html</loc>
+    <lastmod>2026-09-26</lastmod><changefreq>daily</changefreq><priority>0.8</priority>
   </url>
 </urlset>
