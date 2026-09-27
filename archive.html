@@ -620,14 +620,19 @@
       if (test) { r._s = test(r); if (!r._s) return false; }
       return true;
     });
-    /* 자세한 사례 → 사진 있는 사례 → 사진 없는 사례 차례로 (사진 없는 건 맨 밑) */
-    var pic = function (r) { return r.np ? 1 : 0; };
+    /* 차례: ① 자세한 사례 + 사진 있음  ② 사진 있음  ③ 자세한 사례(사진 없음)  ④ 사진 없음 */
+    var rank = function (r) {
+      if (r.np && r.hi) return 3;
+      if (r.np) return 2;
+      if (r.hi) return 1;
+      return 0;
+    };
     if (test) hits.sort(function (a, b2) {
-      return (b2._s - a._s) || (pic(b2) - pic(a)) ||
+      return (b2._s - a._s) || (rank(b2) - rank(a)) ||
              String(b2.d || '').localeCompare(String(a.d || ''));
     });
     else hits.sort(function (a, b2) {
-      return ((b2.hi || 0) - (a.hi || 0)) || (pic(b2) - pic(a)) ||
+      return (rank(b2) - rank(a)) ||
              String(b2.d || '').localeCompare(String(a.d || ''));
     });
     shown = STEP;
