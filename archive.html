@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>정비사례 아카이브 | 원모터스 1,030건 · 차종 · 증상 · 고장부위로 찾기</title>
+<title>고장 검색 · 정비사례 1,030건 | 원모터스 인천점 — 차종 · 증상 · 고장부위 · 고장코드</title>
 
 <meta name="description" content="원모터스 정비사례 1,030건을 차종·증상·고장부위·고장코드로 찾아볼 수 있습니다. BMW, 벤츠, 아우디, 폭스바겐, 현대, 기아 등 수입차·국산차 엔진·냉각·브레이크·하체 정비 기록." />
 <meta name="keywords" content="정비사례, 자동차 정비사례, BMW 정비사례, 벤츠 정비사례, 아우디 정비사례, 고장코드, P0300, 엔진 정비, 냉각수 누수, 브레이크, 하체 소음, 인천 정비소, 인천 수입차정비" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="정비사례 아카이브 | 원모터스 1,030건" />
+<meta property="og:title" content="고장 검색 · 정비사례 1,030건 | 원모터스" />
 <meta property="og:description" content="차종·증상·고장부위로 정비사례 1,030건을 찾아보세요." />
 <meta property="og:locale" content="ko_KR" />
 <meta property="og:url" content="https://onemotorsincheon.co.kr/archive.html" />
@@ -55,15 +55,15 @@
 </header>
 
 <main id="main">
-
-<section class="page-head">
+<section class="page-head ar-head-sec">
   <div class="container">
-    <p class="sec-eyebrow">ARCHIVE</p>
-    <h1 class="page-title">정비사례 아카이브</h1>
+    <p class="sec-eyebrow">CASE ARCHIVE</p>
+    <h1 class="page-title">고장 검색 · 정비사례</h1>
     <p class="page-desc">
-      원모터스가 쌓아온 정비 기록 <strong id="arcTotal">1,030건</strong>입니다.
-      차종 · 증상 · 고장부위 · 고장코드로 찾아보세요.
+      차종, 증상, 고장부위, 고장코드로 검색해 보세요.<br class="br-m" />
+      실제 수리한 사례와 원인, 수리내역을 바로 보실 수 있습니다.
     </p>
+    <div class="ar-stats" id="arStats"></div>
   </div>
 </section>
 
@@ -71,20 +71,35 @@
   <div class="container">
 
     <div class="ar-box">
-      <label class="ar-label" for="arQ">무엇을 찾으시나요? <span class="ar-hint">비슷한 말도 같이 찾아드립니다</span></label>
       <div class="ar-field">
         <svg class="ar-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8 21 21"/></svg>
-        <input type="search" id="arQ" placeholder="예) 냉각수 누수, 헤드가스켓, 520d, P0300" autocomplete="off" />
+        <label class="sr-only" for="arQ">정비사례 검색</label>
+        <input type="search" id="arQ" placeholder="예) E350 하체 잡소리, 520d 누유, 워터펌프, P0300" autocomplete="off" />
         <button type="button" class="ar-clear" id="arClear" aria-label="지우기" hidden>&times;</button>
       </div>
 
-      <div class="ar-filters">
-        <div class="ar-frow"><span class="ar-fl">제조사</span><div class="ar-chips" id="arBrands"></div></div>
-        <div class="ar-frow"><span class="ar-fl">정비 분류</span><div class="ar-chips" id="arCats"></div></div>
+      <div class="ar-quick">
+        <span class="ar-ql">많이 찾는 검색어</span>
+        <div class="ar-qbtns" id="arQuick"></div>
+      </div>
+
+      <div class="ar-sels">
+        <label class="sr-only" for="fBrand">제조사</label>
+        <select id="fBrand"><option value="">제조사 전체</option></select>
+        <label class="sr-only" for="fPart">고장부위</label>
+        <select id="fPart"><option value="">고장부위 전체</option></select>
+        <label class="sr-only" for="fCat">정비 분류</label>
+        <select id="fCat"><option value="">정비 분류 전체</option></select>
+        <label class="sr-only" for="fSym">증상</label>
+        <select id="fSym"><option value="">증상 전체</option></select>
       </div>
     </div>
 
-    <p class="ar-count" id="arCount"></p>
+    <div class="ar-bar">
+      <p class="ar-count"><strong id="arCount">0</strong>건의 사례</p>
+      <button type="button" class="ar-reset" id="arReset">검색 초기화</button>
+    </div>
+
     <div class="ar-list" id="arList"></div>
     <button type="button" class="ar-more" id="arMore" hidden>더 보기</button>
 
@@ -115,6 +130,16 @@
 </section>
 
 </main>
+
+<div class="ar-sheet" id="arSheet" hidden>
+  <div class="ar-sheet-in" role="dialog" aria-modal="true" aria-label="정비사례 자세히">
+    <div class="ar-sheet-top">
+      <span class="ar-pos" id="arPos"></span>
+      <button type="button" class="ar-sheet-close" id="arSheetClose" aria-label="닫기">&times;</button>
+    </div>
+    <div class="ar-sheet-body" id="arSheetBody"></div>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="container footer-inner">
@@ -148,6 +173,8 @@
   <p class="lightbox-cap" id="lightboxCap"></p>
 </div>
 
+
+
 <script src="assets/js/cases-archive.js"></script>
 <script src="assets/js/search-words.js"></script>
 <script src="assets/js/main.js"></script>
@@ -156,19 +183,22 @@
 (function () {
   var ALL = window.ARCHIVE || [];
   var SYN = window.SEARCH_WORDS || [];
-  var STEP = 20, shown = STEP, hits = ALL, qBrand = '', qCat = '';
+  var BODY = null;                 /* 정비 과정 글 — 나중에 따로 들어옵니다 */
+  var STEP = 20, shown = STEP, hits = ALL, cur = -1;
 
-  var listEl = document.getElementById('arList');
-  var countEl = document.getElementById('arCount');
-  var moreEl = document.getElementById('arMore');
-  var input = document.getElementById('arQ');
-  var clear = document.getElementById('arClear');
+  var $ = function (id) { return document.getElementById(id); };
+  var listEl = $('arList'), countEl = $('arCount'), moreEl = $('arMore');
+  var input = $('arQ'), clear = $('arClear'), reset = $('arReset');
+  var sheet = $('arSheet'), sheetBody = $('arSheetBody'), posEl = $('arPos');
+  var selIds = ['fBrand', 'fPart', 'fCat', 'fSym'];
 
   function esc(t) {
     return String(t == null ? '' : t)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
   function norm(t) { return String(t || '').toLowerCase().replace(/[\s·,.\-_/()]+/g, ''); }
+
+  /* 비슷한 말로 넓혀 찾기 (말 사전) */
   function expand(tok) {
     var out = [tok];
     if (tok.length < 2) return out;
@@ -183,134 +213,316 @@
     }
     return out;
   }
-  /* 점수 매기기 — 입력한 말 그대로 들어 있으면 높은 점수, 비슷한 말이면 낮은 점수.
-     사례가 많아서 비슷한 말까지 다 나오면 헷갈리므로, 가까운 것부터 위로 올립니다. */
+  /* 점수: 입력한 말 그대로면 높게, 비슷한 말이면 낮게. 제목·차종에 있으면 더 높게 */
   function makeTest(raw) {
     var toks = String(raw || '').trim().toLowerCase().split(/\s+/).map(norm)
       .filter(function (t) { return t.length > 0; });
     if (!toks.length) return null;
     var sets = toks.map(expand);
-    return function (hay, head) {
-      var total = 0;
-      for (var i = 0; i < sets.length; i++) {
-        var set = sets[i], best = 0;
-        for (var j = 0; j < set.length; j++) {
-          if (!set[j] || hay.indexOf(set[j]) < 0) continue;
-          var pt = (j === 0) ? 6 : 1;
-          if (pt > best) best = pt;
+    var f = function (r) {
+      var total = 0, i, j;
+      for (i = 0; i < sets.length; i++) {
+        var set = sets[i], best = 0, where = 0;
+        for (j = 0; j < set.length; j++) {
+          var w = set[j]; if (!w) continue;
+          if (r._h.indexOf(w) > -1) { var pt = (j === 0) ? 6 : 1; if (pt > best) { best = pt; } }
         }
+        if (!best && r._o && r._o.indexOf(set[0]) > -1) { best = 4; where = 1; }
+        if (!best && BODY && BODY[r._i] && BODY[r._i].indexOf(set[0]) > -1) { best = 3; where = 2; }
         if (!best) return 0;
-        if (head && head.indexOf(set[0]) > -1) best += 4;
+        if (r._t.indexOf(set[0]) > -1) best += 4;
         total += best;
+        if (where === 1) r._inphoto = true;
+        if (where === 2) r._inbody = true;
       }
       return total;
     };
+    f.toks = toks;
+    return f;
   }
 
-  ALL.forEach(function (r) {
-    r._h = norm([r.car, r.b, r.cat, r.ti, r.sy, r.ca, r.pt, r.rp, r.cd].join(' '));
-    r._t = norm([r.car, r.ti, r.cd].join(' '));
+  ALL.forEach(function (r, i) {
+    r._i = i;
+    r._h = norm([r.m, r.b, (r.cat || []).join(' '), (r.sy || []).join(' '), r.ti,
+                 r.sym, r.ca, (r.pt || []).join(' '), (r.rp || []).join(' '),
+                 (r.cd || []).join(' ')].join(' '));
+    r._t = norm([r.m, r.ti, (r.cd || []).join(' ')].join(' '));
+    r._o = norm(r.oc || '');
   });
 
-  function chips(box, key, cur, setter) {
-    var c = {};
+  /* 고른 항목 목록 만들기 */
+  function countBy(key) {
+    var m = {};
     ALL.forEach(function (r) {
-      String(r[key] || '').split(',').forEach(function (v) {
-        v = v.trim(); if (v) c[v] = (c[v] || 0) + 1;
+      var v = r[key];
+      (Object.prototype.toString.call(v) === '[object Array]' ? v : [v]).forEach(function (x) {
+        if (x) m[x] = (m[x] || 0) + 1;
       });
     });
-    var items = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).slice(0, 14);
-    box.innerHTML = '<button type="button" class="ar-chip' + (cur ? '' : ' on') + '" data-v="">전체</button>' +
-      items.map(function (v) {
-        return '<button type="button" class="ar-chip' + (cur === v ? ' on' : '') +
-               '" data-v="' + esc(v) + '">' + esc(v) + ' <i>' + c[v] + '</i></button>';
-      }).join('');
-    box.onclick = function (e) {
-      var b = e.target.closest ? e.target.closest('.ar-chip') : null;
-      if (!b) return;
-      setter(b.getAttribute('data-v')); render();
-    };
+    return Object.keys(m).map(function (k) { return [k, m[k]]; })
+      .sort(function (a, b) { return b[1] - a[1]; });
   }
+  function fill(id, key, min) {
+    var sel = $(id), rows = countBy(key).filter(function (x) { return x[1] >= (min || 1); });
+    sel.insertAdjacentHTML('beforeend', rows.map(function (x) {
+      return '<option value="' + esc(x[0]) + '">' + esc(x[0]) + ' (' + x[1] + ')</option>';
+    }).join(''));
+  }
+  fill('fBrand', 'b'); fill('fCat', 'cat'); fill('fSym', 'sy'); fill('fPart', 'pt', 3);
 
-  function card(r) {
-    var ph = (r.p || []).map(function (f) {
-      return '<figure><img src="assets/img/archive/' + esc(f) + '" alt="' + esc(r.car) +
-             ' 정비 사진" loading="lazy" /></figure>';
-    }).join('');
-    var row = function (label, v) {
-      return v ? '<div><dt>' + label + '</dt><dd>' + esc(v) + '</dd></div>' : '';
-    };
+  var years = ALL.map(function (r) { return String(r.d || '').slice(0, 4); })
+    .filter(Boolean).sort();
+  $('arStats').innerHTML =
+    '<div><b>' + ALL.length.toLocaleString('ko-KR') + '</b><span>누적 정비사례</span></div>' +
+    '<div><b>' + countBy('pt').length + '</b><span>고장부위 종류</span></div>' +
+    '<div><b>' + countBy('cd').length + '</b><span>사진 속 고장코드</span></div>' +
+    '<div><b>' + years[0] + '–' + years[years.length - 1] + '</b><span>기록 기간</span></div>';
+
+  ['엔진경고등', '하체 잡소리', '누유', '워터펌프', '점화코일', '에어쇼바', 'DPF', 'P0300']
+    .forEach(function (w) {
+      $('arQuick').insertAdjacentHTML('beforeend',
+        '<button type="button" data-q="' + w + '">' + w + '</button>');
+    });
+  $('arQuick').addEventListener('click', function (e) {
+    var q = e.target.getAttribute && e.target.getAttribute('data-q');
+    if (q) { input.value = q; clearSel(); render(); }
+  });
+
+  function clearSel() { selIds.forEach(function (id) { $(id).value = ''; }); }
+
+  function pics(r) { return (r.p || []); }
+
+  /* 사진 밑 설명 — 지어내지 않고, 이 사례의 차량 · 고장부위와
+     그 사진에서 실제로 읽힌 고장코드만 적습니다 */
+  function cap(r, k, forAlt) {
+    var n = (r.p || []).length;
+    var bits = [];
+    if (!forAlt) bits.push((k + 1) + ' / ' + n);
+    var code = ((r.pc || [])[k] || '').split(',').filter(Boolean);
+    if (code.length) bits.push('진단기 화면 ' + code.join(', '));
+    var desc = (r.pd || [])[k] || '';
+    if (desc) {                                  /* 블로그 글에서 가져온 그 사진의 설명 */
+      if (forAlt) bits.push(r.m || '');
+      bits.push(desc);
+    } else {
+      if (r.m) bits.push(r.m);
+      if (!code.length && (r.pt || []).length) bits.push((r.pt || []).slice(0, 2).join(', '));
+    }
+    if (forAlt) bits.push('정비 사진 ' + (k + 1));
+    return bits.filter(Boolean).join(' · ');
+  }
+  function img(f) { return 'assets/img/archive/' + f; }
+
+  function card(r, i) {
+    var p = pics(r);
     return '<article class="ar-card" id="c' + esc(r.n) + '">' +
-      '<div class="ar-head">' +
-        '<span class="ar-brand">' + esc(r.b || '') + '</span>' +
-        (r.cat ? '<span class="ar-cat">' + esc(r.cat) + '</span>' : '') +
-        (r.cd ? '<span class="ar-code">' + esc(r.cd) + '</span>' : '') +
-        '<span class="ar-date">' + esc(r.d || '') + '</span>' +
-      '</div>' +
-      '<h2 class="ar-title">' + esc(r.car || '') + (r.ti ? ' — ' + esc(r.ti) : '') + '</h2>' +
-      '<dl class="ar-dl">' + row('증상', r.sy) + row('원인', r.ca) +
-        row('고장부위', r.pt) + row('수리내역', r.rp) + '</dl>' +
-      (ph ? '<div class="case-shots ar-shots">' + ph + '</div>' : '') +
+      '<button type="button" class="ar-cbtn" data-i="' + i + '">' +
+        (p.length ? '<img class="ar-thumb" loading="lazy" src="' + img(p[0]) +
+                    '" alt="' + esc(r.m) + ' 정비 사진" onerror="this.remove()" />' : '') +
+        '<span class="ar-txt">' +
+          '<span class="ar-meta">' +
+            (r.b && r.b !== '기타·미상' ? '<span class="ar-brand">' + esc(r.b) + '</span>' : '') +
+            (r.m ? '<span class="ar-model">' + esc(r.m) + '</span>' : '') +
+            '<span class="ar-date">' + esc(r.d || '') + '</span>' +
+          '</span>' +
+          '<strong class="ar-title">' + esc(r.sym || r.ti) + '</strong>' +
+          (r.sym && r.ti ? '<span class="ar-sub">' + esc(r.ti) + '</span>' : '') +
+          '<span class="ar-sum">' +
+            (r.ca ? '<span class="ar-row"><i>원인</i><em>' + esc(r.ca) + '</em></span>' : '') +
+            ((r.rp || []).length ? '<span class="ar-row"><i>수리</i><em>' +
+              esc(r.rp.slice(0, 4).join(' · ')) + (r.rp.length > 4 ? ' 외' : '') + '</em></span>' : '') +
+          '</span>' +
+          '<span class="ar-tags">' +
+            (r.pt || []).slice(0, 5).map(function (x) {
+              return '<span class="ar-tag">' + esc(x) + '</span>'; }).join('') +
+            (r.cd || []).slice(0, 4).map(function (x) {
+              return '<span class="ar-tag is-code">' + esc(x) + '</span>'; }).join('') +
+          '</span>' +
+          (r._inphoto ? '<span class="ar-found">사진 속 글자에서 찾았습니다</span>' : '') +
+          (r._inbody && !r._inphoto ? '<span class="ar-found">정비 과정 글에서 찾았습니다</span>' : '') +
+          '<span class="ar-go">정비 내용 자세히 보기 &rarr;' +
+            (r.np ? '<i class="ar-pc">사진 ' + r.np + '장 중 ' + p.length + '장</i>' : '') +
+          '</span>' +
+        '</span>' +
+      '</button>' +
     '</article>';
   }
 
   function render() {
     var test = makeTest(input.value);
     clear.hidden = !input.value;
+    var b = $('fBrand').value, pt = $('fPart').value, c = $('fCat').value, sy = $('fSym').value;
+    ALL.forEach(function (r) { r._inphoto = false; r._inbody = false; });
     hits = ALL.filter(function (r) {
-      if (qBrand && String(r.b || '').indexOf(qBrand) < 0) return false;
-      if (qCat && String(r.cat || '').indexOf(qCat) < 0) return false;
-      if (test) { r._s = test(r._h, r._t); if (!r._s) return false; }
+      if (b && r.b !== b) return false;
+      if (pt && (r.pt || []).indexOf(pt) < 0) return false;
+      if (c && (r.cat || []).indexOf(c) < 0) return false;
+      if (sy && (r.sy || []).indexOf(sy) < 0) return false;
+      if (test) { r._s = test(r); if (!r._s) return false; }
       return true;
     });
-    /* 가까운 사례부터, 같은 점수면 최근 작업부터 */
-    if (test) hits.sort(function (a, b) {
-      return (b._s - a._s) || String(b.d || '').localeCompare(String(a.d || ''));
+    if (test) hits.sort(function (a, b2) {
+      return (b2._s - a._s) || String(b2.d || '').localeCompare(String(a.d || ''));
     });
     shown = STEP;
-    countEl.textContent = hits.length
-      ? (input.value.trim() ? '“' + input.value.trim() + '” ' : '') + '정비사례 ' + hits.length.toLocaleString('ko-KR') + '건'
-      : '찾으시는 내용이 없습니다. 증상을 직접 말씀해 주시면 확인해 드리겠습니다.';
+    countEl.textContent = hits.length.toLocaleString('ko-KR');
     draw();
-    chips(document.getElementById('arBrands'), 'b', qBrand, function (v) { qBrand = v; });
-    chips(document.getElementById('arCats'), 'cat', qCat, function (v) { qCat = v; });
   }
+  var hashTarget = (location.hash || '').replace('#', '');
+  if (!/^c\d+$/.test(hashTarget)) hashTarget = '';
+
+  function markHash() {
+    if (!hashTarget) return;
+    for (var x = 0; x < hits.length; x++) {
+      if ('c' + hits[x].n !== hashTarget) continue;
+      if (x >= shown) { shown = x + 3; draw(); return; }
+      var el = document.getElementById(hashTarget);
+      if (el) { el.classList.add('ar-hit'); el.scrollIntoView(); }
+      return;
+    }
+  }
+
   function draw() {
+    if (!hits.length) {
+      listEl.innerHTML = '<div class="ar-empty">' +
+        '<strong>찾으시는 내용이 없습니다.</strong>' +
+        '<p>검색어를 줄이거나 다른 표현으로 찾아보세요. (예: "오일누유" → "누유")<br />' +
+        '증상을 직접 말씀해 주시면 확인해 드리겠습니다.</p>' +
+        '<div class="contact-actions">' +
+        '<a class="btn btn-primary" href="tel:01047218957">010-4721-8957</a>' +
+        '<a class="btn btn-kakao" href="https://pf.kakao.com/_nxivaX/chat" target="_blank" rel="noopener">카카오톡 상담</a>' +
+        '</div></div>';
+      moreEl.hidden = true; return;
+    }
     listEl.innerHTML = hits.slice(0, shown).map(card).join('');
     moreEl.hidden = hits.length <= shown;
-    moreEl.textContent = '더 보기 (' + (hits.length - shown) + '건 남음)';
+    moreEl.textContent = '더 보기 (' + (hits.length - shown).toLocaleString('ko-KR') + '건 남음)';
+    markHash();
   }
 
-  input.addEventListener('input', render);
-  clear.addEventListener('click', function () { input.value = ''; input.focus(); render(); });
-  moreEl.addEventListener('click', function () { shown += STEP * 2; draw(); });
+  /* ---- 자세히 보기 ---- */
+  function openDetail(i) {
+    var r = hits[i]; if (!r) return;
+    cur = i;
+    var p = pics(r);
+    sheetBody.innerHTML =
+      '<div class="ar-meta">' +
+        (r.b && r.b !== '기타·미상' ? '<span class="ar-brand">' + esc(r.b) + '</span>' : '') +
+        (r.m ? '<span class="ar-model">' + esc(r.m) + '</span>' : '') +
+        '<span class="ar-date">' + esc(r.d || '') + '</span>' +
+      '</div>' +
+      '<h2 class="ar-dt">' + esc(r.ti || r.sym) + '</h2>' +
+      '<dl class="ar-dl">' +
+        (r.m ? '<div><dt>차량</dt><dd>' + esc(r.m) + '</dd></div>' : '') +
+        (r.sym ? '<div><dt>증상</dt><dd>' + esc(r.sym) + '</dd></div>' : '') +
+        (r.ca ? '<div><dt>원인</dt><dd>' + esc(r.ca) + '</dd></div>' : '') +
+        ((r.pt || []).length ? '<div><dt>고장부위</dt><dd><span class="ar-tags">' +
+          r.pt.map(function (x) { return '<span class="ar-tag">' + esc(x) + '</span>'; }).join('') +
+          '</span></dd></div>' : '') +
+        ((r.rp || []).length ? '<div><dt>수리내역</dt><dd><ul class="ar-ul">' +
+          r.rp.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') +
+          '</ul></dd></div>' : '') +
+        ((r.cd || []).length ? '<div><dt>고장코드</dt><dd><span class="ar-tags">' +
+          r.cd.map(function (x) { return '<span class="ar-tag is-code">' + esc(x) + '</span>'; }).join('') +
+          '</span></dd></div>' : '') +
+      '</dl>' +
+      (p.length ? '<h3 class="ar-gh">정비 사진 ' + p.length + '장' +
+          (r.np > p.length ? '<span class="ar-ghs"> (전체 ' + r.np + '장 중)</span>' : '') + '</h3>' +
+        '<div class="case-shots ar-gal">' + p.map(function (f, k) {
+          return '<figure><img loading="lazy" src="' + img(f) + '" data-k="' + k +
+                 '" alt="' + esc(cap(r, k, true)) + '" onerror="this.parentNode.remove()" />' +
+                 '<figcaption>' + esc(cap(r, k)) + '</figcaption></figure>';
+        }).join('') + '</div>' : '') +
+      '<p class="ar-dnote">같은 증상이라도 차종과 상태에 따라 원인이 다릅니다. 정확한 원인은 차량을 직접 점검해야 알 수 있습니다.</p>' +
+      '<div class="ar-nav">' +
+        '<button type="button" id="arPrev"' + (i === 0 ? ' disabled' : '') + '>&larr; 이전 사례</button>' +
+        '<button type="button" id="arNext"' + (i >= hits.length - 1 ? ' disabled' : '') + '>다음 사례 &rarr;</button>' +
+      '</div>';
+    posEl.textContent = (i + 1) + ' / ' + hits.length.toLocaleString('ko-KR');
+    sheet.hidden = false;
+    document.body.classList.add('ar-lock');
+    sheet.scrollTop = 0;
+    var pv = $('arPrev'), nx = $('arNext');
+    if (pv) pv.onclick = function () { openDetail(i - 1); };
+    if (nx) nx.onclick = function () { openDetail(i + 1); };
+    var g = sheetBody.querySelector('.ar-gal');
+    if (g) g.onclick = function (e) {
+      var k = e.target.getAttribute && e.target.getAttribute('data-k');
+      if (k !== null && k !== undefined) openLb(p, +k, r);
+    };
+  }
+  function closeDetail() { sheet.hidden = true; document.body.classList.remove('ar-lock'); cur = -1; }
 
-  document.getElementById('arcTotal').textContent = ALL.length.toLocaleString('ko-KR') + '건';
+  /* ---- 사진 크게 보기 ---- */
+  var lbList = [], lbK = 0, lbR = null;
+  var lb = document.getElementById('lightbox'),
+      lbImg = document.getElementById('lightboxImg'),
+      lbCap = document.getElementById('lightboxCap');
+  function showLb() {
+    lbImg.src = img(lbList[lbK]);
+    lbCap.textContent = lbR ? cap(lbR, lbK) : (lbK + 1) + ' / ' + lbList.length;
+  }
+  function openLb(list, k, r) { lbList = list; lbK = k; lbR = r || null; showLb(); lb.hidden = false; }
+  function closeLb() { lb.hidden = true; lbImg.src = ''; }
+  document.getElementById('lightboxClose').onclick = closeLb;
+  lb.onclick = function (e) { if (e.target === lb) closeLb(); };
+
+  listEl.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.ar-cbtn') : null;
+    if (b) openDetail(+b.getAttribute('data-i'));
+  });
+  $('arSheetClose').addEventListener('click', closeDetail);
+  sheet.addEventListener('click', function (e) { if (e.target === sheet) closeDetail(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.hidden) {
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') { lbK = (lbK - 1 + lbList.length) % lbList.length; showLb(); }
+      if (e.key === 'ArrowRight') { lbK = (lbK + 1) % lbList.length; showLb(); }
+      return;
+    }
+    if (sheet.hidden) return;
+    if (e.key === 'Escape') closeDetail();
+    if (e.key === 'ArrowLeft' && cur > 0) openDetail(cur - 1);
+    if (e.key === 'ArrowRight' && cur < hits.length - 1) openDetail(cur + 1);
+  });
+
+  var timer;
+  input.addEventListener('input', function () {
+    hashTarget = '';
+    clearTimeout(timer); timer = setTimeout(render, 120);
+  });
+  selIds.forEach(function (id) { $(id).addEventListener('change', render); });
+  clear.addEventListener('click', function () { input.value = ''; input.focus(); render(); });
+  reset.addEventListener('click', function () { input.value = ''; clearSel(); render(); });
+  moreEl.addEventListener('click', function () { shown += STEP * 2; draw(); });
 
   var m = location.search.match(/[?&]q=([^&]+)/);
   if (m) { try { input.value = decodeURIComponent(m[1]); } catch (e) {} }
   render();
 
-  /* 고장검색에서 특정 사례로 바로 들어온 경우, 그 사례가 나올 때까지 펼쳐서 보여줍니다 */
-  var h = (location.hash || '').replace('#', '');
-  if (/^c\d+$/.test(h)) {
-    var idx = -1;
-    for (var i = 0; i < hits.length; i++) if ('c' + hits[i].n === h) { idx = i; break; }
-    if (idx > -1) {
-      if (idx >= shown) { shown = idx + 3; draw(); }
-      var el = document.getElementById(h);
-      if (el) { el.scrollIntoView(); el.classList.add('ar-hit'); }
-    }
-  }
+  /* 정비 과정 글은 화면이 뜬 뒤에 들여옵니다 (첫 화면을 빠르게 하려고) */
+  window.onArchiveText = function () {
+    BODY = (window.ARCHIVE_TEXT || []).map(norm);
+    if (input.value) render();
+  };
+  var t = document.createElement('script');
+  t.src = 'assets/js/cases-archive-text.js';
+  t.defer = true;
+  document.body.appendChild(t);
+
 })();
 </script>
 
 <style>
 /* 정비사례 아카이브 */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .section-archive { background: var(--paper); }
-.ar-box { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); padding: 22px 20px; }
-.ar-label { display: block; font-size: 13px; font-weight: 900; letter-spacing: .04em; color: #a97f00; margin-bottom: 10px; }
-.ar-hint { font-weight: 700; color: #9aa1ab; letter-spacing: 0; margin-left: 6px; }
+
+.ar-stats { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 30px 44px; }
+.ar-stats b { display: block; font-size: 29px; font-weight: 900; letter-spacing: -.02em; color: #fff; font-variant-numeric: tabular-nums; }
+.ar-stats span { display: block; margin-top: 3px; font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,.62); }
+
+.ar-box { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); padding: 22px 20px; box-shadow: 0 12px 30px rgba(16,20,28,.07); }
 .ar-field { position: relative; display: flex; align-items: center; }
 .ar-ico { position: absolute; left: 16px; width: 20px; height: 20px; fill: none; stroke: #9aa1ab; stroke-width: 2; stroke-linecap: round; }
 .ar-field input {
@@ -323,65 +535,117 @@
 .ar-field input:focus { outline: none; border-color: #d8a600; background: #fff; }
 .ar-clear { position: absolute; right: 12px; width: 26px; height: 26px; border: 0; border-radius: 50%; background: #e6e8ec; color: #6d747d; font-size: 17px; cursor: pointer; }
 
-.ar-filters { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
-.ar-frow { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
-.ar-fl { flex: none; font-size: 12.5px; font-weight: 800; color: #9aa1ab; min-width: 56px; }
-.ar-chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.ar-chip {
+.ar-quick { margin-top: 14px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.ar-ql { flex: none; font-size: 12.5px; font-weight: 800; color: #9aa1ab; }
+.ar-qbtns { display: flex; flex-wrap: wrap; gap: 6px; }
+.ar-qbtns button {
   border: 1px solid #e3e6ea; background: #f3f5f8; color: #454b54;
   border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
 }
-.ar-chip i { font-style: normal; font-size: 11.5px; color: #9aa1ab; margin-left: 3px; }
-.ar-chip:hover { border-color: #d8a600; background: #fff8e2; }
-.ar-chip.on { background: var(--text); border-color: var(--text); color: #fff; }
-.ar-chip.on i { color: rgba(255,255,255,.6); }
+.ar-qbtns button:hover { border-color: #d8a600; background: #fff8e2; }
 
-.ar-count { margin-top: 18px; font-size: 14.5px; font-weight: 800; color: var(--text-sub); }
-.ar-list { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
-.ar-card { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); padding: 20px 22px; }
-.ar-head { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
-.ar-brand { font-size: 12px; font-weight: 900; color: #fff; background: #454b54; border-radius: 6px; padding: 4px 10px; }
-.ar-cat { font-size: 12px; font-weight: 700; color: #6d747d; background: #f3f5f8; border: 1px solid #e3e6ea; border-radius: 6px; padding: 3px 9px; }
-.ar-code { font-size: 12px; font-weight: 800; color: #a5442f; background: #fdf0ee; border: 1px solid #f2d3cd; border-radius: 6px; padding: 3px 9px; }
-.ar-date { margin-left: auto; font-size: 12.5px; color: #9aa1ab; font-variant-numeric: tabular-nums; }
-.ar-title { margin-top: 10px; font-size: 18px; font-weight: 900; letter-spacing: -.02em; line-height: 1.45; }
-.ar-dl { margin-top: 14px; display: flex; flex-direction: column; border-top: 1px solid #eef0f3; }
-.ar-dl > div { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid #eef0f3; }
-.ar-dl dt { font-size: 12.5px; font-weight: 900; color: #a97f00; }
-.ar-dl dd { font-size: 15px; line-height: 1.75; color: var(--text-sub); }
-.ar-shots { margin-top: 16px; }
-.ar-card.ar-hit { border-color: #d8a600; box-shadow: 0 0 0 3px #fff2cc; }
-
-@media (max-width: 560px) {
-  /* 휴대폰에서는 칸을 옆으로 밀어서 봅니다 (세로로 길어지지 않게) */
-  .ar-chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
-  .ar-chips::-webkit-scrollbar { display: none; }
-  .ar-chip { flex: none; }
-  .ar-frow { flex-direction: column; align-items: stretch; gap: 5px; }
-  .ar-chips { min-width: 0; max-width: 100%; }
-  .ar-box { padding: 18px 14px; }
-  .ar-card { padding: 16px 15px; }
-  .ar-dl > div { grid-template-columns: 62px minmax(0, 1fr); gap: 10px; }
-  .ar-title { font-size: 16.5px; }
+.ar-sels { margin-top: 14px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.ar-sels select {
+  width: 100%; padding: 11px 12px; font: inherit; font-size: 14px; font-weight: 700;
+  color: var(--text); background: #fafbfc; border: 1px solid #e3e6ea; border-radius: 10px; cursor: pointer;
 }
-.ar-shots figure { margin: 0; }
+.ar-sels select:focus { outline: none; border-color: #d8a600; }
+
+.ar-bar { margin-top: 20px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.ar-count { font-size: 14.5px; font-weight: 700; color: var(--text-sub); }
+.ar-count strong { font-size: 17px; font-weight: 900; color: #a97f00; font-variant-numeric: tabular-nums; }
+.ar-reset { border: 0; background: none; font: inherit; font-size: 13.5px; font-weight: 700; color: #9aa1ab; cursor: pointer; text-decoration: underline; }
+
+.ar-list { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
+.ar-card { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); overflow: hidden; }
+.ar-card.ar-hit { border-color: #d8a600; box-shadow: 0 0 0 3px #fff2cc; }
+.ar-cbtn { display: flex; gap: 16px; width: 100%; padding: 18px 20px; border: 0; background: none; font: inherit; text-align: left; cursor: pointer; }
+.ar-cbtn:hover { background: #fcfcfd; }
+.ar-thumb { flex: none; width: 132px; height: 96px; object-fit: cover; border-radius: 10px; background: #eef0f3; }
+.ar-txt { flex: 1 1 auto; min-width: 0; }
+
+.ar-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.ar-brand { font-size: 11.5px; font-weight: 900; color: #fff; background: #454b54; border-radius: 6px; padding: 3px 9px; }
+.ar-model { font-size: 13px; font-weight: 800; color: var(--text); }
+.ar-date { margin-left: auto; font-size: 12.5px; color: #9aa1ab; font-variant-numeric: tabular-nums; }
+.ar-title { display: block; margin-top: 7px; font-size: 17.5px; font-weight: 900; letter-spacing: -.02em; line-height: 1.45; color: var(--text); }
+.ar-sub { display: block; margin-top: 3px; font-size: 13.5px; font-weight: 600; color: #9aa1ab; }
+
+.ar-sum { display: block; margin-top: 10px; }
+.ar-row { display: flex; gap: 12px; margin-top: 4px; }
+.ar-row i { flex: none; width: 34px; font-style: normal; font-size: 12.5px; font-weight: 900; color: #a97f00; padding-top: 2px; }
+.ar-row em { font-style: normal; font-size: 14.5px; line-height: 1.7; color: var(--text-sub); }
+
+.ar-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.ar-tag { font-size: 12px; font-weight: 700; color: #6d747d; background: #f3f5f8; border: 1px solid #e3e6ea; border-radius: 999px; padding: 4px 10px; }
+.ar-tag.is-code { color: #a5442f; background: #fdf0ee; border-color: #f2d3cd; font-weight: 800; }
+.ar-found { display: inline-block; margin-top: 9px; font-size: 12.5px; font-weight: 800; color: #a97f00; background: #fff8e2; border: 1px dashed #e8d08a; border-radius: 8px; padding: 4px 10px; }
+.ar-go { display: block; margin-top: 11px; font-size: 13.5px; font-weight: 800; color: var(--red); }
+.ar-pc { font-style: normal; font-weight: 700; color: #9aa1ab; margin-left: 8px; }
+
 .ar-more {
   width: 100%; margin-top: 14px; padding: 15px; cursor: pointer;
   border: 1px solid #e3e6ea; border-radius: var(--radius); background: var(--white);
-  font: inherit; font-size: 15px; font-weight: 800; color: #454b54;
+  font: inherit; font-size: 14.5px; font-weight: 800; color: var(--text-sub);
 }
-.ar-more:hover { border-color: #d8a600; background: #fff8e2; }
-.ar-note {
-  margin-top: 26px; background: #f7f8fa; border: 1px solid #e6e8ec; border-radius: var(--radius);
-  padding: 18px 20px; font-size: 14.5px; line-height: 1.8; color: var(--text-sub);
+.ar-more:hover { border-color: #d8a600; color: #a97f00; }
+.ar-empty { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); padding: 34px 22px; text-align: center; }
+.ar-empty strong { display: block; font-size: 17px; font-weight: 900; }
+.ar-empty p { margin-top: 8px; font-size: 14.5px; line-height: 1.8; color: var(--text-sub); }
+.ar-empty .contact-actions { margin-top: 18px; justify-content: center; }
+.ar-note { margin-top: 22px; font-size: 13.5px; line-height: 1.85; color: #9aa1ab; }
+
+/* 자세히 보기 */
+body.ar-lock { overflow: hidden; }
+.ar-sheet { position: fixed; inset: 0; z-index: 120; background: rgba(12,14,18,.62); overflow-y: auto; padding: 40px 16px; -webkit-overflow-scrolling: touch; }
+.ar-sheet-in { max-width: 820px; margin: 0 auto; background: var(--white); border-radius: 18px; overflow: hidden; }
+.ar-sheet-top { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 18px; background: var(--white); border-bottom: 1px solid #eef0f3; }
+.ar-pos { font-size: 13px; font-weight: 800; color: #9aa1ab; font-variant-numeric: tabular-nums; }
+.ar-sheet-close { width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f3f5f8; color: #454b54; font-size: 22px; line-height: 1; cursor: pointer; }
+.ar-sheet-body { padding: 22px 26px 30px; }
+.ar-dt { margin-top: 10px; font-size: 22px; font-weight: 900; letter-spacing: -.02em; line-height: 1.4; }
+.ar-dl { margin-top: 18px; border-top: 1px solid #eef0f3; }
+.ar-dl > div { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-bottom: 1px solid #eef0f3; }
+.ar-dl dt { font-size: 12.5px; font-weight: 900; color: #a97f00; }
+.ar-dl dd { font-size: 15px; line-height: 1.75; color: var(--text-sub); }
+.ar-ul { margin: 0; padding-left: 17px; }
+.ar-ul li { font-size: 15px; line-height: 1.75; color: var(--text-sub); }
+.ar-gh { margin-top: 24px; font-size: 14px; font-weight: 900; color: var(--text); }
+.ar-gal { margin-top: 10px; }
+.ar-gal img { cursor: zoom-in; }
+.ar-gal figure { margin: 0; }
+.ar-gal figcaption { margin-top: 6px; font-size: 12px; line-height: 1.55; font-weight: 600; color: #9aa1ab; }
+.ar-ghs { font-weight: 700; color: #9aa1ab; }
+.ar-dnote { margin-top: 20px; font-size: 13px; line-height: 1.8; color: #9aa1ab; }
+.ar-nav { margin-top: 22px; display: flex; gap: 8px; }
+.ar-nav button { flex: 1 1 0; padding: 13px; border: 1px solid #e3e6ea; border-radius: 12px; background: var(--white); font: inherit; font-size: 14px; font-weight: 800; color: var(--text-sub); cursor: pointer; }
+.ar-nav button:disabled { opacity: .4; cursor: default; }
+.ar-nav button:not(:disabled):hover { border-color: #d8a600; color: #a97f00; }
+
+@media (max-width: 860px) {
+  .ar-sels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ar-stats { gap: 20px 30px; }
+  .ar-stats b { font-size: 24px; }
 }
 @media (max-width: 560px) {
-  .ar-box { padding: 18px 15px; }
-  .ar-field input { font-size: 16px; padding: 14px 42px; }
-  .ar-ico { left: 13px; }
-  .ar-card { padding: 17px 16px; }
-  .ar-dl > div { grid-template-columns: 1fr; gap: 4px; }
-  .ar-fl { min-width: 0; }
+  .ar-box { padding: 16px 14px; }
+  .ar-quick { min-width: 0; }
+  .ar-qbtns { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 3px; min-width: 0; max-width: 100%; }
+  .ar-qbtns::-webkit-scrollbar { display: none; }
+  .ar-qbtns button { flex: none; }
+  .ar-quick { flex-direction: column; align-items: stretch; gap: 6px; }
+  .ar-cbtn { flex-direction: column; gap: 12px; padding: 16px 15px; }
+  .ar-thumb { width: 100%; height: 170px; }
+  .ar-title { font-size: 16.5px; }
+  .ar-row i { width: 30px; }
+  .ar-sheet { padding: 0; }
+  .ar-sheet-in { border-radius: 0; min-height: 100%; }
+  .ar-sheet-body { padding: 18px 16px 28px; }
+  .ar-dt { font-size: 19px; }
+  .ar-dl > div { grid-template-columns: 66px minmax(0, 1fr); gap: 10px; }
+  .ar-stats { gap: 16px 26px; }
+  .ar-stats b { font-size: 21px; }
+  .ar-stats span { font-size: 11.5px; }
 }
 </style>
 

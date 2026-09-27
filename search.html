@@ -430,9 +430,11 @@
               .concat(prep(window.CASES_ONE, 'cases-onemotors.html'));
   /* 정비사례 아카이브 (원모터스 누적 기록) */
   var ARC = (window.ARCHIVE || []).map(function (r) {
+    var j = function (v) { return Object.prototype.toString.call(v) === '[object Array]' ? v.join(' ') : (v || ''); };
     return { r: r,
-             hay: norm([r.car, r.b, r.cat, r.ti, r.sy, r.ca, r.pt, r.rp, r.cd].join(' ')),
-             head: norm([r.car, r.ti, r.cd].join(' ')) };
+             hay: norm([r.m, r.b, j(r.cat), j(r.sy), r.ti, r.sym, r.ca,
+                        j(r.pt), j(r.rp), j(r.cd), r.oc].join(' ')),
+             head: norm([r.m, r.ti, j(r.cd)].join(' ')) };
   });
   var SYMI = SYMS.map(function (s) {
     return { s: s, hay: norm([s.t].concat(s.q).concat(s.chk).join(' ')) };
@@ -528,13 +530,14 @@
   }
 
   function arcCard(r) {
+    var cat = (r.cat || []).join(', '), rep = (r.rp || []).join(' · ');
     return '<a class="fs-ccard" href="archive.html?q=' + encodeURIComponent(input.value.trim()) +
       '#c' + esc(r.n) + '">' +
       '<span class="fs-badge">' + esc(r.b || '') + '</span>' +
-      (r.cat ? '<span class="fs-branch">' + esc(r.cat) + '</span>' : '') +
-      '<strong>' + esc(r.car || '') + (r.ti ? ' — ' + esc(r.ti) : '') + '</strong>' +
+      (cat ? '<span class="fs-branch">' + esc(cat) + '</span>' : '') +
+      '<strong>' + esc(r.m || '') + (r.sym ? ' — ' + esc(r.sym) : (r.ti ? ' — ' + esc(r.ti) : '')) + '</strong>' +
       (r.d ? '<span class="fs-meta">' + esc(r.d) + '</span>' : '') +
-      (r.rp ? '<span class="fs-rep">' + esc(cut(r.rp, 90)) + '</span>' : '') +
+      (rep ? '<span class="fs-rep">' + esc(cut(rep, 90)) + '</span>' : '') +
       '</a>';
   }
 
