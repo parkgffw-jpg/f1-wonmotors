@@ -501,13 +501,10 @@
   }
   fill('fBrand', 'b'); fill('fCat', 'cat'); fill('fSym', 'sy'); fill('fPart', 'pt', 3);
 
-  var years = ALL.map(function (r) { return String(r.d || '').slice(0, 4); })
-    .filter(Boolean).sort();
   $('arStats').innerHTML =
     '<div><b>' + ALL.length.toLocaleString('ko-KR') + '</b><span>누적 정비사례</span></div>' +
     '<div><b>' + countBy('pt').length + '</b><span>고장부위 종류</span></div>' +
-    '<div><b>' + countBy('cd').length + '</b><span>사진 속 고장코드</span></div>' +
-    '<div><b>' + years[0] + '–' + years[years.length - 1] + '</b><span>기록 기간</span></div>';
+    '<div><b>' + countBy('cd').length + '</b><span>사진 속 고장코드</span></div>';
 
   ['엔진경고등', '하체 잡소리', '누유', '워터펌프', '점화코일', '에어쇼바', 'DPF', 'P0300']
     .forEach(function (w) {
