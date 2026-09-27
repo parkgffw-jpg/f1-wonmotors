@@ -122,7 +122,7 @@ li { list-style: none; }
   color: #fff; letter-spacing: .02em; margin-top: 2px;
 }
 .brand-logo { width: 46px; height: 46px; flex: none; object-fit: contain; }
-.brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.15; flex: none; white-space: nowrap; }
 .brand-text strong { font-size: 17px; font-weight: 800; }
 .brand-text small { font-size: 10.5px; color: var(--text-on-dark-sub); font-weight: 500; }
 
@@ -601,8 +601,15 @@ li { list-style: none; }
 .theme-one .sec-eyebrow { color: var(--red); }
 
 
-/* 메뉴가 많아 태블릿 폭부터 햄버거 메뉴로 전환 */
-@media (max-width: 1024px) {
+/* 메뉴 수가 많아, 넓은 화면에서는 머리말 폭을 넓히고 간격을 줄입니다 */
+@media (min-width: 1401px) {
+  .site-header .header-inner { max-width: 1380px; gap: 18px; }
+  .nav { gap: 13px; }
+  .nav a { font-size: 13.5px; }
+}
+
+/* 메뉴가 많아 좁은 화면부터 햄버거 메뉴로 전환 */
+@media (max-width: 1400px) {
   .nav {
     position: fixed; top: calc(72px + env(safe-area-inset-top, 0px)); left: 0; right: 0;
     flex-direction: column; gap: 0; margin: 0;

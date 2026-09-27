@@ -39,6 +39,7 @@
       <a href="index.html#services">전문분야</a>
       <a class="active" href="search.html">고장검색</a>
       <a href="cases-onemotors.html">정비사례</a>
+      <a href="archive.html">사례 아카이브</a>
       <a href="booking.html">예약현황</a>
       <a href="index.html#location">오시는길</a>
       <a class="nav-sister nav-sister-f1" href="f1motors.html">인천에프원모터스</a>
@@ -103,6 +104,12 @@
       <h2 class="fs-gt">실제 정비사례</h2>
       <div class="fs-cases" id="fsCases"></div>
       <button type="button" class="fs-more" id="fsMore" hidden>더 보기</button>
+    </div>
+
+    <div class="fs-group" id="fsArcWrap" hidden>
+      <h2 class="fs-gt">정비사례 아카이브 <span class="fs-gc" id="fsArcCount"></span></h2>
+      <div class="fs-cases" id="fsArc"></div>
+      <a class="fs-arcall" id="fsArcAll" href="archive.html">아카이브에서 전체 보기 &rsaquo;</a>
     </div>
 
     <div class="fs-empty" id="fsEmpty" hidden>
@@ -170,6 +177,7 @@
 
 <script src="assets/js/cases-data.js"></script>
 <script src="assets/js/cases-onemotors-data.js"></script>
+<script src="assets/js/cases-archive.js"></script>
 <script src="assets/js/search-words.js"></script>
 <script src="assets/js/main.js"></script>
 
@@ -420,6 +428,12 @@
   /* 에프원 사례 + 원모터스 사례를 함께 찾습니다 */
   var CASES = prep(window.CASES, 'cases.html')
               .concat(prep(window.CASES_ONE, 'cases-onemotors.html'));
+  /* 정비사례 아카이브 (원모터스 누적 기록) */
+  var ARC = (window.ARCHIVE || []).map(function (r) {
+    return { r: r,
+             hay: norm([r.car, r.b, r.cat, r.ti, r.sy, r.ca, r.pt, r.rp, r.cd].join(' ')),
+             head: norm([r.car, r.ti, r.cd].join(' ')) };
+  });
   var SYMI = SYMS.map(function (s) {
     return { s: s, hay: norm([s.t].concat(s.q).concat(s.chk).join(' ')) };
   });
@@ -457,15 +471,21 @@
       .map(norm).filter(function (t) { return t.length > 0; });
     if (!toks.length) return null;
     var sets = toks.map(expand);
-    return function (hay) {
+    return function (hay, head) {
+      /* head(차종·제목)를 같이 넘기면 "몇 점인지"를, 안 넘기면 참/거짓을 돌려줍니다 */
+      var total = 0;
       for (var i = 0; i < sets.length; i++) {
-        var ok = false, set = sets[i];
+        var set = sets[i], best = 0;
         for (var j = 0; j < set.length; j++) {
-          if (set[j] && hay.indexOf(set[j]) > -1) { ok = true; break; }
+          if (!set[j] || hay.indexOf(set[j]) < 0) continue;
+          var pt = (j === 0) ? 6 : 1;
+          if (pt > best) best = pt;
         }
-        if (!ok) return false;
+        if (!best) return head === undefined ? false : 0;
+        if (head && head.indexOf(set[0]) > -1) best += 4;
+        total += best;
       }
-      return true;
+      return head === undefined ? true : total;
     };
   }
   function esc(t) {
@@ -481,6 +501,8 @@
   var caseWrap = document.getElementById('fsCaseWrap'), caseBox = document.getElementById('fsCases');
   var more = document.getElementById('fsMore');
   var empty = document.getElementById('fsEmpty');
+  var arcWrap = document.getElementById('fsArcWrap'), arcBox = document.getElementById('fsArc');
+  var arcCount = document.getElementById('fsArcCount'), arcAll = document.getElementById('fsArcAll');
 
   var STEP = 8, shown = STEP, hits = [];
 
@@ -505,18 +527,29 @@
       '</a>';
   }
 
+  function arcCard(r) {
+    return '<a class="fs-ccard" href="archive.html?q=' + encodeURIComponent(input.value.trim()) +
+      '#c' + esc(r.n) + '">' +
+      '<span class="fs-badge">' + esc(r.b || '') + '</span>' +
+      (r.cat ? '<span class="fs-branch">' + esc(r.cat) + '</span>' : '') +
+      '<strong>' + esc(r.car || '') + (r.ti ? ' — ' + esc(r.ti) : '') + '</strong>' +
+      (r.d ? '<span class="fs-meta">' + esc(r.d) + '</span>' : '') +
+      (r.rp ? '<span class="fs-rep">' + esc(cut(r.rp, 90)) + '</span>' : '') +
+      '</a>';
+  }
+
   function render() {
     var q = norm(input.value);
     clear.hidden = !input.value;
 
     if (!q) {
-      symWrap.hidden = caseWrap.hidden = empty.hidden = true;
+      symWrap.hidden = caseWrap.hidden = arcWrap.hidden = empty.hidden = true;
       count.textContent = '';
       return;
     }
 
     var test = makeTest(input.value);
-    if (!test) { symWrap.hidden = caseWrap.hidden = empty.hidden = true; count.textContent = ''; return; }
+    if (!test) { symWrap.hidden = caseWrap.hidden = arcWrap.hidden = empty.hidden = true; count.textContent = ''; return; }
     var sy = SYMI.filter(function (x) { return test(x.hay); }).map(function (x) { return x.s; });
     hits = CASES.filter(function (x) { return test(x.hay); }).map(function (x) { return x.r; });
     shown = STEP;
@@ -527,10 +560,23 @@
     caseWrap.hidden = !hits.length;
     drawCases();
 
-    var n = sy.length + hits.length;
+    var ar = ARC.filter(function (x) { x.s = test(x.hay, x.head); return x.s > 0; })
+      .sort(function (a, b) {
+        return (b.s - a.s) || String(b.r.d || '').localeCompare(String(a.r.d || ''));
+      })
+      .map(function (x) { return x.r; });
+    arcWrap.hidden = !ar.length;
+    if (ar.length) {
+      arcBox.innerHTML = ar.slice(0, 6).map(arcCard).join('');
+      arcCount.textContent = ar.length + '건';
+      arcAll.href = 'archive.html?q=' + encodeURIComponent(input.value.trim());
+      arcAll.hidden = ar.length <= 6;
+    }
+
+    var n = sy.length + hits.length + ar.length;
     empty.hidden = n > 0;
     count.textContent = n ? ('“' + input.value.trim() + '” 검색 결과 ' + n + '건 — 증상 안내 ' +
-      sy.length + '건, 정비사례 ' + hits.length + '건') : '';
+      sy.length + '건, 정비사례 ' + (hits.length + ar.length) + '건') : '';
   }
   function drawCases() {
     caseBox.innerHTML = hits.slice(0, shown).map(caseCard).join('');
@@ -583,6 +629,9 @@
 .fs-count { margin-top: 18px; font-size: 14.5px; font-weight: 800; color: var(--text-sub); }
 .fs-group { margin-top: 22px; }
 .fs-gt { font-size: 15px; font-weight: 900; letter-spacing: -.01em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #efe0ae; }
+.fs-gc { font-size: 13px; font-weight: 800; color: #9aa1ab; margin-left: 6px; }
+.fs-arcall { display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 800; color: #a97f00; text-decoration: none; }
+.fs-arcall:hover { text-decoration: underline; }
 
 .fs-sym { display: flex; flex-direction: column; gap: 10px; }
 .fs-scard {
