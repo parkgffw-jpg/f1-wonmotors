@@ -196,6 +196,11 @@
       else { cls += ' is-ok'; label = '가능'; }
       if (k === key(today)) cls += ' is-today';
       var sl = (S.slots || {})[k] || [];
+      var lim = S.limit || 0;
+      /* 하루에 받는 대수를 채우면 자동으로 마감 */
+      if (!past && lim && sl.length >= lim && label === '가능') {
+        cls = cls.replace(' is-ok', ' is-full'); label = '마감';
+      }
       if (sl.length && !past) cls += ' has-book';
       html += '<div class="' + cls + '"' + (sl.length && !past ? ' role="button" tabindex="0" data-k="' + k + '"' : '') +
               '><span class="bk-num">' + d + '</span>' +
@@ -222,7 +227,9 @@
         return '<li><span class="bk-dt">' + esc(x.t || '') + '</span>' +
                '<span class="bk-dcar">' + esc(x.car || '') + '</span></li>';
       }).join('') + '</ul>' +
-      '<p class="bk-dnote">같은 시간대라도 작업 내용에 따라 추가로 받을 수 있습니다. 문의해 주세요.</p>';
+      '<p class="bk-dnote">' + (S.limit && sl.length >= S.limit
+        ? '이 날은 예약이 다 찼습니다. 다른 날짜로 안내해 드리겠습니다.'
+        : '같은 시간대라도 작업 내용에 따라 추가로 받을 수 있습니다. 문의해 주세요.') + '</p>';
     detEl.hidden = false;
   }
   calEl.addEventListener('click', function (e) {
