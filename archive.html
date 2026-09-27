@@ -613,7 +613,6 @@
     ALL.forEach(function (r) { r._inphoto = false; r._inbody = false; });
     hits = ALL.filter(function (r) {
       if (SHOP && r.br !== SHOP) return false;
-      if (looking && !r.np && !r.hi) return false;
       if (b && r.b !== b) return false;
       if (pt && (r.pt || []).indexOf(pt) < 0) return false;
       if (c && (r.cat || []).indexOf(c) < 0) return false;
@@ -621,20 +620,22 @@
       if (test) { r._s = test(r); if (!r._s) return false; }
       return true;
     });
+    /* 자세한 사례 → 사진 있는 사례 → 사진 없는 사례 차례로 (사진 없는 건 맨 밑) */
+    var pic = function (r) { return r.np ? 1 : 0; };
     if (test) hits.sort(function (a, b2) {
-      return (b2._s - a._s) || String(b2.d || '').localeCompare(String(a.d || ''));
+      return (b2._s - a._s) || (pic(b2) - pic(a)) ||
+             String(b2.d || '').localeCompare(String(a.d || ''));
     });
     else hits.sort(function (a, b2) {
-      return ((b2.hi || 0) - (a.hi || 0)) || String(b2.d || '').localeCompare(String(a.d || ''));
+      return ((b2.hi || 0) - (a.hi || 0)) || (pic(b2) - pic(a)) ||
+             String(b2.d || '').localeCompare(String(a.d || ''));
     });
     shown = STEP;
     countEl.textContent = hits.length.toLocaleString('ko-KR');
     var hintEl = $('arHint');
     if (hintEl) {
       hintEl.hidden = !looking;
-      if (looking) hintEl.textContent =
-        '사진이 있는 사례를 보여드립니다. 검색하시면 ' +
-        ALL.length.toLocaleString('ko-KR') + '건 전체에서 찾습니다.';
+      if (looking) hintEl.textContent = '사진이 있는 사례를 먼저 보여드립니다. 사진 없는 사례는 아래쪽에 있습니다.';
     }
 
     var sy2 = [];
