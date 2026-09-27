@@ -75,6 +75,8 @@
 <section class="section section-booking">
   <div class="container container-narrow">
 
+    <p class="bk-hint">달력 날짜를 클릭하시면 그날의 <strong>예약 현황</strong>을 보실 수 있습니다.</p>
+
     <div class="bk-head">
       <button type="button" class="bk-nav" id="bkPrev" aria-label="이전 달">&lsaquo;</button>
       <h2 class="bk-month" id="bkMonth">&nbsp;</h2>
@@ -268,6 +270,13 @@
 <style>
 /* 예약 현황 달력 */
 .section-booking { background: var(--paper); }
+.bk-hint {
+  margin-bottom: 20px; text-align: center; font-size: 15px; color: var(--text-sub);
+  background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius);
+  padding: 13px 18px;
+}
+.bk-hint strong { color: var(--text); font-weight: 800; }
+@media (max-width: 560px) { .bk-hint { font-size: 14px; padding: 12px 14px; } }
 .bk-head { display: flex; align-items: center; justify-content: center; gap: 18px; }
 .bk-month { font-size: 21px; font-weight: 900; letter-spacing: -.02em; min-width: 150px; text-align: center; margin: 0; }
 .bk-nav {
