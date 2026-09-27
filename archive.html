@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>고장 검색 · 정비사례 1,030건 | 원모터스 인천점 — 차종 · 증상 · 고장부위 · 고장코드</title>
+<title>고장 검색 · 정비사례 | 원모터스 인천점 — 차종 · 증상 · 고장부위 · 고장코드</title>
 
-<meta name="description" content="원모터스 정비사례 1,030건을 차종·증상·고장부위·고장코드로 찾아볼 수 있습니다. BMW, 벤츠, 아우디, 폭스바겐, 현대, 기아 등 수입차·국산차 엔진·냉각·브레이크·하체 정비 기록." />
+<meta name="description" content="원모터스 정비사례를 차종·증상·고장부위·고장코드로 찾아볼 수 있습니다. BMW, 벤츠, 아우디, 폭스바겐, 현대, 기아 등 수입차·국산차 엔진·냉각·브레이크·하체 정비 기록." />
 <meta name="keywords" content="정비사례, 자동차 정비사례, BMW 정비사례, 벤츠 정비사례, 아우디 정비사례, 고장코드, P0300, 엔진 정비, 냉각수 누수, 브레이크, 하체 소음, 인천 정비소, 인천 수입차정비" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="고장 검색 · 정비사례 1,030건 | 원모터스" />
-<meta property="og:description" content="차종·증상·고장부위로 정비사례 1,030건을 찾아보세요." />
+<meta property="og:title" content="고장 검색 · 정비사례 | 원모터스" />
+<meta property="og:description" content="차종·증상·고장부위로 실제 정비사례를 찾아보세요." />
 <meta property="og:locale" content="ko_KR" />
 <meta property="og:url" content="https://onemotorsincheon.co.kr/archive.html" />
 <meta property="og:image" content="https://onemotorsincheon.co.kr/assets/img/og-onemotors.jpg" />
@@ -105,12 +105,6 @@
     <p class="ar-hint" id="arHint" hidden></p>
     <p class="ar-shop" id="arShop" hidden><b></b> 사례만 보고 계십니다 · <a href="archive.html">전체 보기</a></p>
 
-    <div class="ar-sym" id="arSymWrap" hidden>
-      <h2 class="ar-gt">증상 안내</h2>
-      <div class="ar-syms" id="arSyms"></div>
-      <h2 class="ar-gt ar-gt2">실제 정비사례</h2>
-    </div>
-
     <div class="ar-list" id="arList"></div>
     <button type="button" class="ar-more" id="arMore" hidden>더 보기</button>
 
@@ -192,231 +186,6 @@
 
 <script>
 (function () {
-  var SYMS = [
-    {
-      "id": "warning",
-      "t": "경고등이 떴어요",
-      "q": [
-        "엔진 경고등",
-        "체크엔진",
-        "경고등 지워도 다시 뜸",
-        "고장코드"
-      ],
-      "chk": [
-        "저장된 고장코드",
-        "센서 실측값",
-        "배선·커넥터",
-        "부품 작동 여부"
-      ]
-    },
-    {
-      "id": "start",
-      "t": "시동이 잘 안 걸려요",
-      "q": [
-        "시동 불량",
-        "크랭킹",
-        "예열플러그",
-        "아침 시동"
-      ],
-      "chk": [
-        "배터리 전압",
-        "연료 압력",
-        "인젝터 리턴량",
-        "크랭크·캠 센서"
-      ]
-    },
-    {
-      "id": "power",
-      "t": "가속이 안 되고 힘이 없어요",
-      "q": [
-        "출력 저하",
-        "힘 없음",
-        "가속 불량",
-        "언덕"
-      ],
-      "chk": [
-        "DPF 막힘",
-        "터보 과급압",
-        "EGR 고착",
-        "흡기 카본",
-        "인젝터",
-        "촉매"
-      ]
-    },
-    {
-      "id": "smoke",
-      "t": "매연이 심해요",
-      "q": [
-        "검은 연기",
-        "흰 연기",
-        "푸른 연기",
-        "디젤 매연",
-        "배기"
-      ],
-      "chk": [
-        "인젝터 분사량",
-        "DPF 포집",
-        "EGR",
-        "터보 오일 씰",
-        "압축 압력"
-      ]
-    },
-    {
-      "id": "dpf",
-      "t": "DPF 경고등이 자꾸 떠요",
-      "q": [
-        "DPF 재생",
-        "DPF 클리닝",
-        "매연저감장치",
-        "DPF 교체"
-      ],
-      "chk": [
-        "DPF 차압",
-        "재생 횟수",
-        "인젝터 상태",
-        "짧은 거리 주행"
-      ]
-    },
-    {
-      "id": "noise",
-      "t": "엔진에서 소리가 나요",
-      "q": [
-        "엔진 소음",
-        "달그락",
-        "냉간 소음",
-        "잡소리"
-      ],
-      "chk": [
-        "타이밍체인",
-        "텐셔너",
-        "유압태핏",
-        "겉벨트",
-        "워터펌프",
-        "오일 압력"
-      ]
-    },
-    {
-      "id": "oilloss",
-      "t": "엔진오일이 줄어들어요",
-      "q": [
-        "오일 소모",
-        "오일 보충",
-        "오일 경고등",
-        "엔진보링"
-      ],
-      "chk": [
-        "실린더 마모",
-        "압축 불량",
-        "밸브 스템 실",
-        "터보 오일 씰"
-      ]
-    },
-    {
-      "id": "leak",
-      "t": "주차한 자리에 기름이 떨어져 있어요",
-      "q": [
-        "엔진 누유",
-        "오일 누유",
-        "기름 자국",
-        "헤드가스켓"
-      ],
-      "chk": [
-        "헤드가스켓",
-        "엔진오일팬",
-        "프런트케이스",
-        "오일필터 하우징",
-        "캠커버",
-        "크랭크 씰"
-      ]
-    },
-    {
-      "id": "coolant",
-      "t": "냉각수가 줄고 온도가 올라가요",
-      "q": [
-        "오버히트",
-        "과열",
-        "냉각수 부족",
-        "부동액"
-      ],
-      "chk": [
-        "워터펌프",
-        "서모스탯",
-        "라디에이터",
-        "헤드가스켓",
-        "냉각 제어밸브"
-      ]
-    },
-    {
-      "id": "shake",
-      "t": "차가 떨려요",
-      "q": [
-        "엔진 부조",
-        "공회전 떨림",
-        "진동",
-        "실화"
-      ],
-      "chk": [
-        "기통별 실화",
-        "인젝터",
-        "점화 코일·플러그",
-        "엔진 마운트",
-        "구동계"
-      ]
-    },
-    {
-      "id": "battery",
-      "t": "배터리가 자꾸 방전돼요",
-      "q": [
-        "방전",
-        "암전류",
-        "블랙박스 방전",
-        "배터리"
-      ],
-      "chk": [
-        "암전류",
-        "배터리 성능",
-        "발전기 충전",
-        "외부 장착품"
-      ]
-    },
-    {
-      "id": "trans",
-      "t": "변속할 때 충격이 있어요",
-      "q": [
-        "변속 충격",
-        "미션",
-        "울컥",
-        "기어"
-      ],
-      "chk": [
-        "미션오일",
-        "밸브바디·솔레노이드",
-        "클러치(DCT)",
-        "엔진 마운트",
-        "학습값"
-      ]
-    },
-    {
-      "id": "chassis",
-      "t": "하체에서 잡소리가 나요",
-      "q": [
-        "하체 소음",
-        "덜컹거림",
-        "방지턱 넘을 때 소리",
-        "승차감 저하",
-        "잡소리"
-      ],
-      "chk": [
-        "컨트롤 암 부싱",
-        "스태빌라이저 링크",
-        "쇽업소버",
-        "엔진·미션 마운트",
-        "허브베어링",
-        "타이어 편마모"
-      ]
-    }
-  ];
-
   var ALL = window.ARCHIVE || [];
   var SYN = window.SEARCH_WORDS || [];
   var BODY = null, CAPS = null;    /* 정비 과정 글 · 사진 설명 — 나중에 따로 들어옵니다 */
@@ -525,19 +294,6 @@
 
   function clearSel() { selIds.forEach(function (id) { $(id).value = ''; }); }
 
-  /* 증상 안내 13가지 — 예전 고장검색 페이지에서 옮겨왔습니다 */
-  var SYMI = SYMS.map(function (x) {
-    return { s: x, hay: norm([x.t].concat(x.q).concat(x.chk).join(' ')) };
-  });
-  var symWrap = $('arSymWrap'), symBox = $('arSyms');
-  function symCard(x) {
-    return '<a class="ar-scard" href="symptoms.html#' + x.id + '">' +
-      '<strong>' + esc(x.t) + '</strong>' +
-      '<span class="ar-chk">' + x.chk.slice(0, 4).map(function (c) {
-        return '<i>' + esc(c) + '</i>'; }).join('') + '</span>' +
-      '<em>자세히 보기 &rsaquo;</em></a>';
-  }
-
   var GAL = null;                  /* 사진 전체 · 설명 — 나중에 들어옵니다 */
   function gal(r) { return (GAL && GAL[r._i]) || null; }
   function pics(r) { var g = gal(r); return (g && g.p) || (r.p0 ? [r.p0] : []); }
@@ -608,7 +364,7 @@
     var test = makeTest(input.value);
     clear.hidden = !input.value;
     var b = $('fBrand').value, pt = $('fPart').value, c = $('fCat').value, sy = $('fSym').value;
-    /* 그냥 둘러볼 때는 사진 있는 사례만, 검색하거나 고르면 1,030건 전체에서 찾습니다 */
+    /* 검색하거나 항목을 고르면 looking 이 꺼집니다 */
     var looking = !(test || b || pt || c || sy || SHOP);
     ALL.forEach(function (r) { r._inphoto = false; r._inbody = false; });
     hits = ALL.filter(function (r) {
@@ -642,12 +398,6 @@
       hintEl.hidden = !looking;
       if (looking) hintEl.textContent = '사진이 있는 사례를 먼저 보여드립니다. 사진 없는 사례는 아래쪽에 있습니다.';
     }
-
-    var sy2 = [];
-    if (test) sy2 = SYMI.filter(function (x) { return test({ _h: x.hay, _t: x.hay, _o: '', _i: -1 }); })
-                        .map(function (x) { return x.s; });
-    symWrap.hidden = !sy2.length;
-    if (sy2.length) symBox.innerHTML = sy2.map(symCard).join('');
 
     draw();
   }
@@ -856,16 +606,6 @@
 .ar-count strong { font-size: 17px; font-weight: 900; color: #a97f00; font-variant-numeric: tabular-nums; }
 .ar-reset { border: 0; background: none; font: inherit; font-size: 13.5px; font-weight: 700; color: #9aa1ab; cursor: pointer; text-decoration: underline; }
 
-.ar-gt { font-size: 15px; font-weight: 900; letter-spacing: -.01em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #efe0ae; }
-.ar-gt2 { margin-top: 26px; margin-bottom: 0; }
-.ar-sym { margin-top: 16px; }
-.ar-syms { display: flex; flex-direction: column; gap: 10px; }
-.ar-scard { display: block; text-decoration: none; color: inherit; background: #fffdf5; border: 1px solid #efe0ae; border-radius: var(--radius); padding: 18px 20px; }
-.ar-scard:hover { border-color: #d8a600; }
-.ar-scard > strong { display: block; font-size: 17px; font-weight: 900; letter-spacing: -.02em; }
-.ar-chk { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-.ar-chk i { font-style: normal; font-size: 13px; font-weight: 700; color: #6d747d; background: #fff; border: 1px solid #e8e3d0; border-radius: 999px; padding: 5px 11px; }
-.ar-scard > em { display: inline-block; margin-top: 12px; font-style: normal; font-size: 14px; font-weight: 800; color: #a97f00; }
 .ar-flag { display: inline-block; margin-top: 8px; font-size: 11.5px; font-weight: 900;
   color: #a5442f; background: #fdf0ee; border: 1px solid #f2d3cd; border-radius: 6px; padding: 3px 9px; }
 .ar-flag-d { margin-top: 12px; }
