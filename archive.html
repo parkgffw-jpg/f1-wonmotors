@@ -468,6 +468,7 @@
         if (!best && CAPS && CAPS[r._i] && CAPS[r._i].indexOf(set[0]) > -1) { best = 3; where = 2; }
         if (!best) return 0;
         if (r._t.indexOf(set[0]) > -1) best += 4;
+        if (r.hi) best += 2;                      /* 자세히 쓴 사례를 조금 위로 */
         total += best;
         if (where === 1) r._inphoto = true;
         if (where === 2) r._inbody = true;
@@ -561,22 +562,27 @@
     if (forAlt) bits.push('정비 사진 ' + (k + 1));
     return bits.filter(Boolean).join(' · ');
   }
-  function img(f) { return 'assets/img/archive/' + f; }
+  function img(f, r) { return 'assets/img/' + ((r && r.pf) || 'archive') + '/' + f; }
 
   function card(r, i) {
     var p = r.p0 ? [r.p0] : [];
     return '<article class="ar-card" id="c' + esc(r.n) + '">' +
       '<button type="button" class="ar-cbtn" data-i="' + i + '">' +
-        (p.length ? '<img class="ar-thumb" loading="lazy" src="' + img(p[0]) +
+        (p.length ? '<img class="ar-thumb" loading="lazy" src="' + img(p[0], r) +
                     '" alt="' + esc(r.m) + ' 정비 사진" onerror="this.remove()" />' : '') +
         '<span class="ar-txt">' +
           '<span class="ar-meta">' +
             (r.b && r.b !== '기타·미상' ? '<span class="ar-brand">' + esc(r.b) + '</span>' : '') +
             (r.m ? '<span class="ar-model">' + esc(r.m) + '</span>' : '') +
-            '<span class="ar-date">' + esc(r.d || '') + '</span>' +
+            '<span class="ar-date">' + esc(r.dl || r.d || '') + '</span>' +
           '</span>' +
-          '<strong class="ar-title">' + esc(r.sym || r.ti) + '</strong>' +
-          (r.sym && r.ti ? '<span class="ar-sub">' + esc(r.ti) + '</span>' : '') +
+          (r.hi ? '<span class="ar-flag">자세한 사례' +
+                  (r.br ? ' · ' + esc(r.br) : '') +
+                  (r.km ? ' · ' + esc(r.km) : '') + '</span>' : '') +
+          '<strong class="ar-title">' + esc(r.hi ? (r.ti || r.sym) : (r.sym || r.ti)) + '</strong>' +
+          (r.hi
+            ? (r.sym ? '<span class="ar-sub">' + esc(r.sym) + '</span>' : '')
+            : (r.sym && r.ti ? '<span class="ar-sub">' + esc(r.ti) + '</span>' : '')) +
           '<span class="ar-sum">' +
             (r.ca ? '<span class="ar-row"><i>원인</i><em>' + esc(r.ca) + '</em></span>' : '') +
             ((r.rp || []).length ? '<span class="ar-row"><i>수리</i><em>' +
@@ -606,7 +612,7 @@
     var looking = !(test || b || pt || c || sy);
     ALL.forEach(function (r) { r._inphoto = false; r._inbody = false; });
     hits = ALL.filter(function (r) {
-      if (looking && !r.np) return false;
+      if (looking && !r.np && !r.hi) return false;
       if (b && r.b !== b) return false;
       if (pt && (r.pt || []).indexOf(pt) < 0) return false;
       if (c && (r.cat || []).indexOf(c) < 0) return false;
@@ -616,6 +622,9 @@
     });
     if (test) hits.sort(function (a, b2) {
       return (b2._s - a._s) || String(b2.d || '').localeCompare(String(a.d || ''));
+    });
+    else hits.sort(function (a, b2) {
+      return ((b2.hi || 0) - (a.hi || 0)) || String(b2.d || '').localeCompare(String(a.d || ''));
     });
     shown = STEP;
     countEl.textContent = hits.length.toLocaleString('ko-KR');
@@ -676,11 +685,12 @@
       '<div class="ar-meta">' +
         (r.b && r.b !== '기타·미상' ? '<span class="ar-brand">' + esc(r.b) + '</span>' : '') +
         (r.m ? '<span class="ar-model">' + esc(r.m) + '</span>' : '') +
-        '<span class="ar-date">' + esc(r.d || '') + '</span>' +
+        '<span class="ar-date">' + esc(r.dl || r.d || '') + '</span>' +
       '</div>' +
+      (r.hi ? '<p class="ar-flag ar-flag-d">자세한 사례' + (r.br ? ' · ' + esc(r.br) : '') + '</p>' : '') +
       '<h2 class="ar-dt">' + esc(r.ti || r.sym) + '</h2>' +
       '<dl class="ar-dl">' +
-        (r.m ? '<div><dt>차량</dt><dd>' + esc(r.m) + '</dd></div>' : '') +
+        (r.m ? '<div><dt>차량</dt><dd>' + esc(r.m) + (r.km ? ' · ' + esc(r.km) : '') + '</dd></div>' : '') +
         (r.sym ? '<div><dt>증상</dt><dd>' + esc(r.sym) + '</dd></div>' : '') +
         (r.ca ? '<div><dt>원인</dt><dd>' + esc(r.ca) + '</dd></div>' : '') +
         ((r.pt || []).length ? '<div><dt>고장부위</dt><dd><span class="ar-tags">' +
@@ -692,11 +702,12 @@
         ((r.cd || []).length ? '<div><dt>고장코드</dt><dd><span class="ar-tags">' +
           r.cd.map(function (x) { return '<span class="ar-tag is-code">' + esc(x) + '</span>'; }).join('') +
           '</span></dd></div>' : '') +
+        (r.res ? '<div><dt>결과</dt><dd>' + esc(r.res) + '</dd></div>' : '') +
       '</dl>' +
       (p.length ? '<h3 class="ar-gh">정비 사진 ' + p.length + '장' +
           (!GAL ? '<span class="ar-ghs"> · 나머지 불러오는 중…</span>' : '') + '</h3>' +
         '<div class="case-shots ar-gal">' + p.map(function (f, k) {
-          return '<figure><img loading="lazy" src="' + img(f) + '" data-k="' + k +
+          return '<figure><img loading="lazy" src="' + img(f, r) + '" data-k="' + k +
                  '" alt="' + esc(cap(r, k, true)) + '" onerror="this.parentNode.remove()" />' +
                  '<figcaption>' + esc(cap(r, k)) + '</figcaption></figure>';
         }).join('') + '</div>' : '') +
@@ -726,7 +737,7 @@
       lbImg = document.getElementById('lightboxImg'),
       lbCap = document.getElementById('lightboxCap');
   function showLb() {
-    lbImg.src = img(lbList[lbK]);
+    lbImg.src = img(lbList[lbK], lbR);
     lbCap.textContent = lbR ? cap(lbR, lbK) : (lbK + 1) + ' / ' + lbList.length;
   }
   function openLb(list, k, r) { lbList = list; lbK = k; lbR = r || null; showLb(); lb.hidden = false; }
@@ -836,6 +847,9 @@
 .ar-chk { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .ar-chk i { font-style: normal; font-size: 13px; font-weight: 700; color: #6d747d; background: #fff; border: 1px solid #e8e3d0; border-radius: 999px; padding: 5px 11px; }
 .ar-scard > em { display: inline-block; margin-top: 12px; font-style: normal; font-size: 14px; font-weight: 800; color: #a97f00; }
+.ar-flag { display: inline-block; margin-top: 8px; font-size: 11.5px; font-weight: 900;
+  color: #a5442f; background: #fdf0ee; border: 1px solid #f2d3cd; border-radius: 6px; padding: 3px 9px; }
+.ar-flag-d { margin-top: 12px; }
 .ar-hint { margin-top: 6px; font-size: 13px; font-weight: 600; color: #9aa1ab; }
 .ar-list { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
 .ar-card { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); overflow: hidden; }
