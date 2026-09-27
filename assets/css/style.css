@@ -135,6 +135,10 @@ li { list-style: none; }
 
 .header-call { margin-left: 4px; }
 
+/* 휴대폰 머리말의 고장검색 칸 (넓은 화면에서는 메뉴에 고장사례 및 검색이 있어 숨깁니다) */
+.hdr-search { display: none; }
+
+
 .nav-toggle {
   display: none; margin-left: auto;
   width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer;
@@ -364,7 +368,27 @@ li { list-style: none; }
   html { scroll-padding-top: 76px; }
   .header-inner { height: 64px; gap: 12px; }
   .header-call { display: none; }
-  .nav-toggle { display: flex; }
+  .nav-toggle { display: flex; order: 3; }
+  .header-inner { gap: 10px; }
+
+  .hdr-search {
+    order: 2; display: flex; align-items: center; gap: 6px;
+    flex: 1 1 auto; min-width: 0; height: 38px; padding: 0 12px;
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .2); border-radius: 999px;
+  }
+  .hdr-search:focus-within { border-color: var(--red); background: rgba(255, 255, 255, .14); }
+  .brand { min-width: 0; flex: 0 1 auto; }
+  .brand-text { min-width: 0; overflow: hidden; }
+  .hdr-search-ico { flex: none; width: 17px; height: 17px; fill: none; stroke: rgba(255,255,255,.75); stroke-width: 2.2; stroke-linecap: round; }
+  .hdr-search input {
+    flex: 1 1 auto; min-width: 0; width: 100%; padding: 0;
+    border: 0; background: none; outline: none;
+    font: inherit; font-size: 14px; font-weight: 600; color: #fff;
+    -webkit-appearance: none; appearance: none;
+  }
+  .hdr-search input::placeholder { color: rgba(255, 255, 255, .55); font-weight: 600; }
+  .hdr-search input::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
 
   .nav {
     position: fixed; top: calc(64px + env(safe-area-inset-top, 0px)); left: 0; right: 0;
@@ -391,8 +415,15 @@ li { list-style: none; }
   .site-footer { padding-bottom: 110px; }
 }
 
+/* 화면이 좁으면 가게 이름은 빼고 로고만 둡니다 (검색칸 자리를 만들기 위해) */
+@media (max-width: 600px) {
+  .brand-text { display: none; }
+}
+
 @media (max-width: 420px) {
   .br-m { display: none; }
+  .hdr-search { height: 34px; padding: 0 10px; gap: 5px; }
+  .hdr-search input { font-size: 13px; }
   .service-card { padding: 26px 20px 22px; }
   .location-info dl { grid-template-columns: 1fr; row-gap: 4px; }
   .location-info dt { margin-top: 12px; }
