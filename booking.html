@@ -138,7 +138,10 @@
   <span class="ico-phone" aria-hidden="true"></span> 전화 상담 바로가기
 </a>
 
-<script src="assets/js/booking-data.js"></script>
+<!-- 예약 자료는 자주 바뀌므로 항상 새로 받아옵니다 -->
+<script>
+  document.write('<scr' + 'ipt src="assets/js/booking-data.js?t=' + Date.now() + '"></scr' + 'ipt>');
+</script>
 <script src="assets/js/main.js"></script>
 
 <script>
