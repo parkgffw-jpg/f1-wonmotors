@@ -83,10 +83,13 @@
 
     <div class="bk-cal" id="bkCal" role="grid" aria-label="예약 현황 달력"></div>
 
+    <div class="bk-detail" id="bkDetail" hidden></div>
+
     <ul class="bk-legend">
       <li><span class="bk-dot ok"></span>예약 가능</li>
       <li><span class="bk-dot full"></span>마감</li>
       <li><span class="bk-dot off"></span>휴무</li>
+      <li><span class="bk-dot has"></span>예약 있음 — 날짜를 누르면 보입니다</li>
     </ul>
 
     <p class="bk-note" id="bkNote" hidden></p>
@@ -189,17 +192,51 @@
       else if (has(S.full, k)) { cls += ' is-full'; label = '마감'; }
       else { cls += ' is-ok'; label = '가능'; }
       if (k === key(today)) cls += ' is-today';
-      html += '<div class="' + cls + '"><span class="bk-num">' + d + '</span>' +
-              (label ? '<span class="bk-tag">' + label + '</span>' : '') + '</div>';
+      var sl = (S.slots || {})[k] || [];
+      if (sl.length && !past) cls += ' has-book';
+      html += '<div class="' + cls + '"' + (sl.length && !past ? ' role="button" tabindex="0" data-k="' + k + '"' : '') +
+              '><span class="bk-num">' + d + '</span>' +
+              (label ? '<span class="bk-tag">' + label + '</span>' : '') +
+              (sl.length && !past ? '<span class="bk-cnt">' + sl.length + '</span>' : '') + '</div>';
     }
     calEl.innerHTML = html;
   }
 
+  var detEl = document.getElementById('bkDetail');
+  function esc(t) {
+    return String(t == null ? '' : t)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function showDay(k) {
+    var sl = ((S.slots || {})[k] || []).slice().sort(function (a, b) {
+      return String(a.t || '').localeCompare(String(b.t || ''));
+    });
+    if (!sl.length) { detEl.hidden = true; return; }
+    var a = k.split('-');
+    var wd = ['일','월','화','수','목','금','토'][new Date(+a[0], +a[1]-1, +a[2]).getDay()];
+    detEl.innerHTML = '<p class="bk-dhead">' + (+a[1]) + '월 ' + (+a[2]) + '일 (' + wd + ') 예약</p>' +
+      '<ul class="bk-dlist">' + sl.map(function (x) {
+        return '<li><span class="bk-dt">' + esc(x.t || '') + '</span>' +
+               '<span class="bk-dcar">' + esc(x.car || '') + '</span></li>';
+      }).join('') + '</ul>' +
+      '<p class="bk-dnote">같은 시간대라도 작업 내용에 따라 추가로 받을 수 있습니다. 문의해 주세요.</p>';
+    detEl.hidden = false;
+  }
+  calEl.addEventListener('click', function (e) {
+    var c = e.target.closest ? e.target.closest('[data-k]') : null;
+    if (c) showDay(c.getAttribute('data-k'));
+  });
+  calEl.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var c = e.target.closest ? e.target.closest('[data-k]') : null;
+    if (c) { e.preventDefault(); showDay(c.getAttribute('data-k')); }
+  });
+
   document.getElementById('bkPrev').addEventListener('click', function () {
-    view = new Date(view.getFullYear(), view.getMonth() - 1, 1); draw();
+    view = new Date(view.getFullYear(), view.getMonth() - 1, 1); detEl.hidden = true; draw();
   });
   document.getElementById('bkNext').addEventListener('click', function () {
-    view = new Date(view.getFullYear(), view.getMonth() + 1, 1); draw();
+    view = new Date(view.getFullYear(), view.getMonth() + 1, 1); detEl.hidden = true; draw();
   });
 
   if (S.note) { noteEl.textContent = S.note; noteEl.hidden = false; }
@@ -256,6 +293,25 @@
 .bk-day.is-past .bk-num { font-weight: 600; }
 .bk-day.is-today { outline: 2px solid var(--red); outline-offset: -2px; }
 .theme-one .bk-day.is-today { outline-color: #d8a600; }
+
+.bk-day.has-book { cursor: pointer; }
+.bk-day.has-book:hover { border-color: #2b6cb0; }
+.bk-cnt {
+  font-size: 10.5px; font-weight: 800; color: #fff; background: #2b6cb0;
+  border-radius: 999px; padding: 1px 6px; line-height: 1.5;
+}
+.bk-dot.has { background: #2b6cb0; }
+.bk-detail {
+  margin-top: 14px; background: var(--white); border: 1px solid #cfdcec;
+  border-left: 4px solid #2b6cb0; border-radius: var(--radius); padding: 18px 20px;
+}
+.bk-dhead { font-size: 15.5px; font-weight: 900; letter-spacing: -.02em; }
+.bk-dlist { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.bk-dlist li { display: flex; align-items: baseline; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #eef0f3; }
+.bk-dlist li:last-child { border-bottom: 0; padding-bottom: 0; }
+.bk-dt { font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 58px; }
+.bk-dcar { font-size: 15px; color: var(--text-sub); }
+.bk-dnote { margin-top: 12px; font-size: 13.5px; color: #9aa1ab; }
 
 .bk-legend { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
 .bk-legend li { display: flex; align-items: center; gap: 7px; font-size: 13.5px; color: var(--text-sub); font-weight: 700; }
