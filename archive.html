@@ -36,9 +36,8 @@
     <nav class="nav" id="nav">
       <a href="about.html">소개</a>
       <a href="symptoms.html">증상 알아보기</a>
-      <a href="search.html">고장검색</a>
       <a href="cases-onemotors.html">정비사례</a>
-      <a class="active" href="archive.html">사례 아카이브</a>
+      <a class="active" href="archive.html">고장사례 및 검색</a>
       <a href="booking.html">예약현황</a>
       <a href="index.html#location">오시는길</a>
       <a class="nav-sister nav-sister-f1" href="f1motors.html">인천에프원모터스</a>
@@ -100,6 +99,12 @@
       <button type="button" class="ar-reset" id="arReset">검색 초기화</button>
     </div>
 
+    <div class="ar-sym" id="arSymWrap" hidden>
+      <h2 class="ar-gt">증상 안내</h2>
+      <div class="ar-syms" id="arSyms"></div>
+      <h2 class="ar-gt ar-gt2">실제 정비사례</h2>
+    </div>
+
     <div class="ar-list" id="arList"></div>
     <button type="button" class="ar-more" id="arMore" hidden>더 보기</button>
 
@@ -156,7 +161,7 @@
       <p class="footer-links">
         <a href="index.html">홈</a>
         <a href="f1motors.html">인천에프원모터스</a>
-        <a href="search.html">고장검색</a>
+        <a href="archive.html">고장사례</a>
       </p>
       <p class="copy">&copy; 2026 원모터스 인천점. All rights reserved.</p>
     </div>
@@ -181,9 +186,234 @@
 
 <script>
 (function () {
+  var SYMS = [
+    {
+      "id": "warning",
+      "t": "경고등이 떴어요",
+      "q": [
+        "엔진 경고등",
+        "체크엔진",
+        "경고등 지워도 다시 뜸",
+        "고장코드"
+      ],
+      "chk": [
+        "저장된 고장코드",
+        "센서 실측값",
+        "배선·커넥터",
+        "부품 작동 여부"
+      ]
+    },
+    {
+      "id": "start",
+      "t": "시동이 잘 안 걸려요",
+      "q": [
+        "시동 불량",
+        "크랭킹",
+        "예열플러그",
+        "아침 시동"
+      ],
+      "chk": [
+        "배터리 전압",
+        "연료 압력",
+        "인젝터 리턴량",
+        "크랭크·캠 센서"
+      ]
+    },
+    {
+      "id": "power",
+      "t": "가속이 안 되고 힘이 없어요",
+      "q": [
+        "출력 저하",
+        "힘 없음",
+        "가속 불량",
+        "언덕"
+      ],
+      "chk": [
+        "DPF 막힘",
+        "터보 과급압",
+        "EGR 고착",
+        "흡기 카본",
+        "인젝터",
+        "촉매"
+      ]
+    },
+    {
+      "id": "smoke",
+      "t": "매연이 심해요",
+      "q": [
+        "검은 연기",
+        "흰 연기",
+        "푸른 연기",
+        "디젤 매연",
+        "배기"
+      ],
+      "chk": [
+        "인젝터 분사량",
+        "DPF 포집",
+        "EGR",
+        "터보 오일 씰",
+        "압축 압력"
+      ]
+    },
+    {
+      "id": "dpf",
+      "t": "DPF 경고등이 자꾸 떠요",
+      "q": [
+        "DPF 재생",
+        "DPF 클리닝",
+        "매연저감장치",
+        "DPF 교체"
+      ],
+      "chk": [
+        "DPF 차압",
+        "재생 횟수",
+        "인젝터 상태",
+        "짧은 거리 주행"
+      ]
+    },
+    {
+      "id": "noise",
+      "t": "엔진에서 소리가 나요",
+      "q": [
+        "엔진 소음",
+        "달그락",
+        "냉간 소음",
+        "잡소리"
+      ],
+      "chk": [
+        "타이밍체인",
+        "텐셔너",
+        "유압태핏",
+        "겉벨트",
+        "워터펌프",
+        "오일 압력"
+      ]
+    },
+    {
+      "id": "oilloss",
+      "t": "엔진오일이 줄어들어요",
+      "q": [
+        "오일 소모",
+        "오일 보충",
+        "오일 경고등",
+        "엔진보링"
+      ],
+      "chk": [
+        "실린더 마모",
+        "압축 불량",
+        "밸브 스템 실",
+        "터보 오일 씰"
+      ]
+    },
+    {
+      "id": "leak",
+      "t": "주차한 자리에 기름이 떨어져 있어요",
+      "q": [
+        "엔진 누유",
+        "오일 누유",
+        "기름 자국",
+        "헤드가스켓"
+      ],
+      "chk": [
+        "헤드가스켓",
+        "엔진오일팬",
+        "프런트케이스",
+        "오일필터 하우징",
+        "캠커버",
+        "크랭크 씰"
+      ]
+    },
+    {
+      "id": "coolant",
+      "t": "냉각수가 줄고 온도가 올라가요",
+      "q": [
+        "오버히트",
+        "과열",
+        "냉각수 부족",
+        "부동액"
+      ],
+      "chk": [
+        "워터펌프",
+        "서모스탯",
+        "라디에이터",
+        "헤드가스켓",
+        "냉각 제어밸브"
+      ]
+    },
+    {
+      "id": "shake",
+      "t": "차가 떨려요",
+      "q": [
+        "엔진 부조",
+        "공회전 떨림",
+        "진동",
+        "실화"
+      ],
+      "chk": [
+        "기통별 실화",
+        "인젝터",
+        "점화 코일·플러그",
+        "엔진 마운트",
+        "구동계"
+      ]
+    },
+    {
+      "id": "battery",
+      "t": "배터리가 자꾸 방전돼요",
+      "q": [
+        "방전",
+        "암전류",
+        "블랙박스 방전",
+        "배터리"
+      ],
+      "chk": [
+        "암전류",
+        "배터리 성능",
+        "발전기 충전",
+        "외부 장착품"
+      ]
+    },
+    {
+      "id": "trans",
+      "t": "변속할 때 충격이 있어요",
+      "q": [
+        "변속 충격",
+        "미션",
+        "울컥",
+        "기어"
+      ],
+      "chk": [
+        "미션오일",
+        "밸브바디·솔레노이드",
+        "클러치(DCT)",
+        "엔진 마운트",
+        "학습값"
+      ]
+    },
+    {
+      "id": "chassis",
+      "t": "하체에서 잡소리가 나요",
+      "q": [
+        "하체 소음",
+        "덜컹거림",
+        "방지턱 넘을 때 소리",
+        "승차감 저하",
+        "잡소리"
+      ],
+      "chk": [
+        "컨트롤 암 부싱",
+        "스태빌라이저 링크",
+        "쇽업소버",
+        "엔진·미션 마운트",
+        "허브베어링",
+        "타이어 편마모"
+      ]
+    }
+  ];
+
   var ALL = window.ARCHIVE || [];
   var SYN = window.SEARCH_WORDS || [];
-  var BODY = null;                 /* 정비 과정 글 — 나중에 따로 들어옵니다 */
+  var BODY = null, CAPS = null;    /* 정비 과정 글 · 사진 설명 — 나중에 따로 들어옵니다 */
   var STEP = 20, shown = STEP, hits = ALL, cur = -1;
 
   var $ = function (id) { return document.getElementById(id); };
@@ -229,6 +459,7 @@
         }
         if (!best && r._o && r._o.indexOf(set[0]) > -1) { best = 4; where = 1; }
         if (!best && BODY && BODY[r._i] && BODY[r._i].indexOf(set[0]) > -1) { best = 3; where = 2; }
+        if (!best && CAPS && CAPS[r._i] && CAPS[r._i].indexOf(set[0]) > -1) { best = 3; where = 2; }
         if (!best) return 0;
         if (r._t.indexOf(set[0]) > -1) best += 4;
         total += best;
@@ -290,17 +521,33 @@
 
   function clearSel() { selIds.forEach(function (id) { $(id).value = ''; }); }
 
-  function pics(r) { return (r.p || []); }
+  /* 증상 안내 13가지 — 예전 고장검색 페이지에서 옮겨왔습니다 */
+  var SYMI = SYMS.map(function (x) {
+    return { s: x, hay: norm([x.t].concat(x.q).concat(x.chk).join(' ')) };
+  });
+  var symWrap = $('arSymWrap'), symBox = $('arSyms');
+  function symCard(x) {
+    return '<a class="ar-scard" href="symptoms.html#' + x.id + '">' +
+      '<strong>' + esc(x.t) + '</strong>' +
+      '<span class="ar-chk">' + x.chk.slice(0, 4).map(function (c) {
+        return '<i>' + esc(c) + '</i>'; }).join('') + '</span>' +
+      '<em>자세히 보기 &rsaquo;</em></a>';
+  }
+
+  var GAL = null;                  /* 사진 전체 · 설명 — 나중에 들어옵니다 */
+  function gal(r) { return (GAL && GAL[r._i]) || null; }
+  function pics(r) { var g = gal(r); return (g && g.p) || (r.p0 ? [r.p0] : []); }
 
   /* 사진 밑 설명 — 지어내지 않고, 이 사례의 차량 · 고장부위와
      그 사진에서 실제로 읽힌 고장코드만 적습니다 */
   function cap(r, k, forAlt) {
-    var n = (r.p || []).length;
+    var n = pics(r).length || r.np || 0;
     var bits = [];
     if (!forAlt) bits.push((k + 1) + ' / ' + n);
-    var code = ((r.pc || [])[k] || '').split(',').filter(Boolean);
+    var g = gal(r) || {};
+    var code = (((g.c || [])[k]) || '').split(',').filter(Boolean);
     if (code.length) bits.push('진단기 화면 ' + code.join(', '));
-    var desc = (r.pd || [])[k] || '';
+    var desc = ((g.d || [])[k]) || '';
     if (desc) {                                  /* 블로그 글에서 가져온 그 사진의 설명 */
       if (forAlt) bits.push(r.m || '');
       bits.push(desc);
@@ -314,7 +561,7 @@
   function img(f) { return 'assets/img/archive/' + f; }
 
   function card(r, i) {
-    var p = pics(r);
+    var p = r.p0 ? [r.p0] : [];
     return '<article class="ar-card" id="c' + esc(r.n) + '">' +
       '<button type="button" class="ar-cbtn" data-i="' + i + '">' +
         (p.length ? '<img class="ar-thumb" loading="lazy" src="' + img(p[0]) +
@@ -341,7 +588,7 @@
           (r._inphoto ? '<span class="ar-found">사진 속 글자에서 찾았습니다</span>' : '') +
           (r._inbody && !r._inphoto ? '<span class="ar-found">정비 과정 글에서 찾았습니다</span>' : '') +
           '<span class="ar-go">정비 내용 자세히 보기 &rarr;' +
-            (r.np ? '<i class="ar-pc">사진 ' + r.np + '장 중 ' + p.length + '장</i>' : '') +
+            (r.np ? '<i class="ar-pc">사진 ' + r.np + '장</i>' : '') +
           '</span>' +
         '</span>' +
       '</button>' +
@@ -366,6 +613,13 @@
     });
     shown = STEP;
     countEl.textContent = hits.length.toLocaleString('ko-KR');
+
+    var sy2 = [];
+    if (test) sy2 = SYMI.filter(function (x) { return test({ _h: x.hay, _t: x.hay, _o: '', _i: -1 }); })
+                        .map(function (x) { return x.s; });
+    symWrap.hidden = !sy2.length;
+    if (sy2.length) symBox.innerHTML = sy2.map(symCard).join('');
+
     draw();
   }
   var hashTarget = (location.hash || '').replace('#', '');
@@ -427,7 +681,7 @@
           '</span></dd></div>' : '') +
       '</dl>' +
       (p.length ? '<h3 class="ar-gh">정비 사진 ' + p.length + '장' +
-          (r.np > p.length ? '<span class="ar-ghs"> (전체 ' + r.np + '장 중)</span>' : '') + '</h3>' +
+          (!GAL ? '<span class="ar-ghs"> · 나머지 불러오는 중…</span>' : '') + '</h3>' +
         '<div class="case-shots ar-gal">' + p.map(function (f, k) {
           return '<figure><img loading="lazy" src="' + img(f) + '" data-k="' + k +
                  '" alt="' + esc(cap(r, k, true)) + '" onerror="this.parentNode.remove()" />' +
@@ -500,13 +754,16 @@
   if (m) { try { input.value = decodeURIComponent(m[1]); } catch (e) {} }
   render();
 
-  /* 정비 과정 글은 화면이 뜬 뒤에 들여옵니다 (첫 화면을 빠르게 하려고) */
-  window.onArchiveText = function () {
+  /* 사진 전체 · 사진 설명 · 정비 과정 글은 화면이 뜬 뒤에 들여옵니다 (첫 화면을 빠르게 하려고) */
+  window.onArchiveGal = function () {
+    GAL = window.ARCHIVE_GAL || null;
     BODY = (window.ARCHIVE_TEXT || []).map(norm);
+    CAPS = (GAL || []).map(function (g) { return norm(((g && g.d) || []).join(' ')); });
+    if (!sheet.hidden && cur > -1) openDetail(cur);      /* 열어둔 창이 있으면 사진을 채웁니다 */
     if (input.value) render();
   };
   var t = document.createElement('script');
-  t.src = 'assets/js/cases-archive-text.js';
+  t.src = 'assets/js/cases-archive-photos.js';
   t.defer = true;
   document.body.appendChild(t);
 
@@ -556,6 +813,16 @@
 .ar-count strong { font-size: 17px; font-weight: 900; color: #a97f00; font-variant-numeric: tabular-nums; }
 .ar-reset { border: 0; background: none; font: inherit; font-size: 13.5px; font-weight: 700; color: #9aa1ab; cursor: pointer; text-decoration: underline; }
 
+.ar-gt { font-size: 15px; font-weight: 900; letter-spacing: -.01em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #efe0ae; }
+.ar-gt2 { margin-top: 26px; margin-bottom: 0; }
+.ar-sym { margin-top: 16px; }
+.ar-syms { display: flex; flex-direction: column; gap: 10px; }
+.ar-scard { display: block; text-decoration: none; color: inherit; background: #fffdf5; border: 1px solid #efe0ae; border-radius: var(--radius); padding: 18px 20px; }
+.ar-scard:hover { border-color: #d8a600; }
+.ar-scard > strong { display: block; font-size: 17px; font-weight: 900; letter-spacing: -.02em; }
+.ar-chk { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.ar-chk i { font-style: normal; font-size: 13px; font-weight: 700; color: #6d747d; background: #fff; border: 1px solid #e8e3d0; border-radius: 999px; padding: 5px 11px; }
+.ar-scard > em { display: inline-block; margin-top: 12px; font-style: normal; font-size: 14px; font-weight: 800; color: #a97f00; }
 .ar-list { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; }
 .ar-card { background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius); overflow: hidden; }
 .ar-card.ar-hit { border-color: #d8a600; box-shadow: 0 0 0 3px #fff2cc; }
