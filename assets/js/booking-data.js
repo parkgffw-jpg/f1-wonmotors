@@ -13,9 +13,13 @@
 
    ※ 차량번호 · 고객 성명 · 연락처는 절대 넣지 마세요.
      손님 정보는 예약 장부(사장님 전용 페이지)에만 적습니다.
+
+   ※ 지금은 원모터스 인천점과 인천에프원모터스가 예약을 같이 씁니다.
+     예약은 아래 one 칸에만 적으시면 두 홈페이지에 똑같이 보입니다.
+     (따로 쓰고 싶어지면 맨 아래 SHARED 를 false 로 바꾸세요)
    ===================================================================== */
 window.BOOKING = {
-  updated: "2026-09-28",
+  updated: "2026-09-29",
 
   one: {   /* 원모터스 인천점 */
     limit:  5,
@@ -44,3 +48,61 @@ window.BOOKING = {
   }
 };
 /* ▲▲▲ 여기까지 ▲▲▲ */
+
+
+/* =====================================================================
+   두 지점 예약을 하나로 합쳐서 보여줍니다.
+   따로 쓰고 싶으면 아래 true 를 false 로 바꾸기만 하면 됩니다.
+   ===================================================================== */
+window.BOOKING_SHARED = true;
+
+(function () {
+  if (!window.BOOKING_SHARED) return;
+  var B = window.BOOKING;
+  if (!B || !B.one || !B.f1) return;
+  var A = B.one, F = B.f1;
+
+  function uniq(list) {
+    var seen = {}, out = [];
+    (list || []).forEach(function (v) { if (v && !seen[v]) { seen[v] = 1; out.push(v); } });
+    return out.sort();
+  }
+
+  var slots = {};
+  [A, F].forEach(function (src) {
+    var sl = (src && src.slots) || {};
+    Object.keys(sl).forEach(function (day) {
+      var list = sl[day] || [];
+      if (!slots[day]) slots[day] = [];
+      list.forEach(function (s) {
+        var dup = slots[day].some(function (x) { return x.t === s.t && x.car === s.car; });
+        if (!dup) slots[day].push({ t: s.t, car: s.car });
+      });
+    });
+  });
+  Object.keys(slots).forEach(function (day) {
+    slots[day].sort(function (x, y) { return String(x.t || '').localeCompare(String(y.t || '')); });
+  });
+
+  var merged = {
+    limit:   Math.max(Number(A.limit) || 0, Number(F.limit) || 0),
+    full:    uniq((A.full || []).concat(F.full || [])),
+    closed:  uniq((A.closed || []).concat(F.closed || [])),
+    slots:   slots,
+    note:    A.note || F.note || "",
+    booking: A.booking || F.booking || ""
+  };
+
+  function copy() {
+    return {
+      limit: merged.limit,
+      full: merged.full.slice(),
+      closed: merged.closed.slice(),
+      slots: merged.slots,
+      note: merged.note,
+      booking: merged.booking
+    };
+  }
+  B.one = copy();
+  B.f1  = copy();
+})();
