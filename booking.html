@@ -253,14 +253,29 @@
   /* 누른 날짜 바로 옆(아래)에 붙여서 보여줍니다 */
   function place(k) {
     var cell = calEl.querySelector('[data-k="' + k + '"]');
-    if (!cell) { detEl.classList.remove('bk-pop'); detEl.removeAttribute('style'); return; }
-    if (window.innerWidth <= 700) {          /* 휴대폰에서는 달력 바로 밑에 */
-      detEl.classList.remove('bk-pop');
-      detEl.removeAttribute('style');
+    var wrap = document.querySelector('.bk-calwrap');
+    if (!cell) {
+      detEl.classList.remove('bk-pop', 'bk-inrow'); detEl.removeAttribute('style');
+      if (detEl.parentNode !== wrap) wrap.appendChild(detEl);
       return;
     }
+    if (window.innerWidth <= 760) {
+      /* 휴대폰 : 누른 날짜가 있는 줄 바로 밑에 끼워 넣습니다 */
+      detEl.classList.remove('bk-pop');
+      detEl.removeAttribute('style');
+      detEl.classList.add('bk-inrow');
+      var cells = [].slice.call(calEl.children);
+      var i = cells.indexOf(cell);
+      var idx = i - 7;                       /* 요일 머리글 7칸 제외 */
+      var toEnd = 6 - (idx % 7);
+      var after = cells[i + toEnd] || cells[cells.length - 1];
+      if (after.nextSibling) calEl.insertBefore(detEl, after.nextSibling);
+      else calEl.appendChild(detEl);
+      return;
+    }
+    detEl.classList.remove('bk-inrow');
+    if (detEl.parentNode !== wrap) wrap.appendChild(detEl);
     detEl.classList.add('bk-pop');
-    var wrap = calEl.parentNode;
     var cr = cell.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
     detEl.style.visibility = 'hidden';
     detEl.style.left = '0px'; detEl.style.top = '0px';
@@ -376,15 +391,20 @@
 .bk-dempty { margin-top: 12px; font-size: 15px; font-weight: 700; color: #2f7d4f; }
 /* 누른 날짜 위에 뜨는 말풍선 */
 .bk-calwrap { position: relative; z-index: 5; }
+.bk-detail.bk-inrow {
+  grid-column: 1 / -1; margin: 6px 0 2px; border-color: #2b6cb0;
+  box-shadow: 0 6px 18px rgba(16,24,40,.12);
+}
 .bk-detail.bk-pop {
   position: absolute; z-index: 40; margin-top: 0;
   box-shadow: 0 14px 34px rgba(16,24,40,.18); border-color: #2b6cb0;
 }
-.bk-detail.bk-pop .bk-dclose {
+.bk-detail { position: relative; }
+.bk-dclose {
   position: absolute; top: 8px; right: 10px; border: 0; background: transparent;
-  font-size: 20px; line-height: 1; color: #9aa1ab; cursor: pointer; padding: 2px 4px;
+  font-size: 22px; line-height: 1; color: #9aa1ab; cursor: pointer; padding: 2px 6px;
 }
-.bk-detail.bk-pop .bk-dclose:hover { color: #333; }
+.bk-dclose:hover { color: #333; }
 
 .bk-cnt {
   font-size: 10.5px; font-weight: 800; color: #fff; background: #2b6cb0;
