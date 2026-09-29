@@ -1,0 +1,28 @@
+{
+  "name": "원모터스 인천점",
+  "short_name": "원모터스",
+  "description": "인천 수입차 고장진단 · 정비 · 엔진보링 — 원모터스 인천점",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "/index.html?src=app",
+  "scope": "/",
+  "id": "/?one",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0d0f12",
+  "icons": [
+    { "src": "/assets/img/app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/app/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/img/app/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "예약현황 보기", "short_name": "예약현황", "url": "/booking.html?src=app",
+      "icons": [{ "src": "/assets/img/app/icon-192.png", "sizes": "192x192" }] },
+    { "name": "정비사례 검색", "short_name": "정비사례", "url": "/archive.html?src=app",
+      "icons": [{ "src": "/assets/img/app/icon-192.png", "sizes": "192x192" }] },
+    { "name": "증상 알아보기", "short_name": "증상", "url": "/symptoms.html?src=app",
+      "icons": [{ "src": "/assets/img/app/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

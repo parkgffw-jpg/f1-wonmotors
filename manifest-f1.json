@@ -1,0 +1,28 @@
+{
+  "name": "인천에프원모터스",
+  "short_name": "F1모터스",
+  "description": "고장진단 · 커먼레일 · DPF — 인천에프원모터스",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "/f1motors.html?src=app",
+  "scope": "/",
+  "id": "/?f1",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0f12",
+  "theme_color": "#0d0f12",
+  "icons": [
+    { "src": "/assets/img/app/f1-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/app/f1-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/app/f1-icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/img/app/f1-icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "예약현황 보기", "short_name": "예약현황", "url": "/booking-f1.html?src=app",
+      "icons": [{ "src": "/assets/img/app/f1-icon-192.png", "sizes": "192x192" }] },
+    { "name": "DPF 수리", "short_name": "DPF", "url": "/dpf.html?src=app",
+      "icons": [{ "src": "/assets/img/app/f1-icon-192.png", "sizes": "192x192" }] },
+    { "name": "정비사례 검색", "short_name": "정비사례", "url": "/archive.html?src=app",
+      "icons": [{ "src": "/assets/img/app/f1-icon-192.png", "sizes": "192x192" }] }
+  ]
+}

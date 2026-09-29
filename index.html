@@ -79,6 +79,18 @@
   }
 }
 </script>
+
+  <!-- ▼ 휴대폰 홈 화면 앱 (건드리지 마세요) -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d0f12" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/app/icon-192.png" />
+  <link rel="apple-touch-icon" href="/assets/img/app/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="원모터스" />
+  <!-- ▲ -->
 </head>
 <body class="theme-one">
 
@@ -158,7 +170,7 @@
         <em class="duo-badge">지금 보고 계신 곳</em>
       </div>
       <a class="duo-card duo-go" href="f1motors.html">
-        <span class="duo-mark" aria-hidden="true"><b>F-1</b><i>motors</i></span>
+        <img class="duo-mark" src="assets/img/logo-f1.png" alt="" aria-hidden="true" width="360" height="360" />
         <strong>인천에프원모터스</strong>
         <span>고장진단 · 커먼레일 인젝터 · DPF</span>
         <em class="duo-badge duo-badge-go">디젤차라면 이곳으로 &rarr;</em>
@@ -850,13 +862,7 @@
 .duo-card strong { font-size: 17px; font-weight: 900; letter-spacing: -0.02em; }
 .duo-card > span { font-size: 13px; color: #b9bfc9; line-height: 1.5; }
 .duo-logo { width: 104px; height: auto; background: #fff; border-radius: 6px; padding: 3px 6px; margin-bottom: 2px; }
-.duo-mark {
-  width: 53px; height: 53px; border-radius: 50%; border: 2px solid #e10600; margin-bottom: 4px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1;
-  background: radial-gradient(circle at 50% 35%, #2b3038 0%, #08090b 72%);
-}
-.duo-mark b { font-size: 15.5px; font-weight: 900; font-style: italic; color: #e10600; letter-spacing: -.04em; }
-.duo-mark i { font-size: 8.5px; font-weight: 700; font-style: italic; color: #fff; margin-top: 2px; }
+.duo-mark { width: 53px; height: 53px; flex: none; display: block; object-fit: contain; margin-bottom: 4px; }
 .duo-badge {
   margin-top: 4px; align-self: flex-start; font-style: normal;
   font-size: 11.5px; font-weight: 800; letter-spacing: .02em;
