@@ -81,15 +81,16 @@
       <button type="button" class="bk-nav" id="bkNext" aria-label="다음 달">&rsaquo;</button>
     </div>
 
-    <div class="bk-cal" id="bkCal" role="grid" aria-label="예약 현황 달력"></div>
-
-    <div class="bk-detail" id="bkDetail" hidden></div>
+    <div class="bk-calwrap">
+      <div class="bk-cal" id="bkCal" role="grid" aria-label="예약 현황 달력"></div>
+      <div class="bk-detail" id="bkDetail" hidden></div>
+    </div>
 
     <ul class="bk-legend">
       <li><span class="bk-dot ok"></span>예약 가능</li>
       <li><span class="bk-dot full"></span>마감</li>
       <li><span class="bk-dot off"></span>휴무</li>
-      <li><span class="bk-dot has"></span>예약 있음 — 날짜를 누르면 보입니다</li>
+      <li><span class="bk-dot has"></span>날짜를 누르면 그날 예약 시간과 차종이 보입니다</li>
     </ul>
 
     <p class="bk-note" id="bkNote" hidden></p>
@@ -161,6 +162,7 @@
   var noteEl = document.getElementById('bkNote');
   var updEl = document.getElementById('bkUpdated');
 
+  var selKey = null;
   var today = new Date(); today.setHours(0, 0, 0, 0);
   var view = new Date(today.getFullYear(), today.getMonth(), 1);
   var MIN = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -203,7 +205,10 @@
         cls = cls.replace(' is-ok', ' is-full'); label = '마감';
       }
       if (sl.length && !past) cls += ' has-book';
-      html += '<div class="' + cls + '"' + (sl.length && !past ? ' role="button" tabindex="0" data-k="' + k + '"' : '') +
+      var pick = !past && (w !== 0 && w !== 6) && !has(S.closed, k);   /* 지난날·휴무 빼고 다 누를 수 있게 */
+      if (pick) cls += ' is-pick';
+      if (k === selKey) cls += ' is-sel';
+      html += '<div class="' + cls + '"' + (pick ? ' role="button" tabindex="0" data-k="' + k + '"' : '') +
               '><span class="bk-num">' + d + '</span>' +
               (label ? '<span class="bk-tag">' + label + '</span>' : '') +
               (sl.length && !past ? '<span class="bk-cnt">' + sl.length + '</span>' : '') + '</div>';
@@ -217,22 +222,73 @@
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
   function showDay(k) {
+    selKey = k;
     var sl = ((S.slots || {})[k] || []).slice().sort(function (a, b) {
       return String(a.t || '').localeCompare(String(b.t || ''));
     });
-    if (!sl.length) { detEl.hidden = true; return; }
     var a = k.split('-');
     var wd = ['일','월','화','수','목','금','토'][new Date(+a[0], +a[1]-1, +a[2]).getDay()];
-    detEl.innerHTML = '<p class="bk-dhead">' + (+a[1]) + '월 ' + (+a[2]) + '일 (' + wd + ') 예약</p>' +
-      '<ul class="bk-dlist">' + sl.map(function (x) {
-        return '<li><span class="bk-dt">' + esc(x.t || '') + '</span>' +
-               '<span class="bk-dcar">' + esc(x.car || '') + '</span></li>';
-      }).join('') + '</ul>' +
-      '<p class="bk-dnote">' + (S.limit && sl.length >= S.limit
-        ? '이 날은 예약이 다 찼습니다. 다른 날짜로 안내해 드리겠습니다.'
-        : '같은 시간대라도 작업 내용에 따라 추가로 받을 수 있습니다. 문의해 주세요.') + '</p>';
+    var head = '<button type="button" class="bk-dclose" aria-label="닫기">&times;</button>' +
+               '<p class="bk-dhead">' + (+a[1]) + '월 ' + (+a[2]) + '일 (' + wd + ') 예약' +
+               (sl.length ? ' <em>' + sl.length + '건</em>' : '') + '</p>';
+    if (!sl.length) {
+      detEl.innerHTML = head +
+        '<p class="bk-dempty">이 날은 아직 잡힌 예약이 없습니다. 예약 가능합니다.</p>' +
+        '<p class="bk-dnote">전화 주시면 바로 시간 잡아드리겠습니다.</p>';
+    } else {
+      detEl.innerHTML = head +
+        '<ul class="bk-dlist">' + sl.map(function (x) {
+          return '<li><span class="bk-dt">' + esc(x.t || '') + '</span>' +
+                 '<span class="bk-dcar">' + esc(x.car || '') + '</span></li>';
+        }).join('') + '</ul>' +
+        '<p class="bk-dnote">' + (S.limit && sl.length >= S.limit
+          ? '이 날은 예약이 다 찼습니다. 다른 날짜로 안내해 드리겠습니다.'
+          : '같은 시간대라도 작업 내용에 따라 추가로 받을 수 있습니다. 문의해 주세요.') + '</p>';
+    }
     detEl.hidden = false;
+    draw();
+    place(k);
   }
+
+  /* 누른 날짜 바로 옆(아래)에 붙여서 보여줍니다 */
+  function place(k) {
+    var cell = calEl.querySelector('[data-k="' + k + '"]');
+    if (!cell) { detEl.classList.remove('bk-pop'); detEl.removeAttribute('style'); return; }
+    if (window.innerWidth <= 700) {          /* 휴대폰에서는 달력 바로 밑에 */
+      detEl.classList.remove('bk-pop');
+      detEl.removeAttribute('style');
+      return;
+    }
+    detEl.classList.add('bk-pop');
+    var wrap = calEl.parentNode;
+    var cr = cell.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+    detEl.style.visibility = 'hidden';
+    detEl.style.left = '0px'; detEl.style.top = '0px';
+    var w = Math.min(330, wr.width - 16);
+    detEl.style.width = w + 'px';
+    var h = detEl.offsetHeight;
+    var left = cr.left - wr.left + cr.width / 2 - w / 2;
+    left = Math.max(8, Math.min(left, wr.width - w - 8));
+    var top = cr.bottom - wr.top + 8;
+    if (cr.bottom + 12 + h > window.innerHeight && cr.top - h - 12 > 0) {
+      top = cr.top - wr.top - h - 8;        /* 화면 아래가 좁으면 위로 */
+    }
+    detEl.style.left = left + 'px';
+    detEl.style.top = top + 'px';
+    detEl.style.visibility = '';
+  }
+  window.addEventListener('resize', function () { if (selKey && !detEl.hidden) place(selKey); });
+  document.addEventListener('click', function (e) {
+    if (detEl.hidden || !detEl.classList.contains('bk-pop')) return;
+    if (Date.now() - lastOpen < 400) return;   /* 방금 연 것은 닫지 않습니다 */
+    if (detEl.contains(e.target) || (e.target.closest && e.target.closest('#bkCal'))) return;
+    detEl.hidden = true; selKey = null; draw();
+  });
+  document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('.bk-dclose')) {
+      detEl.hidden = true; selKey = null; draw();
+    }
+  });
   calEl.addEventListener('click', function (e) {
     var c = e.target.closest ? e.target.closest('[data-k]') : null;
     if (c) showDay(c.getAttribute('data-k'));
@@ -313,7 +369,23 @@
 .theme-one .bk-day.is-today { outline-color: #d8a600; }
 
 .bk-day.has-book { cursor: pointer; }
-.bk-day.has-book:hover { border-color: #2b6cb0; }
+.bk-day.is-pick { cursor: pointer; }
+.bk-day.is-pick:hover { border-color: #2b6cb0; }
+.bk-day.is-sel { outline: 2px solid #2b6cb0; outline-offset: -2px; box-shadow: 0 2px 10px rgba(43,108,176,.25); }
+.bk-dhead em { font-style: normal; color: #2b6cb0; font-size: 14px; font-weight: 800; margin-left: 4px; }
+.bk-dempty { margin-top: 12px; font-size: 15px; font-weight: 700; color: #2f7d4f; }
+/* 누른 날짜 위에 뜨는 말풍선 */
+.bk-calwrap { position: relative; z-index: 5; }
+.bk-detail.bk-pop {
+  position: absolute; z-index: 40; margin-top: 0;
+  box-shadow: 0 14px 34px rgba(16,24,40,.18); border-color: #2b6cb0;
+}
+.bk-detail.bk-pop .bk-dclose {
+  position: absolute; top: 8px; right: 10px; border: 0; background: transparent;
+  font-size: 20px; line-height: 1; color: #9aa1ab; cursor: pointer; padding: 2px 4px;
+}
+.bk-detail.bk-pop .bk-dclose:hover { color: #333; }
+
 .bk-cnt {
   font-size: 10.5px; font-weight: 800; color: #fff; background: #2b6cb0;
   border-radius: 999px; padding: 1px 6px; line-height: 1.5;
