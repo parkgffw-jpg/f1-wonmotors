@@ -318,7 +318,8 @@
     if (forAlt) bits.push('정비 사진 ' + (k + 1));
     return bits.filter(Boolean).join(' · ');
   }
-  function img(f, r) { return 'assets/img/' + ((r && r.pf) || 'archive') + '/' + f; }
+  var IMGV = '20260929d';   /* 사진이 바뀌면 이 값을 올립니다 (브라우저가 새로 받아옵니다) */
+  function img(f, r) { return 'assets/img/' + ((r && r.pf) || 'archive') + '/' + f + '?v=' + IMGV; }
 
   function card(r, i) {
     var p = r.p0 ? [r.p0] : [];
