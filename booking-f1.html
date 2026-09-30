@@ -118,7 +118,7 @@
         <a class="btn btn-kakao btn-lg" href="https://pf.kakao.com/_nxivaX/chat" target="_blank" rel="noopener">카카오톡 예약</a>
       </div>
       <p class="contact-hours">
-        평일 09:00 – 18:00 &nbsp;|&nbsp; 토요일 · 일요일 · 공휴일 휴무<br />
+        평일 09:00 – 18:00 &nbsp;|&nbsp; 토요일 09:00 – 13:00 (둘째 · 넷째 토요일 휴무) &nbsp;|&nbsp; 일요일 · 공휴일 휴무<br />
         <span class="hours-kakao">카카오톡 예약 상담은 평일 20:00까지 받습니다</span>
       </p>
     </div>
@@ -193,6 +193,17 @@
     document.getElementById('bkPrev').disabled = view <= MIN;
     document.getElementById('bkNext').disabled = view >= MAX;
 
+    /* 쉬는 날 판단 — 일요일은 늘 휴무, 토요일은 둘째 · 넷째만 휴무 */
+    function offDay(date) {
+      var w = date.getDay();
+      if (w === 0) return true;
+      if (w === 6) {
+        var nth = Math.floor((date.getDate() - 1) / 7) + 1;   /* 그 달의 몇 번째 토요일인가 */
+        return nth === 2 || nth === 4;
+      }
+      return false;
+    }
+
     var html = ['일', '월', '화', '수', '목', '금', '토'].map(function (d, i) {
       return '<div class="bk-dow' + (i === 0 ? ' sun' : (i === 6 ? ' sat' : '')) + '">' + d + '</div>';
     }).join('');
@@ -207,7 +218,7 @@
       var past = date < today;
       var cls = 'bk-day', label = '';
       if (past) { cls += ' is-past'; label = ''; }
-      else if (w === 0 || w === 6 || has(S.closed, k)) { cls += ' is-off'; label = '휴무'; }
+      else if (offDay(date) || has(S.closed, k)) { cls += ' is-off'; label = '휴무'; }
       else if (has(S.full, k)) { cls += ' is-full'; label = '마감'; }
       else { cls += ' is-ok'; label = '가능'; }
       if (k === key(today)) cls += ' is-today';
@@ -218,7 +229,7 @@
         cls = cls.replace(' is-ok', ' is-full'); label = '마감';
       }
       if (sl.length && !past) cls += ' has-book';
-      var pick = !past && (w !== 0 && w !== 6) && !has(S.closed, k);   /* 지난날·휴무 빼고 다 누를 수 있게 */
+      var pick = !past && !offDay(date) && !has(S.closed, k);   /* 지난날·휴무 빼고 다 누를 수 있게 */
       if (pick) cls += ' is-pick';
       if (k === selKey) cls += ' is-sel';
       html += '<div class="' + cls + '"' + (pick ? ' role="button" tabindex="0" data-k="' + k + '"' : '') +
