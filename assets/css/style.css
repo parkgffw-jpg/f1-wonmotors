@@ -1068,7 +1068,7 @@ li { list-style: none; }
 }
 .case-shots figure { margin: 0; }
 .case-shots img {
-  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #f2f4f7;
   border-radius: 10px; border: 1px solid #e3e6ea; cursor: zoom-in;
   transition: border-color .18s, transform .18s;
 }
