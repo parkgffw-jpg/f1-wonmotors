@@ -264,7 +264,7 @@
         '<ul class="bk-dlist">' + sl.map(function (x) {
           /* k : "수리" 또는 "점검" — 적어두면 작은 표가 붙습니다 */
           var k = (x.k || '').trim();
-          var tag = k ? '<span class="bk-dkind' + (k === '점검' ? ' is-chk' : '') + '">' + esc(k) + '</span>' : '';
+          var tag = k ? '<span class="bk-dkind' + (k.indexOf('점검') > -1 ? ' is-chk' : '') + '">' + esc(k) + '</span>' : '';
           return '<li><span class="bk-dt">' + esc(x.t || '') + '</span>' +
                  '<span class="bk-dcar">' + esc(x.car || '') + tag + '</span></li>';
         }).join('') + '</ul>' +
