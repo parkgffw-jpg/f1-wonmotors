@@ -261,8 +261,11 @@
     } else {
       detEl.innerHTML = head +
         '<ul class="bk-dlist">' + sl.map(function (x) {
+          /* k : "수리" 또는 "점검" — 적어두면 작은 표가 붙습니다 */
+          var k = (x.k || '').trim();
+          var tag = k ? '<span class="bk-dkind' + (k === '점검' ? ' is-chk' : '') + '">' + esc(k) + '</span>' : '';
           return '<li><span class="bk-dt">' + esc(x.t || '') + '</span>' +
-                 '<span class="bk-dcar">' + esc(x.car || '') + '</span></li>';
+                 '<span class="bk-dcar">' + esc(x.car || '') + tag + '</span></li>';
         }).join('') + '</ul>' +
         '<p class="bk-dnote">' + (S.limit && sl.length >= S.limit
           ? '이 날은 예약이 다 찼습니다. 다른 날짜로 안내해 드리겠습니다.'
@@ -444,6 +447,13 @@
 .bk-dlist li:last-child { border-bottom: 0; padding-bottom: 0; }
 .bk-dt { font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; min-width: 58px; }
 .bk-dcar { font-size: 15px; color: var(--text-sub); }
+.bk-dkind {
+  display: inline-block; margin-left: 8px; vertical-align: 1px;
+  font-size: 12px; font-weight: 800; letter-spacing: .01em;
+  padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+  background: #fdecec; color: #c62828; border: 1px solid #f5c6c6;
+}
+.bk-dkind.is-chk { background: #e8f1fd; color: #1557b0; border-color: #c3d9f5; }
 .bk-dnote { margin-top: 12px; font-size: 13.5px; color: #9aa1ab; }
 
 .bk-legend { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }

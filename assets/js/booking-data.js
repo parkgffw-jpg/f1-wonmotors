@@ -9,6 +9,9 @@
              나머지 토요일은 영업일입니다 (09:00 – 13:00)
    slots   : 그날 잡힌 예약 → 날짜를 누르면 시간과 차종이 보입니다
              { t:"09:00", car:"쏘렌토 2.0" } 처럼 적습니다
+             k 를 넣으면 차종 옆에 작은 표가 붙습니다 (수리 = 빨강, 점검 = 파랑)
+             { t:"09:00", car:"쏘렌토 2.0", k:"수리" }
+             모르거나 안 붙이고 싶으면 k 를 아예 쓰지 않으면 됩니다
    note    : 달력 아래에 보여줄 안내 한 줄 (없으면 "")
    booking : 네이버 예약 주소 (아직 없으면 "" 로 두세요)
 
@@ -39,7 +42,7 @@ window.BOOKING = {
                       { t:"15:30", car:"YF 쏘나타 LPG 2010년식" } ],
       "2026-10-02": [ { t:"09:00", car:"BMW 320d GT 2017년식" },
                       { t:"11:00", car:"포드 몬데오 2017년식" } ],
-      "2026-10-06": [ { t:"10:00", car:"지프 커맨더 3.0 CRD 2007년식" } ],
+      "2026-10-06": [ { t:"10:00", car:"지프 커맨더 3.0 CRD 2007년식", k:"수리" } ],
       "2026-10-14": [ { t:"09:00", car:"뉴쏘렌토 R 2013년식" } ]
     },
     note:   "",
@@ -84,7 +87,7 @@ window.BOOKING_SHARED = true;
       if (!slots[day]) slots[day] = [];
       list.forEach(function (s) {
         var dup = slots[day].some(function (x) { return x.t === s.t && x.car === s.car; });
-        if (!dup) slots[day].push({ t: s.t, car: s.car });
+        if (!dup) slots[day].push({ t: s.t, car: s.car, k: s.k });
       });
     });
   });
