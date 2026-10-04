@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>정비자료 · 고장코드(DTC) 해독 | 원모터스 인천점</title>
+
+<meta name="description" content="엔진 경고등 고장코드(DTC) 읽는 법과 기아 고장코드표를 한국어로 정리했습니다. P0300 실화, 산소센서, CAN 통신, 이모빌라이저 P1693까지. 인천 제물포구 수입차 고장진단 원모터스 인천점." />
+<meta name="keywords" content="고장코드 뜻, DTC 코드 해석, 엔진경고등 코드, P0300 실화 원인, 기아 고장코드, 스포티지 고장코드, 이모빌라이저 P1693, 경고등 켜짐 원인, 인천 수입차 고장진단, 인천 엔진경고등 진단, 제물포구 수입차 정비, 원모터스 인천점" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="정비자료 · 고장코드(DTC) 해독 | 원모터스 인천점" />
+<meta property="og:description" content="경고등 코드, 자리별로 읽고 원인부터 찾기. 한국어 고장코드 정비자료." />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:url" content="https://onemotorsincheon.co.kr/jeongbi.html" />
+<meta property="og:image" content="https://onemotorsincheon.co.kr/assets/img/og-onemotors.jpg" />
+<!-- 대표 도메인: onemotorsincheon.co.kr -->
+<link rel="canonical" href="https://onemotorsincheon.co.kr/jeongbi.html" />
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- ▼ 휴대폰 홈 화면 앱 (건드리지 마세요) -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d0f12" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/app/icon-192.png" />
+  <link rel="apple-touch-icon" href="/assets/img/app/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="원모터스" />
+  <!-- ▲ -->
+</head>
+<body class="theme-one">
+
+<a class="skip-link" href="#main">본문 바로가기</a>
+
+<header class="site-header scrolled" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">
+      <img class="logo-one logo-one-brand" src="assets/img/logo-one.png" alt="" aria-hidden="true" width="560" height="368" />
+      <span class="brand-text">
+        <strong>원모터스 인천점</strong>
+        <small>수입차 진단 · 정비 · 엔진보링</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="about.html">소개</a>
+      <a href="symptoms.html">증상 알아보기</a>
+      <a href="index.html#services">전문분야</a>
+      <a href="archive.html">고장사례 및 검색</a>
+      <a class="active" href="jeongbi.html">정비자료</a>
+      <a href="booking.html">예약현황</a>
+      <a href="index.html#boring">보링공정</a>
+      <a href="index.html#location">오시는길</a>
+      <a class="nav-sister nav-sister-f1" href="f1motors.html">인천에프원모터스</a>
+    </nav>
+
+    <a class="btn btn-call header-call" href="tel:01047218957">
+      <span class="ico-phone" aria-hidden="true"></span> 010-4721-8957
+    </a>
+
+    <form class="hdr-search" action="archive.html" method="get" role="search">
+      <svg class="hdr-search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8 21 21"/></svg>
+      <input type="search" name="q" placeholder="고장검색" aria-label="고장검색" autocomplete="off" />
+    </form>
+
+    <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="page-head">
+  <div class="container">
+    <p class="sec-eyebrow">REFERENCE</p>
+    <h1 class="page-title">정비자료</h1>
+    <p class="page-desc">
+      엔진 경고등이 켜지면 진단기에 <strong>P0300</strong> 같은 고장코드가 남습니다.
+      코드를 자리별로 읽는 법과 기아 고장코드표, 자주 쓰는 영문 표현을 <strong>한국어로 정리</strong>했습니다.
+    </p>
+    <p class="jb-notice">이 자료는 참고용입니다. 같은 코드라도 연식·차종에 따라 원인과 진단 방법이 다르므로, 실제 진단과 수리는 차량별 정비지침서와 전문 정비사의 점검을 따라 주세요. 경고등이 켜졌다면 <strong>원모터스 인천점 010-4721-8957</strong>로 상담하실 수 있습니다.</p>
+  </div>
+</section>
+<section class="jb-wrap"><div class="container jb"><div class="jb-inner">
+<div class="jb-brand"><p class="sec-eyebrow">KIA</p><h2>기아 고장코드 · 스포티지R(SL) 2011</h2><p>D 2.0 TCI-R 디젤, G 2.0 / 2.4 DOHC 가솔린 기준으로 엔진·변속기·ABS/ESP·에어백·스마트키·램프 계통 코드를 정리했습니다. 1990년대 기아 고유 코드도 일부 포함합니다.</p></div>
+<section id="decoder">
+  <div class="sec-head">
+    <h2>1. 코드 한 자리씩 읽기</h2>
+    <p>DTC는 영문 1자 + 숫자 4자리입니다. 코드를 입력하면 자리별 의미와 아래 표의 해석을 함께 보여줍니다.</p>
+  </div>
+  <div class="decoder">
+    <div class="dec-input">
+      <label for="code-in">코드</label>
+      <input id="code-in" maxlength="5" value="P0300" autocomplete="off" spellcheck="false">
+      <div class="samples" aria-label="예시 코드">
+        <button type="button">P0300</button><button type="button">P1693</button><button type="button">B2512</button><button type="button">C1200</button><button type="button">U0100</button>
+      </div>
+    </div>
+    <div class="slots">
+      <div class="slot" id="s1"><span class="pos">1번째 · 시스템</span><span class="ch">P</span><span class="mean"></span></div>
+      <div class="slot" id="s2"><span class="pos">2번째 · 정의 주체</span><span class="ch">0</span><span class="mean"></span></div>
+      <div class="slot" id="s3"><span class="pos">3번째 · 하위 계통</span><span class="ch">3</span><span class="mean"></span></div>
+      <div class="slot" id="s4"><span class="pos">4–5번째 · 고장 번호</span><span class="ch">00</span><span class="mean"></span></div>
+    </div>
+    <div class="dec-result" id="dec-result" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="glossary">
+  <div class="sec-head">
+    <h2>2. 코드 설명에 반복되는 영문 표현</h2>
+    <p>코드 수백 개를 외우기보다 이 표현들을 먼저 익히면 처음 보는 코드도 뜻을 짐작할 수 있습니다.</p>
+  </div>
+  <div class="gloss">
+    <div class="term"><span class="en">Open / Open circuit</span><span class="ko">단선</span><span class="ex">회로가 끊김. 커넥터 빠짐, 배선 절단, 핀 접촉불량이 흔한 원인.</span></div>
+    <div class="term"><span class="en">Short to Ground (SCG)</span><span class="ko">접지 단락</span><span class="ex">신호선·전원선이 차체(접지)에 닿음. 램프 회로의 SCG는 퓨즈·IPS 보호 동작을 부름.</span></div>
+    <div class="term"><span class="en">Short to Battery (SCB)</span><span class="ko">전원(B+) 단락</span><span class="ex">배선이 12V 전원선과 닿음. 번역이 서툰 코드표의 “on the battery”가 이것.</span></div>
+    <div class="term"><span class="en">Circuit Low / High Input</span><span class="ko">입력 전압 낮음 / 높음</span><span class="ex">5V 기준 센서에서 Low는 대개 접지 단락, High는 단선이나 전원 단락을 뜻함.</span></div>
+    <div class="term"><span class="en">Range / Performance</span><span class="ko">범위·성능 이상</span><span class="ex">전기적으로는 살아 있지만 값이 다른 센서와 맞지 않거나 변화가 비정상. 센서 자체나 기계적 원인 의심.</span></div>
+    <div class="term"><span class="en">No Signal / Intermittent</span><span class="ko">신호 없음 / 간헐</span><span class="ex">간헐 코드는 배선 흔들기(Wiggle test)로 재현해 봐야 함.</span></div>
+    <div class="term"><span class="en">Resistance too High / Low</span><span class="ko">저항 과다 / 과소</span><span class="ex">에어백 스퀴브 회로에서 과다는 단선·클럭스프링 접촉불량, 과소는 단락.</span></div>
+    <div class="term"><span class="en">Bank 1 · Sensor 1 / 2</span><span class="ko">1번 뱅크 · 촉매 앞 / 뒤</span><span class="ex">Bank 1은 1번 실린더가 있는 쪽. Sensor 1은 촉매 앞(전방), Sensor 2는 촉매 뒤(후방) 산소센서.</span></div>
+    <div class="term"><span class="en">Lean / Rich</span><span class="ko">희박 / 농후</span><span class="ex">공기 대비 연료가 적음 / 많음. 서툰 번역에서는 “too lax”, “too enriched”로 나옴.</span></div>
+    <div class="term"><span class="en">CAN Timeout / Bus Off</span><span class="ko">통신 응답 초과 / 버스 차단</span><span class="ex">상대 모듈 메시지가 정해진 시간 안에 안 옴. 해당 모듈 전원·접지와 CAN H/L 배선부터 확인.</span></div>
+    <div class="term"><span class="en">Stuck / Stuck Off</span><span class="ko">고착 / OFF 고착</span><span class="ex">밸브·센서 출력이 한 값에 머물러 변하지 않음.</span></div>
+    <div class="term"><span class="en">Coding / Variant coding</span><span class="ko">사양 코딩</span><span class="ex">모듈에 차량 옵션 정보가 입력되지 않았거나 다름. 교환 후 진단기로 코딩 필요.</span></div>
+  </div>
+  <div class="trap">
+    <h3>인터넷 영문 코드표를 볼 때 주의할 번역 오류</h3>
+    <ul>
+      <li><b>Capacity 1</b>은 Bank 1의 오역입니다.</li>
+      <li><b>Zakoroch.</b>는 러시아어 “단락(короткое замыкание)”의 잔재, <b>Chain</b>은 회로(circuit), <b>Tight.</b>는 Short의 오역입니다.</li>
+      <li><b>Air cushion / pillow</b>는 에어백, <b>Inflatable add. air pillow</b>는 커튼 에어백을 가리킵니다.</li>
+      <li>일부 코드표에는 변속기 P0753·P0768·P0773이 충돌 기록·에어백 코드로 잘못 적혀 있습니다. 표준 정의는 변속 솔레노이드 A·D·E 전기적 이상입니다.</li>
+      <li>깨진 문구가 보이면 코드 번호로 표준 정의를 다시 확인하세요.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="codes">
+  <div class="sec-head">
+    <h2>3. 시스템별 코드표</h2>
+    <p>자주 보는 코드를 골라 한국어로 정리했습니다. 점검 포인트는 일반적인 정비 관점의 메모이며, 차량별 정비지침서의 진단 절차를 대신하지 않습니다.</p>
+  </div>
+  <div class="tools">
+    <input id="q" type="search" placeholder="코드나 단어로 찾기 (예: 산소, CAN, P07)" aria-label="코드 검색">
+    <div class="chips" id="chips"></div>
+    <span class="count" id="count"></span>
+  </div>
+  <div id="groups" class="jb-groups"></div>
+</section>
+
+<section id="immo">
+  <div class="sec-head">
+    <h2>4. 사례 학습: 이모빌라이저와 P1693</h2>
+    <p>“키는 맞는데 시동이 안 걸려요” 같은 증상에서 자주 보는 코드입니다. 이모빌라이저 인증 원리와 회로 관점의 점검 순서를 정리했습니다.</p>
+  </div>
+  <div class="immo">
+    <div class="card">
+      <h3>인증 흐름</h3>
+      <div class="flow">
+        <svg viewBox="0 0 460 250" role="img" aria-label="ECU, SMARTRA, 키 트랜스폰더 사이의 인증 흐름">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--muted)"/></marker></defs>
+          <rect x="10" y="20" width="120" height="60" rx="8" fill="var(--code-bg)" stroke="var(--line)"/>
+          <text x="70" y="46" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">PCM / ECM</text>
+          <text x="70" y="66" text-anchor="middle" fill="var(--muted)" font-size="11">엔진 제어</text>
+          <rect x="170" y="20" width="120" height="60" rx="8" fill="var(--code-bg)" stroke="var(--line)"/>
+          <text x="230" y="46" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">SMARTRA3</text>
+          <text x="230" y="66" text-anchor="middle" fill="var(--muted)" font-size="11">안테나 코일 포함</text>
+          <rect x="330" y="20" width="120" height="60" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="390" y="46" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="700">키 트랜스폰더</text>
+          <text x="390" y="66" text-anchor="middle" fill="var(--muted)" font-size="11">배터리 없는 칩</text>
+          <line x1="132" y1="42" x2="168" y2="42" stroke="var(--muted)" marker-end="url(#ar)"/>
+          <line x1="168" y1="58" x2="132" y2="58" stroke="var(--muted)" marker-end="url(#ar)"/>
+          <line x1="292" y1="42" x2="328" y2="42" stroke="var(--muted)" marker-end="url(#ar)"/>
+          <line x1="328" y1="58" x2="292" y2="58" stroke="var(--muted)" marker-end="url(#ar)"/>
+          <text x="150" y="102" text-anchor="middle" fill="var(--muted)" font-size="11">① Bosch 암호</text>
+          <text x="310" y="102" text-anchor="middle" fill="var(--muted)" font-size="11">② Hitag 2 (무선)</text>
+          <text x="20" y="140" fill="var(--ink)" font-size="13">IG ON → ECU가 SMARTRA 인증 → 키 인증</text>
+          <text x="20" y="164" fill="var(--ink)" font-size="13">→ 둘 다 통과해야 연료분사·점화 허용</text>
+          <rect x="20" y="188" width="420" height="44" rx="8" fill="none" stroke="var(--warn)" stroke-dasharray="4 3"/>
+          <text x="34" y="215" fill="var(--warn)" font-size="13" font-weight="600">P1693: ②에서 트랜스폰더 응답이 비정상일 때 ECU가 기록</text>
+        </svg>
+      </div>
+      <p style="font-size:14px;color:var(--muted)">키 등록은 진단기가 PIN을 요구하는 것으로 시작합니다. 새 ECU는 입력된 PIN을 저장한 뒤 SMARTRA와 키를 차례로 등록하고, 이미 등록된 ECU는 PIN이 차량 비밀번호와 맞을 때만 등록을 진행합니다. SMARTRA가 다른 PIN으로 이미 등록돼 있으면 키를 등록할 수 없습니다.</p>
+    </div>
+    <div class="card">
+      <h3>P1693 점검 순서</h3>
+      <ol>
+        <li>다른 등록 키로 시동해 봅니다. 된다면 키(트랜스폰더 칩 파손, 낙하 충격) 쪽입니다.</li>
+        <li>키홀더의 금속·다른 차 키·RF 태그를 떼고 다시 시도합니다. 전파 간섭도 같은 증상을 냅니다.</li>
+        <li>SMARTRA 커넥터의 전원(IG), 접지, ECU와의 통신선을 회로도에서 찾아 전압과 도통을 측정합니다.</li>
+        <li>키 실린더 주위 안테나 코일의 단선·커넥터 부식을 확인합니다(P1691과 함께 뜨는 경우가 많음).</li>
+        <li>이상이 없으면 진단기로 키 재등록을 합니다. PIN이 필요합니다.</li>
+      </ol>
+      <p class="flag" style="font-size:14px">같은 P1693이라도 구형 기아(1990년대 후반 1.6/1.8L)에서는 “MIL 회로 이상”을 뜻합니다. 제조사 코드(P1xxx)는 연식·차종별 정의를 반드시 확인하세요.</p>
+    </div>
+  </div>
+</section>
+<section id="faq">
+  <div class="sec-head"><h2>자주 받는 질문</h2><p>엔진 경고등과 고장코드에 대해 손님들이 많이 물어보시는 내용입니다.</p></div>
+  <div class="faq">
+    <details><summary>엔진 경고등이 켜졌는데 계속 타도 되나요?</summary><p>경고등이 켜진 채 계속 들어와 있으면 가까운 시일 안에 점검을 받으시면 됩니다. 경고등이 깜빡이거나 차가 떨리고 힘이 없으면 실화로 촉매가 손상될 수 있으니 운행을 줄이고 바로 점검받으세요.</p></details>
+    <details><summary>스캐너로 읽은 코드를 보고 그 부품만 바꾸면 되나요?</summary><p>고장코드는 결과이지 원인이 아닙니다. 예를 들어 산소센서 코드는 센서 고장 말고도 배선 단선, 흡기 누설, 연료 압력 문제로도 뜹니다. 부품부터 바꾸면 비용만 들고 증상이 남는 경우가 많아, 원모터스 인천점은 계측으로 원인을 확인한 뒤 수리합니다.</p></details>
+    <details><summary>고장코드를 지우면 해결된 건가요?</summary><p>코드를 지우면 경고등은 잠시 꺼지지만 원인이 그대로면 다시 켜집니다. 지우기 전에 코드와 함께 저장된 정지 프레임 데이터(당시 속도, 온도 등)를 기록해 두는 것이 진단에 도움이 됩니다.</p></details>
+    <details><summary>P0300 실화 코드는 무슨 뜻인가요?</summary><p>여러 실린더에서 불이 제대로 붙지 않았다는 뜻입니다. 점화코일·플러그, 인젝터, 흡기 누설, 압축 저하가 흔한 원인이고, 수입차 직분사 엔진은 카본 퇴적도 확인합니다. 위 해독기에 코드를 넣으면 자리별 의미를 볼 수 있습니다.</p></details>
+    <details><summary>수입차 고장코드도 진단·수리 가능한가요?</summary><p>원모터스 인천점은 제조사 공식 서비스센터가 아닌 독립 정비업체로, 벤츠·BMW·아우디·폭스바겐 등 수입차 고장진단과 정비, 엔진보링을 합니다. 인천 제물포구 송현동에 있으며 인천·부천·김포·서울 서부에서 많이 찾아오십니다.</p></details>
+  </div>
+  <div class="jb-cta">
+    <a class="btn btn-primary btn-lg" href="tel:01047218957"><span class="ico-phone" aria-hidden="true"></span> 경고등 상담 전화</a>
+    <a class="btn btn-ghost btn-lg" href="archive.html">고장사례 검색 &rsaquo;</a>
+    <a class="btn btn-ghost btn-lg" href="symptoms.html">증상 알아보기 &rsaquo;</a>
+  </div>
+</section>
+<p class="ab-disclaimer" style="color:var(--jb-muted);font-size:13.5px">코드 정의 기준: SAE J2012 / ISO 15031-6, 제조사 정비지침서. 이 자료는 참고용이며 정비 결과를 보증하지 않습니다.</p>
+</div></div></section>
+</main>
+
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <img class="logo-one logo-one-brand" src="assets/img/logo-one.png" alt="" aria-hidden="true" width="560" height="368" />
+      <div>
+        <strong>원모터스 인천점</strong>
+        <small>수입차 고장진단 · 정비 · 엔진보링</small>
+      </div>
+    </div>
+    <div class="footer-info">
+      <p>주소 인천광역시 제물포구 송현동 2-74 &nbsp;|&nbsp; 대표 박권우</p>
+      <p>사업자등록번호 420-12-01318 &nbsp;|&nbsp; 전화 010-4721-8957</p>
+      <p class="footer-links">
+        <a href="index.html">홈</a>
+        <a href="f1motors.html">인천에프원모터스</a>
+      </p>
+      <p class="copy">&copy; 2026 원모터스 인천점. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a class="floating-call" href="tel:01047218957">
+  <span class="ico-phone" aria-hidden="true"></span> 전화 상담 바로가기
+</a>
+
+<!-- 사진 크게 보기 -->
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="닫기">&times;</button>
+  <img id="lightboxImg" src="" alt="" />
+  <p class="lightbox-cap" id="lightboxCap"></p>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+const SYS = {
+  immo:["이모빌라이저","IMMO / SMARTRA"],
+  smk:["스마트키·ESCL","SMK 유닛"],
+  sjb:["램프·BCM","SJB / BCM / IPM"],
+  srs:["에어백","SRSCM / ACU"],
+  esp:["ABS·ESP","제동 안정성"],
+  mdps:["전동 조향","MDPS"],
+  awd:["4WD","전자식 커플링"],
+  eng:["엔진","G 2.0/2.4 DOHC"],
+  at:["자동변속기","A6LF 6단"],
+  net:["네트워크","U 코드"],
+  old:["구형 기아 고유","1.6/1.8L (1990년대)"]
+};
+const D = [
+ ["P1610","immo","이모빌라이저 미적용 ECU가 이모빌라이저 차량에 연결됨","ECU 교환 후 사양 불일치 확인"],
+ ["P1674","immo","트랜스폰더 상태 이상",""],
+ ["P1675","immo","트랜스폰더 등록(프로그래밍) 오류","키 재등록"],
+ ["P1676","immo","SMARTRA 메시지 오류","ECU–SMARTRA 통신선"],
+ ["P1690","immo","SMARTRA 응답 없음","SMARTRA 전원·접지·통신선"],
+ ["P1691","immo","안테나 코일 이상","키 실린더 주변 코일 단선"],
+ ["P1692","immo","이모빌라이저 표시등 이상","표시등 회로"],
+ ["P1693","immo","트랜스폰더 응답 이상","4번 섹션 참고"],
+ ["P1694","immo","ECU(EMS) 메시지 오류",""],
+ ["P1695","immo","ECU(EMS) 메모리 오류","ECU 내부"],
+ ["P1696","immo","인증 실패 (일부 사양 P1689)","미등록 키·PIN 불일치"],
+ ["P1699","immo","인증 반복 시도로 잠금","일정 시간 대기 후 재시도"],
+ ["P169A","immo","SMARTRA 인증 실패",""],
+ ["B1602","smk","CAN 버스 물리적 오류","CAN H/L 단선·단락"],
+ ["B1603","smk","CAN 채널 오프(Bus Off)",""],
+ ["B1609","smk","스마트키 유닛–SJB 간 CAN 타임아웃",""],
+ ["B1613","smk","스마트키 유닛–계기판(CLU) 간 CAN 타임아웃",""],
+ ["B1978","smk","ESCL(전자식 스티어링 컬럼 락) 고장","핸들 잠금 해제 불가 증상"],
+ ["B1988","smk","ESCL 전원 회로 전원 단락",""],
+ ["B1990","smk","ESCL 전원 회로 접지 단락",""],
+ ["B1991","smk","BCM 저전압 / LIN 통신선(Tx) 이상",""],
+ ["B2120","smk","스마트키 유닛 IGN1 출력 이상","IG1 릴레이 구동 회로"],
+ ["B1214","sjb","후방 주차센서 좌측 고장",""],
+ ["B1215","sjb","후방 주차센서 중앙 좌측 고장",""],
+ ["B1216","sjb","후방 주차센서 중앙 우측 고장",""],
+ ["B1217","sjb","후방 주차센서 우측 고장",""],
+ ["B1690","sjb","IPM–SJB 간 CAN 타임아웃",""],
+ ["B2351","sjb","후진등 회로 접지 단락",""],
+ ["B2352","sjb","좌측 DRL 회로 접지 단락",""],
+ ["B2353","sjb","우측 DRL 회로 접지 단락",""],
+ ["B2510","sjb","우측 헤드램프 상향 회로 접지 단락",""],
+ ["B2511","sjb","좌측 헤드램프 상향 회로 접지 단락",""],
+ ["B2512","sjb","우측 헤드램프 하향 회로 접지 단락","전구 소켓·배선 피복 손상"],
+ ["B2513","sjb","좌측 헤드램프 하향 회로 접지 단락",""],
+ ["B2514","sjb","우측 차폭등 접지 단락",""],
+ ["B2515","sjb","좌측 차폭등 접지 단락",""],
+ ["B2516","sjb","앞 안개등 접지 단락",""],
+ ["B1101","srs","배터리 전압 높음",""],
+ ["B1102","srs","배터리 전압 낮음","충전 상태 먼저 확인"],
+ ["B1328","srs","운전석 전방 충돌센서(FIS) 고장",""],
+ ["B1329","srs","운전석 전방 충돌센서 통신 오류",""],
+ ["B1330","srs","운전석 전방 충돌센서 ID 불일치","부품 사양 확인"],
+ ["B1346","srs","운전석 에어백(1단) 저항 과다","클럭스프링·커넥터 접촉불량"],
+ ["B1347","srs","운전석 에어백(1단) 저항 과소","회로 단락"],
+ ["B1348","srs","운전석 에어백(1단) 회로 접지 단락",""],
+ ["B1349","srs","운전석 에어백(1단) 회로 전원 단락",""],
+ ["B1352","srs","동승석 에어백(1단) 저항 과다",""],
+ ["B1353","srs","동승석 에어백(1단) 저항 과소",""],
+ ["B1361","srs","운전석 프리텐셔너 저항 과다","시트 하단 커넥터"],
+ ["B1362","srs","운전석 프리텐셔너 저항 과소",""],
+ ["B1378","srs","운전석 사이드 에어백 저항 과다","시트 하단 커넥터"],
+ ["B1400","srs","운전석 측면 충돌센서(SIS) 고장",""],
+ ["B1473","srs","운전석 커튼 에어백 저항 과다",""],
+ ["B1527","srs","동승석 에어백 OFF 스위치 단선 또는 전원 단락",""],
+ ["B1620","srs","SRSCM 내부 오류 (교환)",""],
+ ["B1650","srs","정면 충돌 기록 (SRSCM 교환)","충돌 기록은 소거 불가"],
+ ["B1762","srs","ACU 코딩 오류","교환 후 코딩"],
+ ["B2500","srs","에어백 경고등 이상",""],
+ ["C1101","esp","배터리 전압 높음",""],
+ ["C1102","esp","배터리 전압 낮음",""],
+ ["C1200","esp","좌전 휠 스피드센서 단선·단락","센서 저항, 배선"],
+ ["C1201","esp","좌전 휠 스피드센서 범위·성능·간헐","톤휠 오염·에어갭"],
+ ["C1202","esp","좌전 휠 스피드센서 신호 없음·부정",""],
+ ["C1203","esp","우전 휠 스피드센서 단선·단락",""],
+ ["C1206","esp","좌후 휠 스피드센서 단선·단락",""],
+ ["C1209","esp","우후 휠 스피드센서 단선·단락",""],
+ ["C1235","esp","마스터실린더 압력센서 회로 이상",""],
+ ["C1260","esp","조향각센서 신호 이상",""],
+ ["C1261","esp","조향각센서 영점 미보정","얼라인먼트 후 영점 설정"],
+ ["C1274","esp","종방향 G센서 단선·단락",""],
+ ["C1282","esp","요레이트·횡가속도센서 전기적 이상",""],
+ ["C1513","esp","브레이크 스위치 이상","제동등 스위치 두 접점 비교"],
+ ["C1604","esp","ECU 하드웨어 오류",""],
+ ["C1611","esp","ECM CAN 타임아웃",""],
+ ["C1612","esp","TCM CAN 타임아웃",""],
+ ["C1623","esp","조향각센서 CAN 타임아웃",""],
+ ["C2112","esp","밸브 릴레이 오류",""],
+ ["C2380","esp","ABS/TCS/ESP 밸브 오류","HECU 내부"],
+ ["C2402","esp","펌프 모터 이상","모터 퓨즈·접지"],
+ ["C1109","mdps","IG 입력 회로 단선",""],
+ ["C1290","mdps","토크센서 메인 신호 이상",""],
+ ["C1603","mdps","ECU 과열 보호 작동","연속 제자리 조향 시 발생 가능"],
+ ["C1622","mdps","EMS 차속 신호 무효",""],
+ ["C2412","mdps","모터 단선 또는 단락",""],
+ ["C2413","mdps","모터 과전류",""],
+ ["P1779","awd","4WD 유닛 전원 없음",""],
+ ["P1829","awd","클러치 토크 상한 초과",""],
+ ["P1831","awd","클러치 과열 경고","험로 연속 주행"],
+ ["P1832","awd","클러치 과열로 기능 정지",""],
+ ["P1836","awd","압력 해제 점검 오류",""],
+ ["P1837","awd","차량 사양 코딩 미인식",""],
+ ["P0011","eng","흡기 캠 타이밍 과진각·성능 (뱅크1)","엔진오일 상태, OCV"],
+ ["P0014","eng","배기 캠 타이밍 과진각·성능 (뱅크1)",""],
+ ["P0016","eng","크랭크–흡기 캠 위치 상관 이상","타이밍 체인 늘어남"],
+ ["P0030","eng","산소센서 히터 제어 회로 (B1S1)",""],
+ ["P0031","eng","산소센서 히터 회로 낮음 (B1S1)",""],
+ ["P0076","eng","흡기 OCV 회로 낮음 (뱅크1)",""],
+ ["P0077","eng","흡기 OCV 회로 높음 (뱅크1)",""],
+ ["P0106","eng","MAP(흡기 매니폴드 압력)센서 범위·성능","진공 누설"],
+ ["P0107","eng","MAP센서 입력 낮음",""],
+ ["P0112","eng","흡기온도센서 입력 낮음",""],
+ ["P0117","eng","냉각수온센서 입력 낮음",""],
+ ["P0118","eng","냉각수온센서 입력 높음",""],
+ ["P0122","eng","스로틀 위치센서 A 입력 낮음",""],
+ ["P0125","eng","폐루프 제어 진입 냉각수온 부족",""],
+ ["P0128","eng","서모스탯 이상 (규정 온도 미달)","서모스탯 열림 고착"],
+ ["P0130","eng","산소센서 회로 (B1S1)",""],
+ ["P0133","eng","산소센서 응답 느림 (B1S1)",""],
+ ["P0134","eng","산소센서 활동 없음 (B1S1)",""],
+ ["P0170","eng","연료 보정 이상 (뱅크1)",""],
+ ["P0230","eng","연료펌프 1차 회로","릴레이·퓨즈"],
+ ["P0261","eng","1번 인젝터 회로 낮음",""],
+ ["P0262","eng","1번 인젝터 회로 높음",""],
+ ["P0300","eng","다기통 실화 감지","점화·연료·압축 공통 원인"],
+ ["P0301","eng","1번 실린더 실화","코일 교차 시험"],
+ ["P0302","eng","2번 실린더 실화",""],
+ ["P0303","eng","3번 실린더 실화",""],
+ ["P0304","eng","4번 실린더 실화",""],
+ ["P0326","eng","노크센서 1 범위·성능",""],
+ ["P0335","eng","크랭크각센서(CKP) A 회로",""],
+ ["P0340","eng","캠각센서(CMP) A 회로",""],
+ ["P0420","eng","촉매 효율 기준 미달 (뱅크1)","후방 O2 파형 비교"],
+ ["P0441","eng","증발가스 퍼지 유량 부적합",""],
+ ["P0442","eng","증발가스 누설 감지 (소)","주유구 캡"],
+ ["P0444","eng","퍼지 컨트롤 솔레노이드(PCSV) 회로 단선",""],
+ ["P0455","eng","증발가스 누설 감지 (대)",""],
+ ["P0501","eng","차속센서 범위·성능",""],
+ ["P0506","eng","공회전 rpm 규정보다 낮음","스로틀 바디 오염"],
+ ["P0507","eng","공회전 rpm 규정보다 높음","흡기 누설"],
+ ["P0562","eng","시스템 전압 낮음",""],
+ ["P0563","eng","시스템 전압 높음",""],
+ ["P0605","eng","ECU 내부 ROM 오류",""],
+ ["P0625","eng","발전기 F(계자) 단자 회로 낮음",""],
+ ["P0630","eng","VIN 미기록 또는 ECU와 불일치",""],
+ ["P0642","eng","센서 기준전압 A 회로 낮음","5V 공급선 접지 단락"],
+ ["P0643","eng","센서 기준전압 A 회로 높음",""],
+ ["P0650","eng","MIL(엔진 경고등) 제어 회로",""],
+ ["P0652","eng","센서 기준전압 B 회로 낮음",""],
+ ["P0661","eng","가변흡기(IMT) 밸브 제어 회로 낮음",""],
+ ["P2096","eng","후방 연료 보정 과다 희박 (뱅크1)",""],
+ ["P2097","eng","후방 연료 보정 과다 농후 (뱅크1)",""],
+ ["P2101","eng","스로틀 모터 회로 범위·성능",""],
+ ["P2104","eng","전자 스로틀 강제 공회전 (페일세이프)",""],
+ ["P2118","eng","스로틀 모터 전류 범위·성능",""],
+ ["P2122","eng","가속페달센서(APS) D 입력 낮음",""],
+ ["P2127","eng","가속페달센서(APS) E 입력 낮음",""],
+ ["P2138","eng","APS D/E 전압 상관 이상","두 신호 비율 비교"],
+ ["P2187","eng","공회전 시 희박 (뱅크1)",""],
+ ["P2188","eng","공회전 시 농후 (뱅크1)",""],
+ ["P2195","eng","산소센서 희박 고착 (B1S1)",""],
+ ["P2502","eng","충전 시스템 전압 이상",""],
+ ["P2503","eng","충전 안 됨","발전기·벨트"],
+ ["U1111","eng","배터리 센서 고장 (ECU 감지)","AMS 배터리 센서"],
+ ["P0705","at","변속 레인지(인히비터) 스위치 회로",""],
+ ["P0712","at","변속기 오일온도센서 입력 낮음",""],
+ ["P0713","at","변속기 오일온도센서 입력 높음",""],
+ ["P0717","at","입력(터빈) 속도센서 신호 없음",""],
+ ["P0722","at","출력 속도센서 신호 없음",""],
+ ["P0729","at","6단 기어비 이상",""],
+ ["P0731","at","1단 기어비 이상","P0732~P0735: 2~5단"],
+ ["P0741","at","토크컨버터 클러치 성능 이상·OFF 고착",""],
+ ["P0743","at","토크컨버터 클러치 솔레노이드 전기적 이상",""],
+ ["P0748","at","압력 제어 솔레노이드(VFS) A 전기적 이상",""],
+ ["P0753","at","변속 솔레노이드 A 전기적 이상","원문 오기 정정"],
+ ["P0758","at","변속 솔레노이드 B (2-6 브레이크) 전기적 이상",""],
+ ["P0763","at","변속 솔레노이드 C (35R 클러치) 전기적 이상",""],
+ ["P0768","at","변속 솔레노이드 D 전기적 이상","원문 오기 정정"],
+ ["P0773","at","변속 솔레노이드 E 전기적 이상","원문 오기 정정"],
+ ["P0880","at","TCM 전원 입력 이상",""],
+ ["P0955","at","수동(스포츠) 모드 회로 이상",""],
+ ["U0001","net","고속 CAN 버스 오프","종단저항 60Ω 측정"],
+ ["U0100","net","ECM/PCM 통신 두절",""],
+ ["U0101","net","TCM 통신 두절",""],
+ ["U0121","net","ABS 모듈 통신 두절",""],
+ ["U0122","net","차량 자세제어(VDC) 모듈 통신 두절",""],
+ ["U0126","net","조향각센서 통신 두절",""],
+ ["U1121","net","ESP 모듈 통신 두절 (제조사 정의)",""],
+ ["P1115","old","ECM→TCM 냉각수온 신호 이상",""],
+ ["P1121","old","ECM→TCM 스로틀 위치 신호 이상",""],
+ ["P1170","old","전방 산소센서 고착",""],
+ ["P1250","old","압력 조절 솔레노이드 밸브 단선·단락",""],
+ ["P1500","old","TCM 차속 신호 없음",""],
+ ["P1505","old","ISC 밸브 열림 코일 전압 낮음",""],
+ ["P1523","old","가변흡기(VICS) 솔레노이드 밸브",""],
+ ["P1586","old","A/T–M/T 사양 코딩",""],
+ ["P1608","old","PCM 고장",""],
+ ["P1624","old","TCM→ECM MIL 점등 요청 신호",""],
+ ["P1633","old","배터리 과충전",""],
+ ["P1693","old","MIL 회로 이상","최신 차종의 이모빌라이저 P1693과 다름"],
+ ["P1743","old","토크컨버터 클러치 솔레노이드 단선·단락",""],
+ ["P1795","old","4WD 스위치 신호 이상",""]
+];
+
+const $ = s=>document.querySelector(s);
+let active = "all";
+const chips = $("#chips");
+[["all","전체"],...Object.entries(SYS).map(([k,v])=>[k,v[0]])].forEach(([k,label])=>{
+  const b=document.createElement("button");b.type="button";b.textContent=label;b.dataset.k=k;
+  b.setAttribute("aria-pressed",k==="all");
+  b.onclick=()=>{active=k;chips.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.k===k));render();};
+  chips.appendChild(b);
+});
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function render(){
+  const q=$("#q").value.trim().toLowerCase();
+  const g=$("#groups"); g.innerHTML=""; let n=0;
+  for(const [k,[name,sub]] of Object.entries(SYS)){
+    if(active!=="all"&&active!==k) continue;
+    const rows=D.filter(r=>r[1]===k&&(!q||(r[0]+" "+r[2]+" "+r[3]+" "+name).toLowerCase().includes(q)));
+    if(!rows.length) continue; n+=rows.length;
+    const div=document.createElement("div");div.className="group";
+    div.innerHTML=`<h3>${name}<small>${sub} · ${rows.length}개</small></h3><div class="tbl-wrap"><table><thead><tr><th>코드</th><th>뜻</th><th>점검 포인트</th></tr></thead><tbody>${
+      rows.map(r=>`<tr><td class="code"><span class="l l${r[0][0]}">${r[0][0]}</span>${r[0].slice(1)}</td><td>${esc(r[2])}</td><td class="note${r[3].includes("오기")||r[3].includes("다름")?" flag":""}">${esc(r[3])}</td></tr>`).join("")
+    }</tbody></table></div>`;
+    g.appendChild(div);
+  }
+  if(!n) g.innerHTML='<div class="empty">찾는 코드가 이 노트에 없습니다. 첫 글자와 둘째 자리만으로도 계통은 1번 섹션에서 읽을 수 있습니다.</div>';
+  $("#count").textContent=`${n}개 표시`;
+}
+$("#q").addEventListener("input",render);
+
+const L={P:"파워트레인 (엔진·변속기)",B:"바디 (에어백, 도어, 램프, 편의장치)",C:"섀시 (제동, 조향, 서스펜션)",U:"네트워크 (모듈 간 통신)"};
+const T2={"0":"SAE 공통 코드 (제조사 무관 같은 뜻)","1":"제조사 고유 코드","2":"제조사 고유 코드 (P2는 공통 확장도 있음)","3":"예약·확장 영역"};
+const T3P={"0":"연료·공기 계량, 보조 배출","1":"연료·공기 계량","2":"연료·공기 계량 (인젝터 회로)","3":"점화 계통, 실화","4":"보조 배출 제어 (EGR, 증발가스, 촉매)","5":"차속, 공회전 제어, 보조 입력","6":"ECU 및 출력 회로","7":"변속기","8":"변속기","9":"변속기·기타","A":"하이브리드 구동","B":"하이브리드 구동","C":"하이브리드 구동"};
+function decode(){
+  const v=$("#code-in").value.toUpperCase().replace(/[^A-Z0-9]/g,"");
+  const c=[v[0]||"",v[1]||"",v[2]||"",v.slice(3,5)];
+  ["s1","s2","s3","s4"].forEach((id,i)=>{$("#"+id+" .ch").textContent=c[i]||"–";});
+  $("#s1 .mean").textContent=L[c[0]]||(c[0]?"P, B, C, U 중 하나여야 합니다":"");
+  $("#s2 .mean").textContent=T2[c[1]]||"";
+  let m3="";
+  if(c[0]==="P"&&(c[1]==="0"||c[1]==="2")) m3=T3P[c[2]]||"";
+  else if(c[2]) m3=c[1]==="1"?"제조사가 정한 분류 (차종별 정비지침서 확인)":"계통 내 세부 그룹";
+  $("#s3 .mean").textContent=m3;
+  $("#s4 .mean").textContent=c[3].length===2?"해당 그룹 안의 고장 일련번호":"";
+  const hits=D.filter(r=>r[0]===v);
+  const box=$("#dec-result");
+  document.querySelectorAll(".slot").forEach(s=>s.classList.toggle("hit",hits.length>0));
+  if(v.length<5){box.innerHTML='<span class="none">다섯 자리를 모두 입력하세요.</span>';return;}
+  box.innerHTML=hits.length?hits.map(r=>`<div><b class="mono">${r[0]}</b> · ${SYS[r[1]][0]} — ${esc(r[2])}${r[3]?` <span style="color:var(--muted)">(${esc(r[3])})</span>`:""}</div>`).join(""):'<span class="none">이 노트의 표에는 없는 코드입니다. 자리별 의미로 계통을 먼저 좁혀 보세요.</span>';
+}
+$("#code-in").addEventListener("input",decode);
+document.querySelectorAll(".samples button").forEach(b=>b.onclick=()=>{$("#code-in").value=b.textContent;decode();});
+render();decode();
+</script>
+
+<style>
+/* 정비자료 페이지 */
+.jb{--jb-bg:#f5f6f8;--jb-panel:#ffffff;--jb-ink:#1a1d23;--jb-muted:#5b616e;--jb-line:#e3e6ea;
+--jb-accent:#e10600;--jb-accent-soft:#fff6d6;--jb-accent-ink:#8a6d00;
+--jb-p:#2f6fb3;--jb-b:#7a4fb0;--jb-c:#2e8a5c;--jb-u:#b3452f;--jb-warn:#b3452f;--jb-chip:#eef0f3;--jb-code-bg:#f5f6f8;
+--jb-mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;--jb-sans:var(--font);
+color:var(--jb-ink);font-size:15.5px;line-height:1.7}
+.jb-wrap{background:var(--jb-bg);padding-block:56px 72px}
+.jb-inner{display:flex;flex-direction:column;gap:48px}
+.jb h2{font-size:22px;font-weight:900;letter-spacing:-.02em}
+.jb h3{font-size:17px;font-weight:800}
+.jb .tools{position:static}
+.jb-notice{margin-top:22px;max-width:70ch;font-size:14px;color:var(--text-on-dark-sub);padding-left:14px;border-left:2px solid #ffd400;line-height:1.75}
+.jb-notice strong{color:#fff}
+.jb-brand{display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:2px solid var(--jb-ink)}
+.jb-brand p{color:var(--jb-muted)}
+.jb .faq{display:flex;flex-direction:column;gap:10px}
+.jb details{background:var(--jb-panel);border:1px solid var(--jb-line);border-radius:10px;padding:14px 18px}
+.jb summary{font-weight:800;cursor:pointer}
+.jb details p{margin-top:8px;color:var(--jb-muted)}
+.jb-cta{display:flex;gap:12px;flex-wrap:wrap}
+
+@media (prefers-color-scheme:dark){.jb :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#12161d; --panel:#1a2029; --ink:#e6e9ef; --muted:#98a1b0; --line:#2b3340;
+    --accent:#f0a526; --accent-soft:#33280f; --accent-ink:#f5c46a;
+    --p:#6ea6e6; --b:#b08ae0; --c:#5fc48f; --u:#ec7f68; --warn:#ec7f68;
+    --chip:#232a35; --code-bg:#151a22;
+  }}
+.jb *{box-sizing:border-box}
+.jb h1,.jb h2,.jb h3{text-wrap:balance;line-height:1.3;margin:0}
+.jb h1{font-size:28px;font-weight:700}
+.jb h2{font-size:20px;font-weight:700}
+.jb h3{font-size:16px;font-weight:700}
+.jb p{margin:0}
+.jb .mono{font-family:var(--jb-mono)}
+.jb .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--jb-accent-ink);font-weight:600;display:flex;align-items:center;gap:8px}
+.jb .mil{width:12px;height:12px;border-radius:50%;background:var(--jb-accent);box-shadow:0 0 0 3px var(--jb-accent-soft)}
+.jb .lede{color:var(--jb-muted);max-width:66ch}
+.jb section{display:flex;flex-direction:column;gap:16px}
+.jb .sec-head{display:flex;flex-direction:column;gap:4px}
+.jb .sec-head p{color:var(--jb-muted);max-width:70ch}
+.jb /* decoder */
+.decoder{background:var(--jb-panel);border:1px solid var(--jb-line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:18px}
+.jb .dec-input{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.jb .dec-input label{font-weight:600}
+.jb #code-in{font-family:var(--jb-mono);font-size:22px;letter-spacing:.12em;text-transform:uppercase;width:8.5ch;padding:6px 10px;border:2px solid var(--jb-line);border-radius:8px;background:var(--jb-code-bg);color:var(--jb-ink)}
+.jb #code-in:focus{outline:none;border-color:var(--jb-accent)}
+.jb .samples{display:flex;gap:6px;flex-wrap:wrap}
+.jb .samples button{font-family:var(--jb-mono);font-size:13px;border:1px solid var(--jb-line);background:var(--jb-chip);color:var(--jb-ink);border-radius:6px;padding:3px 8px;cursor:pointer}
+.jb .samples button:hover,.jb .samples button:focus-visible{border-color:var(--jb-accent);outline:none}
+.jb .slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.jb .slot{border:1px solid var(--jb-line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:6px;background:var(--jb-code-bg)}
+.jb .slot .ch{font-family:var(--jb-mono);font-size:26px;font-weight:600;line-height:1}
+.jb .slot .pos{font-size:12px;color:var(--jb-muted);letter-spacing:.04em}
+.jb .slot .mean{font-size:14px}
+.jb .dec-result{border-left:3px solid var(--jb-accent);padding:6px 0 6px 12px;min-height:2em}
+.jb .dec-result .none{color:var(--jb-muted)}
+@media (max-width:640px){.jb .slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.jb /* glossary */
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.jb .term{background:var(--jb-panel);border:1px solid var(--jb-line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.jb .term .en{font-family:var(--jb-mono);font-size:13px;color:var(--jb-accent-ink);font-weight:600}
+.jb .term .ko{font-weight:700}
+.jb .term .ex{font-size:13.5px;color:var(--jb-muted)}
+.jb .trap{background:var(--jb-accent-soft);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.jb .trap ul{margin:0;padding-left:1.2em}
+.jb /* table */
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);background:var(--jb-bg);padding-block:10px;z-index:2}
+.jb #q{flex:1 1 240px;font:inherit;padding:8px 12px;border:1px solid var(--jb-line);border-radius:8px;background:var(--jb-panel);color:var(--jb-ink)}
+.jb #q:focus{outline:none;border-color:var(--jb-accent)}
+.jb .chips{display:flex;gap:6px;flex-wrap:wrap}
+.jb .chips button{font:inherit;font-size:13px;border:1px solid var(--jb-line);background:var(--jb-panel);color:var(--jb-ink);border-radius:999px;padding:4px 12px;cursor:pointer}
+.jb .chips button[aria-pressed="true"]{background:var(--jb-ink);color:var(--jb-bg);border-color:var(--jb-ink)}
+.jb .chips button:focus-visible{outline:2px solid var(--jb-accent);outline-offset:2px}
+.jb .count{font-size:13px;color:var(--jb-muted);font-variant-numeric:tabular-nums}
+.jb .group{display:flex;flex-direction:column;gap:8px}
+.jb .group h3{display:flex;gap:10px;align-items:baseline}
+.jb .group h3 small{font-weight:400;color:var(--jb-muted);font-size:13px}
+.jb .tbl-wrap{overflow-x:auto;background:var(--jb-panel);border:1px solid var(--jb-line);border-radius:10px}
+.jb table{border-collapse:collapse;width:100%;min-width:560px}
+.jb th,.jb td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--jb-line);vertical-align:top}
+.jb tr:last-child td{border-bottom:0}
+.jb th{font-size:12px;letter-spacing:.05em;color:var(--jb-muted);font-weight:600;background:var(--jb-code-bg)}
+.jb td.code{font-family:var(--jb-mono);font-weight:600;white-space:nowrap;width:7.5em}
+.jb td.code .l{display:inline-block;width:1.3em;text-align:center;border-radius:4px;color:#fff;margin-right:2px}
+.jb .lP{background:var(--jb-p)}
+.jb .lB{background:var(--jb-b)}
+.jb .lC{background:var(--jb-c)}
+.jb .lU{background:var(--jb-u)}
+.jb td.note{color:var(--jb-muted);font-size:13.5px;width:38%}
+.jb .flag{color:var(--jb-warn);font-weight:600}
+.jb .empty{padding:16px;color:var(--jb-muted)}
+.jb /* immobilizer */
+.immo{display:grid;grid-template-columns:1.1fr 1fr;gap:20px}
+@media (max-width:760px){.jb .immo{grid-template-columns:1fr}}
+.jb .card{background:var(--jb-panel);border:1px solid var(--jb-line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.jb .card ol,.jb .card ul{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.jb .flow{overflow-x:auto}
+.jb .flow svg{display:block;width:100%;min-width:420px;height:auto}
+.jb .sources{font-size:13.5px;color:var(--jb-muted)}
+.jb .sources a{color:var(--jb-p)}
+@media (prefers-reduced-motion:no-preference){.jb .slot{transition:border-color .2s}}
+.jb .slot.hit{border-color:var(--jb-accent)}
+.jb .jb-groups{display:flex;flex-direction:column;gap:24px}
+.jb .immo>*{min-width:0}
+</style>
+
+<!-- ▼ 네이버 애널리틱스 (방문자 통계 · 손님에게는 안 보입니다) -->
+<script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "122e1d563400690";
+if (window.wcs) { wcs_do(); }
+</script>
+<!-- ▲ -->
+</body>
+</html>
