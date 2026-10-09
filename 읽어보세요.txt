@@ -1,0 +1,28 @@
+이 압축 파일은 f1-wonmotors 폴더에 그대로 풀면 됩니다.
+
+[ 푸는 법 ]
+1. 이 zip 파일을 마우스 오른쪽 클릭 → "압축 풀기"
+2. 푸는 위치를 아래로 지정
+   C:\Users\ONE\Documents\GitHub\f1-wonmotors
+3. "같은 이름의 파일이 있습니다" 가 뜨면 전부 "덮어쓰기"
+
+[ 그다음 ]
+GitHub Desktop 열고 Summary 칸에 아래를 적은 뒤 Commit → Push
+
+   기아 레이 정비사례 추가 및 10월 예약 반영
+
+[ 들어 있는 것 ]
+· assets/js/booking-data.js            10월 예약 4건 추가
+                                       (재규어 XJ · 기아 K7 · 마세라티 르반떼 · BMW 520d)
+· case/c1131.html                      기아 레이 정비사례 페이지 (새로 만든 것)
+· assets/img/cases/ray-*.jpg           사례 사진 7장
+· assets/js/cases-archive.js           사례 목록 데이터
+· assets/js/cases-archive-photos.js    사례 사진 데이터
+· archive.html                         사례 목록에 새 글 추가
+· sitemap.xml                          네이버·구글이 새 페이지를 찾아가도록 주소 추가
+
+[ 넣지 않은 것 ]
+· 정비 명세서 사진        금액과 차량번호가 있어서 제외
+· 비용 표(Cost Breakdown) 금액이 있어서 제외
+· 마지막 마무리 화면      옛 주소(인천 동구 송림동 297-48)가 찍혀 있어서 제외
+· 차량 프로필 사진은 차량번호를 지우고 넣었습니다
