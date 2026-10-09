@@ -118,6 +118,14 @@
 
 <a class="floating-call" href="tel:01047218957"><span class="ico-phone" aria-hidden="true"></span> 전화 상담 바로가기</a>
 
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="닫기">&times;</button>
+  <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="이전 사진">&lsaquo;</button>
+  <img id="lightboxImg" src="" alt="" />
+  <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="다음 사진">&rsaquo;</button>
+  <p class="lightbox-cap" id="lightboxCap"></p>
+</div>
+
 <style>
 .case-page { padding-top: calc(var(--header-h, 68px) + 34px); }
 .case-crumb { font-size: 13.5px; color: var(--text-sub); margin-bottom: 10px; }
@@ -140,7 +148,87 @@
 .case-cta p { font-size: 15.5px; line-height: 1.7; word-break: keep-all; }
 .case-cta .contact-actions { margin-top: 16px; justify-content: center; }
 .case-note { margin-top: 24px; font-size: 12.5px; color: #9aa1ab; line-height: 1.7; }
+.case-shots img { cursor: zoom-in; }
+.lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border: 0; border-radius: 50%; background: rgba(255,255,255,.14); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; z-index: 2; }
+.lightbox-nav:hover { background: rgba(255,255,255,.26); }
+.lightbox-prev { left: 14px; }
+.lightbox-next { right: 14px; }
+@media (max-width: 560px) { .lightbox-nav { width: 40px; height: 40px; font-size: 22px; } }
 </style>
+<!-- ▼ 사진 크게 보기 (사진을 누르면 확대, ← → 로 넘기기, ESC 로 닫기) -->
+<script>
+(function () {
+  var box  = document.getElementById('lightbox');
+  var bImg = document.getElementById('lightboxImg');
+  var bCap = document.getElementById('lightboxCap');
+  var bX   = document.getElementById('lightboxClose');
+  var bP   = document.getElementById('lightboxPrev');
+  var bN   = document.getElementById('lightboxNext');
+  if (!box || !bImg) return;
+
+  var figs = [].slice.call(document.querySelectorAll('.case-shots figure'));
+  if (!figs.length) return;
+  var k = 0;
+
+  function show() {
+    var f = figs[k];
+    var i = f.querySelector('img');
+    var c = f.querySelector('figcaption');
+    bImg.src = i.currentSrc || i.src;
+    bImg.alt = i.alt || '';
+    bCap.textContent = c ? c.textContent : '';
+  }
+  function openAt(n) {
+    k = n; show();
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    if (bX) bX.focus();
+  }
+  function close() {
+    box.hidden = true;
+    bImg.src = '';
+    document.body.style.overflow = '';
+  }
+  function step(d) { k = (k + d + figs.length) % figs.length; show(); }
+
+  var one = figs.length < 2;
+  if (one) { if (bP) bP.hidden = true; if (bN) bN.hidden = true; }
+
+  figs.forEach(function (f, n) {
+    var i = f.querySelector('img');
+    if (!i) return;
+    i.setAttribute('role', 'button');
+    i.setAttribute('tabindex', '0');
+    i.addEventListener('click', function () { openAt(n); });
+    i.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAt(n); }
+    });
+  });
+
+  if (bX) bX.addEventListener('click', close);
+  if (bP) bP.addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+  if (bN) bN.addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+  box.addEventListener('click', function (e) { if (e.target === box) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft' && !one) step(-1);
+    else if (e.key === 'ArrowRight' && !one) step(1);
+  });
+
+  /* 휴대폰에서 좌우로 밀어 넘기기 */
+  var x0 = null;
+  box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener('touchend', function (e) {
+    if (x0 === null || one) { x0 = null; return; }
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 45) step(dx < 0 ? 1 : -1);
+    x0 = null;
+  }, { passive: true });
+})();
+</script>
+<!-- ▲ -->
+
 <!-- ▼ 네이버 애널리틱스 (방문자 통계 · 손님에게는 안 보입니다) -->
 <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
 <script type="text/javascript">
