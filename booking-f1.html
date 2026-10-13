@@ -235,7 +235,7 @@
       html += '<div class="' + cls + '"' + (pick ? ' role="button" tabindex="0" data-k="' + k + '"' : '') +
               '><span class="bk-num">' + d + '</span>' +
               (label ? '<span class="bk-tag">' + label + '</span>' : '') +
-              (sl.length && !past ? '<span class="bk-cnt">' + sl.length + '</span>' : '') + '</div>';
+              (sl.length ? '<span class="bk-cnt' + (past ? ' is-done' : '') + '">' + sl.length + '</span>' : '') + '</div>';
     }
     calEl.innerHTML = html;
   }
@@ -437,6 +437,7 @@
   font-size: 10.5px; font-weight: 800; color: #fff; background: #2b6cb0;
   border-radius: 999px; padding: 1px 6px; line-height: 1.5;
 }
+.bk-cnt.is-done { background: #b9c0c9; }   /* 지난 날짜 — 예약 대수만 흐리게 */
 .bk-dot.has { background: #2b6cb0; }
 .bk-detail {
   margin-top: 14px; background: var(--white); border: 1px solid #cfdcec;
