@@ -28,7 +28,7 @@ window.BOOKING = {
   updated: "2026-10-15",
 
   one: {   /* 원모터스 인천점 */
-    limit:  5,
+    limit:  7,
     full:   [],
     closed: ["2026-10-03", "2026-10-09"],
     slots: {
@@ -80,7 +80,7 @@ window.BOOKING = {
   },
 
   f1: {    /* 인천에프원모터스 */
-    limit:  5,
+    limit:  7,
     full:   [],
     closed: ["2026-10-03", "2026-10-09"],
     slots: {},
