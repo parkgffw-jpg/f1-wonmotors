@@ -87,6 +87,20 @@
 <section class="section section-booking">
   <div class="container container-narrow">
 
+    <div class="bk-slots">
+      <div class="bk-slots-row">
+        <span class="bk-slots-lab">점검 예약 시간</span>
+        <ul>
+          <li>오전 9:30</li>
+          <li>오전 11:00</li>
+          <li>오후 1:30</li>
+          <li>오후 3:00</li>
+          <li>오후 4:30</li>
+        </ul>
+      </div>
+      <p class="bk-slots-msg">점검은 한 대씩 차례로 봅니다. <strong>예약하신 시간에 맞춰</strong> 와 주시면 뒤에 오신 분도 기다리지 않습니다.<br />토요일 점검 예약은 <strong>오전 한 대</strong>만 받습니다.</p>
+    </div>
+
     <p class="bk-hint">달력 날짜를 클릭하시면 그날의 <strong>예약 현황</strong>을 보실 수 있습니다.</p>
 
     <div class="bk-head">
@@ -374,6 +388,29 @@
 }
 .bk-hint strong { color: var(--text); font-weight: 800; }
 @media (max-width: 560px) { .bk-hint { font-size: 14px; padding: 12px 14px; } }
+.bk-slots {
+  margin-bottom: 20px; background: var(--white); border: 1px solid #e3e6ea;
+  border-radius: var(--radius); padding: 14px 18px 15px;
+}
+.bk-slots-row { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.bk-slots-lab { font-size: 13px; font-weight: 900; color: var(--red); letter-spacing: .02em; }
+.bk-slots ul { margin: 0; padding: 0; list-style: none; display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
+.bk-slots li {
+  font-size: 14.5px; font-weight: 800; color: var(--text);
+  background: #f4f6f8; border: 1px solid #e0e4e9; border-radius: 999px; padding: 6px 14px;
+}
+.bk-slots-msg {
+  margin: 11px 0 0; padding-top: 11px; border-top: 1px solid #eef0f3;
+  text-align: center; font-size: 13.5px; line-height: 1.8; color: var(--text-sub);
+}
+.bk-slots-msg strong { color: var(--text); font-weight: 800; }
+@media (max-width: 560px) {
+  .bk-slots { padding: 13px 14px 14px; }
+  .bk-slots-row { gap: 10px; }
+  .bk-slots-lab { font-size: 12.5px; }
+  .bk-slots li { font-size: 13.5px; padding: 5px 11px; }
+  .bk-slots-msg { font-size: 12.8px; }
+}
 .bk-head { display: flex; align-items: center; justify-content: center; gap: 18px; }
 .bk-month { font-size: 21px; font-weight: 900; letter-spacing: -.02em; min-width: 150px; text-align: center; margin: 0; }
 .bk-nav {
