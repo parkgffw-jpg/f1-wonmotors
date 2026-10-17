@@ -379,7 +379,8 @@
 
 <style>
 /* 예약 현황 달력 */
-.section-booking { background: var(--paper); }
+.section-booking { background: var(--paper); padding-top: 48px; }
+@media (max-width: 560px) { .section-booking { padding-top: 32px; } }
 .bk-hint {
   margin-bottom: 20px; text-align: center; font-size: 15px; color: var(--text-sub);
   background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius);
