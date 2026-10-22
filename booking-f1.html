@@ -124,9 +124,171 @@
     <p class="bk-note" id="bkNote" hidden></p>
     <p class="bk-updated" id="bkUpdated"></p>
 
+    <div class="bk-form" id="bkForm">
+      <h3>예약 신청</h3>
+      <p class="bkf-lead">아래 칸을 채우고 <strong>문자로 보내기</strong>를 누르시면, 적으신 내용이 그대로 문자로 전송됩니다. 확인 후 연락드려 시간을 확정해 드립니다.</p>
+
+      <div class="bkf-grid">
+        <label class="bkf-row"><span>차량번호 <em>*</em></span><input type="text" id="bkfPlate" placeholder="12가3456" autocomplete="off" /></label>
+        <label class="bkf-row"><span>차종 <em>*</em></span><input type="text" id="bkfCar" placeholder="BMW 520d" autocomplete="off" /></label>
+        <label class="bkf-row"><span>연식</span><input type="text" id="bkfYear" placeholder="2018년식" autocomplete="off" /></label>
+        <label class="bkf-row"><span>주행거리</span><input type="text" id="bkfKm" placeholder="150,000 km" autocomplete="off" /></label>
+        <label class="bkf-row"><span>연락처 <em>*</em></span><input type="tel" id="bkfTel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" /></label>
+        <label class="bkf-row"><span>희망 날짜 <em>*</em></span><input type="date" id="bkfDate" /></label>
+        <label class="bkf-row"><span>희망 시간</span><select id="bkfTime"><option value="">시간은 상담 후 결정</option><option data-t="09:30" data-label="오전 9:30">오전 9:30</option><option data-t="11:00" data-label="오전 11:00">오전 11:00</option><option data-t="13:30" data-label="오후 1:30">오후 1:30</option><option data-t="15:00" data-label="오후 3:00">오후 3:00</option><option data-t="16:30" data-label="오후 4:30">오후 4:30</option></select></label>
+        <label class="bkf-row bkf-wide"><span>증상 · 요청사항 <em>*</em></span><textarea id="bkfSym" rows="3" placeholder="예) 주행 중 계기판에 노란 경고등이 들어옵니다"></textarea></label>
+      </div>
+
+      <p class="bkf-day" id="bkfDay" hidden></p>
+      <p class="bkf-err" id="bkfErr" hidden></p>
+
+      <div class="bkf-actions">
+        <button type="button" class="btn btn-primary btn-lg" id="bkfSend">문자로 보내기</button>
+        <button type="button" class="btn btn-ghost-dark btn-lg" id="bkfCopy">내용 복사하기</button>
+      </div>
+      <p class="bkf-priv">적으신 내용은 홈페이지에 저장되지 않습니다. 누르시면 휴대폰 문자 앱이 열리고 <strong>보내기를 누르셔야</strong> 전송됩니다.</p>
+    </div>
+
+    <script>
+    (function () {
+      var TEL = '01047218957';
+      var SHOP = 'f1';
+      function $(id) { return document.getElementById(id); }
+      if (!$('bkForm')) return;
+      function val(id) { var e = $(id); return e ? e.value.trim() : ''; }
+
+      var dEl = $('bkfDate');
+      if (dEl) {
+        var n = new Date();
+        dEl.min = n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2) + '-' + ('0' + n.getDate()).slice(-2);
+      }
+
+      /* ---------- 그날 상태 — 달력과 같은 규칙 ---------- */
+      function dayState(k) {
+        var B = window.BOOKING || {};
+        var S = B[SHOP] || B.one || B.f1 || {};
+        var p = k.split('-');
+        var d = new Date(+p[0], +p[1] - 1, +p[2]);
+        var w = d.getDay();
+        var off = false;
+        if (w === 0) off = true;
+        else if (w === 6) { var nth = Math.floor((d.getDate() - 1) / 7) + 1; off = (nth === 2 || nth === 4); }
+        if (!off && (S.closed || []).indexOf(k) > -1) off = true;
+        var sl = (S.slots || {})[k] || [];
+        var full = (S.full || []).indexOf(k) > -1 || (S.limit && sl.length >= S.limit);
+        return { off: off, sat: (w === 6 && !off), full: !!full, slots: sl };
+      }
+
+      function opts() {
+        var sel = $('bkfTime'), out = [], i;
+        for (i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].getAttribute('data-t')) out.push(sel.options[i]);
+        }
+        return out;
+      }
+
+      function refreshTimes() {
+        var sel = $('bkfTime'), msg = $('bkfDay'), k = val('bkfDate'), list = opts();
+        list.forEach(function (o) { o.disabled = false; o.textContent = o.getAttribute('data-label'); });
+        msg.hidden = true;
+        msg.className = 'bkf-day';
+        if (k) {
+          var st = dayState(k);
+          function lockAll(tail) {
+            list.forEach(function (o) { o.disabled = true; o.textContent = o.getAttribute('data-label') + tail; });
+          }
+          if (st.off) {
+            lockAll(' (휴무)');
+            msg.textContent = '그날은 쉬는 날입니다. 다른 날짜를 골라 주세요.';
+            msg.className = 'bkf-day is-off';
+            msg.hidden = false;
+          } else if (st.full) {
+            lockAll(' (마감)');
+            msg.textContent = '그날은 예약이 다 찼습니다. 다른 날짜를 골라 주세요.';
+            msg.className = 'bkf-day is-off';
+            msg.hidden = false;
+          } else if (st.sat && st.slots.length) {
+            lockAll(' (마감)');
+            msg.textContent = '토요일은 점검 예약을 오전 한 대만 받습니다. 그날은 이미 예약이 있습니다.';
+            msg.className = 'bkf-day is-off';
+            msg.hidden = false;
+          } else {
+            var taken = {};
+            st.slots.forEach(function (s) { if (s && s.t) taken[s.t] = 1; });
+            list.forEach(function (o) {
+              var t = o.getAttribute('data-t');
+              if (st.sat && t >= '12:00') { o.disabled = true; o.textContent = o.getAttribute('data-label') + ' (토요일 오전만)'; }
+              else if (taken[t]) { o.disabled = true; o.textContent = o.getAttribute('data-label') + ' (예약 있음)'; }
+            });
+            if (st.sat) { msg.textContent = '토요일은 점검 예약을 오전 한 대만 받습니다.'; msg.hidden = false; }
+            else if (st.slots.length) { msg.textContent = '그날은 이미 ' + st.slots.length + '대가 예약되어 있습니다. 회색으로 바뀐 시간은 고를 수 없습니다.'; msg.hidden = false; }
+          }
+        }
+        var cur = sel.options[sel.selectedIndex];
+        if (cur && cur.disabled) sel.selectedIndex = 0;
+      }
+
+      if (dEl) { dEl.addEventListener('change', refreshTimes); dEl.addEventListener('input', refreshTimes); }
+
+      /* ---------- 문자 내용 ---------- */
+      function dateText(v) {
+        if (!v) return '';
+        var p = v.split('-');
+        if (p.length !== 3) return v;
+        var wd = ['일', '월', '화', '수', '목', '금', '토'][new Date(+p[0], +p[1] - 1, +p[2]).getDay()];
+        return p[0] + '년 ' + Number(p[1]) + '월 ' + Number(p[2]) + '일 (' + wd + ')';
+      }
+      function build() {
+        var L = ['[예약 신청]'];
+        L.push('차량번호 : ' + val('bkfPlate'));
+        var y = val('bkfYear');
+        L.push('차종 : ' + val('bkfCar') + (y ? ' / ' + y : ''));
+        if (val('bkfKm')) L.push('주행거리 : ' + val('bkfKm'));
+        L.push('연락처 : ' + val('bkfTel'));
+        L.push('희망 날짜 : ' + dateText(val('bkfDate')) + (val('bkfTime') ? ' ' + val('bkfTime') : ''));
+        L.push('증상 : ' + val('bkfSym'));
+        return L.join('\n');
+      }
+      function check() {
+        var need = [['bkfPlate', '차량번호'], ['bkfCar', '차종'], ['bkfTel', '연락처'], ['bkfDate', '희망 날짜'], ['bkfSym', '증상']];
+        var miss = [], e = $('bkfErr');
+        need.forEach(function (n) { if (!val(n[0])) miss.push(n[1]); });
+        if (miss.length) { e.textContent = miss.join(' · ') + ' 을(를) 적어주세요.'; e.hidden = false; return false; }
+        var st = dayState(val('bkfDate'));
+        if (st.off) { e.textContent = '고르신 날은 쉬는 날입니다. 다른 날짜로 바꿔 주세요.'; e.hidden = false; return false; }
+        if (st.full || (st.sat && st.slots.length)) { e.textContent = '고르신 날은 예약이 다 찼습니다. 다른 날짜로 바꿔 주세요.'; e.hidden = false; return false; }
+        e.hidden = true;
+        return true;
+      }
+
+      $('bkfSend').addEventListener('click', function () {
+        if (!check()) return;
+        window.location.href = 'sms:' + TEL + '?&body=' + encodeURIComponent(build());
+      });
+      $('bkfCopy').addEventListener('click', function () {
+        if (!check()) return;
+        var t = build(), btn = $('bkfCopy'), old = btn.getAttribute('data-old') || btn.textContent;
+        btn.setAttribute('data-old', old);
+        function done() { btn.textContent = '복사했습니다'; setTimeout(function () { btn.textContent = old; }, 1800); }
+        function fallback() {
+          var ta = document.createElement('textarea');
+          ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); done(); } catch (err) {}
+          document.body.removeChild(ta);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(t).then(done, fallback);
+        } else { fallback(); }
+      });
+
+      window.addEventListener('load', refreshTimes);
+    })();
+    </script>
+
     <div class="bk-cta" id="bkCta">
-      <h3>예약하기</h3>
-      <p id="bkCtaDesc">차종 · 연식 · 주행거리와 증상을 알려주시면 가능한 날짜를 잡아드립니다.</p>
+      <h3>전화 · 카카오톡으로도 됩니다</h3>
+      <p id="bkCtaDesc">글로 적기 번거로우시면 바로 연락 주셔도 됩니다. 차종 · 연식 · 주행거리와 증상을 알려주시면 가능한 날짜를 잡아드립니다.</p>
       <div class="contact-actions">
         <a class="btn btn-primary btn-lg" href="tel:01047218957"><span class="ico-phone" aria-hidden="true"></span> 010-4721-8957</a>
         <a class="btn btn-kakao btn-lg" href="https://pf.kakao.com/_nxivaX/chat" target="_blank" rel="noopener">카카오톡 예약</a>
@@ -529,6 +691,51 @@
   .bk-num { font-size: 14px; }
   .bk-tag { font-size: 10px; padding: 2px 5px; }
   .bk-month { font-size: 18px; min-width: 120px; }
+}
+.bk-form {
+  margin-top: 26px; background: var(--white); border: 1px solid #e3e6ea;
+  border-radius: var(--radius); padding: 22px 22px 20px;
+}
+.bk-form h3 { margin: 0; font-size: 19px; font-weight: 900; }
+.bkf-lead { margin: 9px 0 18px; font-size: 14px; line-height: 1.75; color: var(--text-sub); word-break: keep-all; }
+.bkf-lead strong { color: var(--text); font-weight: 800; }
+.bkf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+.bkf-row { display: flex; flex-direction: column; gap: 6px; }
+.bkf-row.bkf-wide { grid-column: 1 / -1; }
+.bkf-row > span { font-size: 13px; font-weight: 800; color: var(--text); }
+.bkf-row em { color: var(--red); font-style: normal; }
+.bkf-row input, .bkf-row select, .bkf-row textarea {
+  width: 100%; box-sizing: border-box; font: inherit; font-size: 15px;
+  color: var(--text); background: #fbfcfd; border: 1px solid #dde1e7;
+  border-radius: 9px; padding: 11px 12px; -webkit-appearance: none; appearance: none;
+}
+.bkf-row textarea { resize: vertical; line-height: 1.6; }
+.bkf-row input:focus, .bkf-row select:focus, .bkf-row textarea:focus {
+  outline: none; border-color: var(--red); background: var(--white);
+}
+.bkf-row option:disabled { color: #a9afb7; }
+.bkf-day {
+  margin: 12px 0 0; font-size: 13.4px; line-height: 1.7; font-weight: 700;
+  color: var(--text-sub); background: #f4f6f8; border-radius: 9px; padding: 10px 12px;
+  word-break: keep-all;
+}
+.bkf-day.is-off { color: #b4402f; background: #fdf1ef; }
+.bkf-err {
+  margin: 12px 0 0; font-size: 14px; font-weight: 700; color: var(--red);
+  background: #fff4f4; border: 1px solid #ffd9d9; border-radius: 9px; padding: 11px 13px;
+}
+.bkf-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.bkf-actions .btn { flex: 1 1 auto; justify-content: center; }
+.bkf-priv { margin: 13px 0 0; font-size: 12.8px; line-height: 1.7; color: var(--text-sub); word-break: keep-all; }
+.bkf-priv strong { color: var(--text); font-weight: 800; }
+@media (max-width: 560px) {
+  .bk-form { padding: 18px 15px 16px; }
+  .bk-form h3 { font-size: 17.5px; }
+  .bkf-lead { font-size: 13.4px; margin-bottom: 15px; }
+  .bkf-grid { grid-template-columns: 1fr; gap: 11px; }
+  .bkf-row input, .bkf-row select, .bkf-row textarea { font-size: 16px; padding: 10px 11px; }
+  .bkf-day { font-size: 12.8px; }
+  .bkf-actions .btn { flex: 1 1 100%; }
 }
 </style>
 
