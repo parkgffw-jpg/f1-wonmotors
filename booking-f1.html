@@ -135,7 +135,7 @@
         <label class="bkf-row"><span>주행거리</span><input type="text" id="bkfKm" placeholder="150,000 km" autocomplete="off" /></label>
         <label class="bkf-row"><span>연락처 <em>*</em></span><input type="tel" id="bkfTel" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel" /></label>
         <label class="bkf-row"><span>희망 날짜 <em>*</em></span><input type="date" id="bkfDate" /></label>
-        <label class="bkf-row"><span>희망 시간</span><select id="bkfTime"><option value="">시간은 상담 후 결정</option><option data-t="09:30" data-label="오전 9:30">오전 9:30</option><option data-t="11:00" data-label="오전 11:00">오전 11:00</option><option data-t="13:30" data-label="오후 1:30">오후 1:30</option><option data-t="15:00" data-label="오후 3:00">오후 3:00</option><option data-t="16:30" data-label="오후 4:30">오후 4:30</option></select></label>
+        <label class="bkf-row"><span>희망 시간</span><select id="bkfTime"><option value="">가능한 시간으로 잡아주세요</option><option data-t="09:30" data-label="오전 9:30">오전 9:30</option><option data-t="11:00" data-label="오전 11:00">오전 11:00</option><option data-t="13:30" data-label="오후 1:30">오후 1:30</option><option data-t="15:00" data-label="오후 3:00">오후 3:00</option><option data-t="16:30" data-label="오후 4:30">오후 4:30</option></select></label>
         <label class="bkf-row bkf-wide"><span>증상 · 요청사항 <em>*</em></span><textarea id="bkfSym" rows="3" placeholder="예) 주행 중 계기판에 노란 경고등이 들어옵니다"></textarea></label>
       </div>
 
@@ -706,12 +706,17 @@
 .bkf-row em { color: var(--red); font-style: normal; }
 .bkf-row input, .bkf-row select, .bkf-row textarea {
   width: 100%; box-sizing: border-box; font: inherit; font-size: 15px;
-  color: var(--text); background: #fbfcfd; border: 1px solid #dde1e7;
+  color: var(--text); background-color: #fbfcfd; border: 1px solid #dde1e7;
   border-radius: 9px; padding: 11px 12px; -webkit-appearance: none; appearance: none;
+}
+.bkf-row select {
+  padding-right: 38px; cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%236b7280' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' d='M1 1.6 6 6.4 11 1.6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 13px center; background-size: 12px 8px;
 }
 .bkf-row textarea { resize: vertical; line-height: 1.6; }
 .bkf-row input:focus, .bkf-row select:focus, .bkf-row textarea:focus {
-  outline: none; border-color: var(--red); background: var(--white);
+  outline: none; border-color: var(--red); background-color: var(--white);
 }
 .bkf-row option:disabled { color: #a9afb7; }
 .bkf-day {
