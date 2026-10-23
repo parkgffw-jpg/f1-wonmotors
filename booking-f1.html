@@ -98,7 +98,7 @@
           <li>오후 4:30</li>
         </ul>
       </div>
-      <p class="bk-slots-msg">점검은 한 대씩 차례로 봅니다. <strong>예약하신 시간에 맞춰</strong> 와 주시면 뒤에 오신 분도 기다리지 않습니다.<br />토요일 점검 예약은 <strong>오전 한 대</strong>만 받습니다.</p>
+      <p class="bk-slots-msg">점검은 한 대씩 차례로 봅니다. <strong>예약하신 시간에 맞춰</strong> 와 주시면 뒤에 오신 분도 기다리지 않습니다.<br />토요일은 <strong>오후 1시 30분 예약까지</strong>만 받습니다.</p>
     </div>
 
     <p class="bk-hint">달력 날짜를 클릭하시면 그날의 <strong>예약 현황</strong>을 보실 수 있습니다.</p>
@@ -213,20 +213,15 @@
             msg.textContent = '그날은 예약이 다 찼습니다. 다른 날짜를 골라 주세요.';
             msg.className = 'bkf-day is-off';
             msg.hidden = false;
-          } else if (st.sat && st.slots.length) {
-            lockAll(' (마감)');
-            msg.textContent = '토요일은 점검 예약을 오전 한 대만 받습니다. 그날은 이미 예약이 있습니다.';
-            msg.className = 'bkf-day is-off';
-            msg.hidden = false;
           } else {
             var taken = {};
             st.slots.forEach(function (s) { if (s && s.t) taken[s.t] = 1; });
             list.forEach(function (o) {
               var t = o.getAttribute('data-t');
-              if (st.sat && t >= '12:00') { o.disabled = true; o.textContent = o.getAttribute('data-label') + ' (토요일 오전만)'; }
+              if (st.sat && t > '13:30') { o.disabled = true; o.textContent = o.getAttribute('data-label') + ' (토요일 불가)'; }
               else if (taken[t]) { o.disabled = true; o.textContent = o.getAttribute('data-label') + ' (예약 있음)'; }
             });
-            if (st.sat) { msg.textContent = '토요일은 점검 예약을 오전 한 대만 받습니다.'; msg.hidden = false; }
+            if (st.sat) { msg.textContent = '토요일은 오후 1시 30분 예약까지만 받습니다.' + (st.slots.length ? ' 그날은 이미 ' + st.slots.length + '대가 예약되어 있습니다.' : ''); msg.hidden = false; }
             else if (st.slots.length) { msg.textContent = '그날은 이미 ' + st.slots.length + '대가 예약되어 있습니다. 회색으로 바뀐 시간은 고를 수 없습니다.'; msg.hidden = false; }
           }
         }
@@ -266,7 +261,7 @@
         }
         var st = dayState(val('bkfDate'));
         if (st.off) { e.textContent = '고르신 날은 쉬는 날입니다. 다른 날짜로 바꿔 주세요.'; e.hidden = false; return false; }
-        if (st.full || (st.sat && st.slots.length)) { e.textContent = '고르신 날은 예약이 다 찼습니다. 다른 날짜로 바꿔 주세요.'; e.hidden = false; return false; }
+        if (st.full) { e.textContent = '고르신 날은 예약이 다 찼습니다. 다른 날짜로 바꿔 주세요.'; e.hidden = false; return false; }
         e.hidden = true;
         return true;
       }
@@ -304,7 +299,7 @@
         <a class="btn btn-kakao btn-lg" href="https://pf.kakao.com/_nxivaX/chat" target="_blank" rel="noopener">카카오톡 예약</a>
       </div>
       <p class="contact-hours">
-        평일 09:00 – 18:00 &nbsp;|&nbsp; 토요일 09:00 – 13:00 (둘째 · 넷째 토요일 휴무) &nbsp;|&nbsp; 일요일 · 공휴일 휴무<br />
+        평일 09:00 – 18:00 &nbsp;|&nbsp; 토요일 09:00 – 15:00 (둘째 · 넷째 토요일 휴무) &nbsp;|&nbsp; 일요일 · 공휴일 휴무<br />
         <span class="hours-kakao">카카오톡 예약 상담은 평일 20:00까지 받습니다</span>
       </p>
     </div>
