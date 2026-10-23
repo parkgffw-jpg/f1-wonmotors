@@ -120,7 +120,7 @@
     <nav class="nav" id="nav">
       <a href="about.html">소개</a>
       <a href="symptoms.html">증상 알아보기</a>
-      <a href="bmw-leak.html">BMW 누유</a>
+      <a href="#leaks">차종별 누유</a>
       <a href="#services">전문분야</a>
       <a href="archive.html">고장사례 및 검색</a>
       <a href="#youtube">정비영상</a>
@@ -495,6 +495,90 @@
     </aside>
   </div>
 </section>
+
+<!-- ===================== 차종별 누유 ===================== -->
+<section class="section section-leaks" id="leaks">
+  <div class="container">
+    <p class="sec-eyebrow">OIL LEAK</p>
+    <h2 class="sec-title">차종별 누유 — 어디서 새는지 보세요</h2>
+    <p class="sec-desc">브랜드마다 잘 새는 자리가 다릅니다. 눌러보시면 그 차의 누유 사례를 사진과 함께 보실 수 있습니다.</p>
+
+    <div class="leak-grid">
+        <a class="leak-card leak-card-main" href="bmw-leak.html">
+          <span class="leak-brand">BMW</span><span class="leak-tag">전용 안내</span>
+          <span class="leak-sub">오일필터하우징 · 밸브커버 · 발란스캡 · 리어크랭크씰</span>
+          <span class="leak-count">누유 사례 86건</span>
+        </a>
+        <a class="leak-card leak-card-main" href="benz-leak.html">
+          <span class="leak-brand">벤츠</span><span class="leak-tag">전용 안내</span>
+          <span class="leak-sub">워터펌프 · 로커암커버 · 캠 어저스터 · 오일쿨러</span>
+          <span class="leak-count">누유 사례 47건</span>
+        </a>
+        <a class="leak-card" href="archive.html?q=%EC%95%84%EC%9A%B0%EB%94%94%20%EB%88%84%EC%9C%A0">
+          <span class="leak-brand">아우디</span>
+          <span class="leak-sub">타이밍커버 실런트 · 오일분리기 · 터보 오일라인</span>
+          <span class="leak-count">누유 사례 30건</span>
+        </a>
+        <a class="leak-card" href="archive.html?q=%ED%98%84%EB%8C%80%20%EB%88%84%EC%9C%A0">
+          <span class="leak-brand">현대</span>
+          <span class="leak-sub">로커암커버 · 오일팬 · 크랭크 오일씰</span>
+          <span class="leak-count">누유 사례 19건</span>
+        </a>
+        <a class="leak-card" href="archive.html?q=%ED%8F%AD%EC%8A%A4%EB%B0%94%EA%B2%90%20%EB%88%84%EC%9C%A0">
+          <span class="leak-brand">폭스바겐</span>
+          <span class="leak-sub">캠커버 · 오일팬 · 터보 오일라인</span>
+          <span class="leak-count">누유 사례 12건</span>
+        </a>
+        <a class="leak-card" href="archive.html?q=%EA%B8%B0%EC%95%84%20%EB%88%84%EC%9C%A0">
+          <span class="leak-brand">기아</span>
+          <span class="leak-sub">로커암커버 · 오일팬 · 헤드가스켓</span>
+          <span class="leak-count">누유 사례 12건</span>
+        </a>
+        <a class="leak-card" href="archive.html?q=%EC%A7%80%ED%94%84%20%EB%88%84%EC%9C%A0">
+          <span class="leak-brand">지프</span>
+          <span class="leak-sub">오일팬 · 오일쿨러 · 밸브커버</span>
+          <span class="leak-count">누유 사례 8건</span>
+        </a>
+        <a class="leak-card" href="archive.html?q=%EB%AF%B8%EB%8B%88%20%EB%88%84%EC%9C%A0">
+          <span class="leak-brand">미니</span>
+          <span class="leak-sub">오일필터하우징 · 밸브커버 · 등속조인트</span>
+          <span class="leak-count">누유 사례 6건</span>
+        </a>
+        <a class="leak-card" href="archive.html?q=%EC%9E%AC%EA%B7%9C%EC%96%B4%20%EB%88%84%EC%9C%A0">
+          <span class="leak-brand">재규어</span>
+          <span class="leak-sub">밸브커버 · 오일팬 · 크랭크 오일씰</span>
+          <span class="leak-count">누유 사례 5건</span>
+        </a>
+    </div>
+
+    <p class="leak-note">BMW와 벤츠는 새는 자리와 증상을 따로 정리한 안내 페이지가 있습니다. 나머지 브랜드는 누르시면 해당 차종의 누유 정비사례로 바로 이어집니다.</p>
+  </div>
+</section>
+
+<style>
+.section-leaks { background: var(--paper); }
+.leak-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-top: 24px; }
+.leak-card { position: relative; display: flex; flex-direction: column; gap: 7px;
+  background: var(--white); border: 1px solid #e3e6ea; border-radius: var(--radius);
+  padding: 20px 18px 17px; text-decoration: none; color: inherit;
+  transition: border-color .18s, transform .18s, box-shadow .18s; }
+.leak-card:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,.07); }
+.leak-card-main { border-color: #d9dee4; background: linear-gradient(180deg, #fff 0%, #fbfcfd 100%); }
+.leak-brand { font-size: 21px; font-weight: 900; letter-spacing: -.01em; }
+.leak-tag { margin-left: 8px; font-size: 11px; font-weight: 800; color: #fff;
+  background: var(--red); border-radius: 999px; padding: 3px 8px; vertical-align: 3px; }
+.leak-sub { font-size: 13.2px; line-height: 1.65; color: var(--text-sub); word-break: keep-all; }
+.leak-count { margin-top: 2px; font-size: 12.5px; font-weight: 800; color: var(--red); }
+.leak-note { margin-top: 18px; font-size: 13.2px; line-height: 1.75; color: var(--text-sub); word-break: keep-all; }
+@media (max-width: 560px) {
+  .leak-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .leak-card { padding: 15px 13px 13px; }
+  .leak-brand { font-size: 17.5px; }
+  .leak-tag { display: block; margin: 5px 0 0; width: fit-content; vertical-align: 0; }
+  .leak-sub { font-size: 12.2px; }
+  .leak-count { font-size: 11.8px; }
+}
+</style>
 
 <!-- ===================== 보링 공정 ===================== -->
 <section class="section section-process" id="boring">
