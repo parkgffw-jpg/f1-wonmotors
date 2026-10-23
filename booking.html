@@ -145,7 +145,7 @@
         <button type="button" class="btn btn-primary btn-lg" id="bkfSend">문자로 보내기</button>
         <button type="button" class="btn btn-ghost-dark btn-lg" id="bkfCopy">내용 복사하기</button>
       </div>
-      <p class="bkf-priv">적으신 내용은 홈페이지에 저장되지 않습니다. 누르시면 휴대폰 문자 앱이 열리고 <strong>보내기를 누르셔야</strong> 전송됩니다.</p>
+      <p class="bkf-priv"><strong>당일 신청은 받지 않습니다.</strong> 오늘 입고가 필요하시면 전화로 문의해 주세요.<br />적으신 내용은 홈페이지에 저장되지 않습니다. 누르시면 휴대폰 문자 앱이 열리고 <strong>보내기를 누르셔야</strong> 전송됩니다.</p>
     </div>
 
     <script>
@@ -156,10 +156,15 @@
       if (!$('bkForm')) return;
       function val(id) { var e = $(id); return e ? e.value.trim() : ''; }
 
+      /* 당일 신청은 받지 않습니다 — 내일부터 고를 수 있게 합니다 */
+      function ymd(d) {
+        return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+      }
+      var TODAY = ymd(new Date());
       var dEl = $('bkfDate');
       if (dEl) {
-        var n = new Date();
-        dEl.min = n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2) + '-' + ('0' + n.getDate()).slice(-2);
+        var t = new Date(); t.setDate(t.getDate() + 1);
+        dEl.min = ymd(t);
       }
 
       /* ---------- 그날 상태 — 달력과 같은 규칙 ---------- */
@@ -188,6 +193,7 @@
 
       function refreshTimes() {
         var sel = $('bkfTime'), msg = $('bkfDay'), k = val('bkfDate'), list = opts();
+        $('bkfErr').hidden = true;
         list.forEach(function (o) { o.disabled = false; o.textContent = o.getAttribute('data-label'); });
         msg.hidden = true;
         msg.className = 'bkf-day';
@@ -253,6 +259,10 @@
         var miss = [], e = $('bkfErr');
         need.forEach(function (n) { if (!val(n[0])) miss.push(n[1]); });
         if (miss.length) { e.textContent = miss.join(' · ') + ' 을(를) 적어주세요.'; e.hidden = false; return false; }
+        if (val('bkfDate') <= TODAY) {
+          e.textContent = '오늘 날짜는 신청하실 수 없습니다. 당일 입고는 전화로 문의해 주세요.';
+          e.hidden = false; return false;
+        }
         var st = dayState(val('bkfDate'));
         if (st.off) { e.textContent = '고르신 날은 쉬는 날입니다. 다른 날짜로 바꿔 주세요.'; e.hidden = false; return false; }
         if (st.full || (st.sat && st.slots.length)) { e.textContent = '고르신 날은 예약이 다 찼습니다. 다른 날짜로 바꿔 주세요.'; e.hidden = false; return false; }
