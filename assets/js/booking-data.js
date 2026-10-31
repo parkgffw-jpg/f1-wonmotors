@@ -119,7 +119,8 @@ window.BOOKING = {
                       { t:"11:00", car:"혼다 오딧세이 2018년식", k:"등속조인트 · 에어컨 점검" },
                       { t:"13:30", car:"기아 쏘렌토", k:"경고등 점검" } ],
       "2026-11-02": [ { t:"09:30", car:"현대 스타리아 2023년식", k:"경고등 점검" },
-                      { t:"11:00", car:"랜드로버 레인지로버 벨라 2018년식", k:"DPF 점검" } ],
+                      { t:"11:00", car:"랜드로버 레인지로버 벨라 2018년식", k:"DPF 점검" },
+                      { t:"16:30", car:"아우디 A6 2016년식", k:"수리", r:1 } ],
       "2026-11-03": [ { t:"09:30", car:"기아 더 뉴 모하비 2018년식", k:"미션 누유 점검" },
                       { t:"11:00", car:"폭스바겐 골프 카브리올레 2013년식", k:"시동 불안정 점검" } ],
       "2026-11-05": [ { t:"09:30", car:"랜드로버 디스커버리 스포츠 2018년식", k:"경고등 점검" } ]
@@ -166,7 +167,7 @@ window.BOOKING_SHARED = true;
       if (!slots[day]) slots[day] = [];
       list.forEach(function (s) {
         var dup = slots[day].some(function (x) { return x.t === s.t && x.car === s.car; });
-        if (!dup) slots[day].push({ t: s.t, car: s.car, k: s.k });
+        if (!dup) slots[day].push({ t: s.t, car: s.car, k: s.k, r: s.r });
       });
     });
   });
