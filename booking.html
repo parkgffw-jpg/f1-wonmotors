@@ -177,7 +177,7 @@
           if (w !== 6 || BK_TIMES[i] <= BK_SAT_LAST) list.push(BK_TIMES[i]);
         }
         if (!list.length) return false;
-        for (i = 0; i < (sl || []).length; i++) { if (sl[i] && sl[i].t) taken[sl[i].t] = 1; }
+        for (i = 0; i < (sl || []).length; i++) { if (sl[i] && sl[i].t && !sl[i].r) taken[sl[i].t] = 1; }
         for (i = 0; i < list.length; i++) { if (!taken[list[i]]) return false; }
         return true;
       }
@@ -229,14 +229,16 @@
             msg.hidden = false;
           } else {
             var taken = {};
-            st.slots.forEach(function (s) { if (s && s.t) taken[s.t] = 1; });
+            st.slots.forEach(function (s) { if (s && s.t && !s.r) taken[s.t] = 1; });
+            var nChk = st.slots.filter(function (s) { return s && !s.r; }).length;
             list.forEach(function (o) {
               var t = o.getAttribute('data-t');
               if (st.sat && t > '13:30') { o.disabled = true; o.textContent = o.getAttribute('data-label') + ' (토요일 불가)'; }
               else if (taken[t]) { o.disabled = true; o.textContent = o.getAttribute('data-label') + ' (예약 있음)'; }
             });
             if (st.sat) { msg.textContent = '토요일은 오후 1시 30분 예약까지만 받습니다.' + (st.slots.length ? ' 그날은 이미 ' + st.slots.length + '대가 예약되어 있습니다.' : ''); msg.hidden = false; }
-            else if (st.slots.length) { msg.textContent = '그날은 이미 ' + st.slots.length + '대가 예약되어 있습니다. 회색으로 바뀐 시간은 고를 수 없습니다.'; msg.hidden = false; }
+            else if (nChk) { msg.textContent = '그날은 이미 ' + st.slots.length + '대가 예약되어 있습니다. 회색으로 바뀐 시간은 고를 수 없습니다.'; msg.hidden = false; }
+            else if (st.slots.length) { msg.textContent = '그날은 수리 차량 ' + st.slots.length + '대가 들어와 있지만, 점검 예약 시간은 모두 열려 있습니다.'; msg.hidden = false; }
           }
         }
         var cur = sel.options[sel.selectedIndex];
@@ -393,7 +395,7 @@
       if (w !== 6 || BK_TIMES[i] <= BK_SAT_LAST) list.push(BK_TIMES[i]);
     }
     if (!list.length) return false;
-    for (i = 0; i < (sl || []).length; i++) { if (sl[i] && sl[i].t) taken[sl[i].t] = 1; }
+    for (i = 0; i < (sl || []).length; i++) { if (sl[i] && sl[i].t && !sl[i].r) taken[sl[i].t] = 1; }
     for (i = 0; i < list.length; i++) { if (!taken[list[i]]) return false; }
     return true;
   }
