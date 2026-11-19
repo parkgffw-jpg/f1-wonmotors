@@ -192,7 +192,6 @@
         var w = d.getDay();
         var off = false;
         if (w === 0) off = true;
-        else if (w === 6) { var nth = Math.floor((d.getDate() - 1) / 7) + 1; off = (nth === 2 || nth === 4); }
         if (!off && (S.closed || []).indexOf(k) > -1) off = true;
         var sl = (S.slots || {})[k] || [];
         var full = (S.full || []).indexOf(k) > -1 || (S.limit && sl.length >= S.limit) || allTaken(d, sl);
@@ -316,7 +315,7 @@
         <a class="btn btn-kakao btn-lg" href="https://pf.kakao.com/_nxivaX/chat" target="_blank" rel="noopener">카카오톡 예약</a>
       </div>
       <p class="contact-hours">
-        평일 09:00 – 18:00 &nbsp;|&nbsp; 토요일 09:00 – 15:00 (둘째 · 넷째 토요일 휴무) &nbsp;|&nbsp; 일요일 · 공휴일 휴무<br />
+        평일 09:00 – 18:00 &nbsp;|&nbsp; 토요일 09:00 – 15:00 &nbsp;|&nbsp; 일요일 · 공휴일 휴무<br />
         <span class="hours-kakao">카카오톡 예약 상담은 평일 20:00까지 받습니다</span>
       </p>
     </div>
@@ -407,15 +406,9 @@
     document.getElementById('bkPrev').disabled = view <= MIN;
     document.getElementById('bkNext').disabled = view >= MAX;
 
-    /* 쉬는 날 판단 — 일요일은 늘 휴무, 토요일은 둘째 · 넷째만 휴무 */
+    /* 쉬는 날 판단 — 일요일만 휴무, 토요일은 모두 영업 */
     function offDay(date) {
-      var w = date.getDay();
-      if (w === 0) return true;
-      if (w === 6) {
-        var nth = Math.floor((date.getDate() - 1) / 7) + 1;   /* 그 달의 몇 번째 토요일인가 */
-        return nth === 2 || nth === 4;
-      }
-      return false;
+      return date.getDay() === 0;
     }
 
     var html = ['일', '월', '화', '수', '목', '금', '토'].map(function (d, i) {
